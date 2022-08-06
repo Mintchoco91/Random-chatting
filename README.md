@@ -7,3 +7,4 @@ random-chatting-prototype
 [Spec]
 - 언어 : Android Java
 - DB : JawsDB Maria (Heroku Hosting)
+- Image Storage : Firebase Cloud Storage
