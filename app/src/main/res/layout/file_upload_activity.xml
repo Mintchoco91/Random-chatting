@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/file_upload_activity_iv_user_picture0"
+            android:layout_width="62dp"
+            android:layout_height="120dp"
+            android:src="@drawable/add_image" />
+
+        <ImageView
+            android:id="@+id/file_upload_activity_iv_user_picture1"
+            android:layout_width="62dp"
+            android:layout_height="120dp"
+            android:src="@drawable/add_image" />
+
+        <ImageView
+            android:id="@+id/file_upload_activity_iv_user_picture2"
+            android:layout_width="62dp"
+            android:layout_height="120dp"
+            android:src="@drawable/add_image" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/file_upload_activity_iv_user_picture3"
+            android:layout_width="62dp"
+            android:layout_height="120dp"
+            android:src="@drawable/add_image" />
+
+        <ImageView
+            android:id="@+id/file_upload_activity_iv_user_picture4"
+            android:layout_width="62dp"
+            android:layout_height="120dp"
+            android:src="@drawable/add_image" />
+
+        <ImageView
+            android:id="@+id/file_upload_activity_iv_user_picture5"
+            android:layout_width="62dp"
+            android:layout_height="120dp"
+            android:src="@drawable/add_image" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/file_upload_activity_btn_back"
+            android:text="뒤로 가기"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/file_upload_activity_btn_regist"
+            android:text="등 록"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "464765094243",
+    "project_id": "random-chatting-b52bc",
+    "storage_bucket": "random-chatting-b52bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:464765094243:android:9d348f652fe8356e1d6b56",
+        "android_client_info": {
+          "package_name": "com.example.random_chatting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "464765094243-7i1bgv1l9vkf1um3gthndl1jkspoo61s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYXWhdqghwmSu4wvf-zWnB5kLOifMD9fE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "464765094243-7i1bgv1l9vkf1um3gthndl1jkspoo61s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
