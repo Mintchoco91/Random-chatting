@@ -1,3 +1,7 @@
 # random-chatting
 random-chatting-prototype
-aa
+
+랜덤 채팅 Base code
+
+언어 : android java
+DB : Heroku JawsDB Maria
