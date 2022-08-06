@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="이름 : "
         app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/nav_host_fragment_activity_main" />
 
     <EditText
         android:id="@+id/activity_main_et_user_name"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:ems="8"
         android:hint="입력 해 주세요"
-        app:layout_constraintStart_toStartOf="@+id/activity_main_tv_user_name"
+        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_tv_user_name" />
 
     <TextView
@@ -32,11 +32,11 @@
         app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_et_user_name" />
 
+
     <Button
         android:id="@+id/activity_main_btn_gender_man"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
         android:background="@drawable/color_change"
         android:text="남"
         android:textSize="24sp"
@@ -49,14 +49,14 @@
         android:id="@+id/activity_main_btn_gender_woman"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
+        android:layout_marginStart="95dp"
         android:background="@drawable/color_change"
         android:text="여"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/black"
-        app:layout_constraintBaseline_toBaselineOf="@+id/activity_main_btn_gender_man"
-        app:layout_constraintStart_toEndOf="@+id/activity_main_btn_gender_man" />
+        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
+        app:layout_constraintTop_toBottomOf="@+id/activity_main_tv_gender" />
 
     <TextView
         android:id="@+id/activity_main_tv_age"
@@ -81,9 +81,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="핸드폰번호 : "
-        app:layout_constraintEnd_toEndOf="@+id/activity_main_tv_age"
-        app:layout_constraintStart_toEndOf="@+id/activity_main_tv_age"
-        app:layout_constraintTop_toBottomOf="@+id/activity_main_spn_age" />
+        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
+        app:layout_constraintTop_toBottomOf="@+id/activity_main_spn_age"  />
 
     <EditText
         android:id="@+id/activity_main_et_phone_number"
@@ -109,41 +108,45 @@
         android:id="@+id/activity_main_btn_upload_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
+        android:layout_marginStart="174dp"
         android:text="파일 업로드 목록"
-        app:layout_constraintStart_toEndOf="@+id/activity_main_btn_save"
+        app:layout_constraintLeft_toRightOf="@+id/activity_main_btn_save"
+        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_et_phone_number" />
 
     <Button
         android:id="@+id/activity_main_btn_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
+        android:layout_marginStart="87dp"
         android:text="회원 목록"
-        app:layout_constraintBaseline_toBaselineOf="@+id/activity_main_btn_upload_list"
-        app:layout_constraintStart_toEndOf="@+id/activity_main_btn_upload_list" />
+        app:layout_constraintLeft_toRightOf="@+id/activity_main_btn_save"
+        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
+        app:layout_constraintTop_toBottomOf="@+id/activity_main_et_phone_number" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nav_host_fragment_activity_main"
         app:menu="@menu/bottom_nav_menu" />
 
     <fragment
         android:id="@+id/nav_host_fragment_activity_main"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
-        android:layout_height="499dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="55dp"
         app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/activity_main_tv_user_name"
+        app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
