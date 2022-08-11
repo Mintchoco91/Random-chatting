@@ -1,7 +1,6 @@
 package com.example.random_chatting;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -145,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         btnUploadList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentUploadList = new Intent(MainActivity.this, FileUploadListActivity.class);
+                Intent intentUploadList = new Intent(MainActivity.this, UserListActivity.class);
                 startActivity(intentUploadList);
             }
         });

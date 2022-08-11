@@ -22,4 +22,10 @@ public interface Retrofit_interface {
             @Field("fileName5") String fileName5
     );
 
+    @POST("/accountQuery.php/")
+    @FormUrlEncoded
+    Call<String> findUserInformation(
+            @Field("mode") String mode
+    );
+
 }
