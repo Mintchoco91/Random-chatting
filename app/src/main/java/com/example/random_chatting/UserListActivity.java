@@ -177,6 +177,7 @@ public class UserListActivity extends Activity {
         }
     }
 
+    //이미지 slide 추가 해야함.
     private void showPhoto(String fileName){
         String photoDir = "photos/";
         String photoFullPath = photoDir + fileName;
