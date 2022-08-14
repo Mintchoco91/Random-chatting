@@ -1,6 +1,7 @@
 package com.example.random_chatting;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,21 +41,27 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UserListActivity extends Activity {
-    private ImageView ivArea;
-    private Button btImageLoad, btDirectoryImageLoad;
     private TextView tvName, tvGender, tvAge, tvPhoneNumber;
 
     // 이미지 폴더 경로 참조
     private StorageReference storageRef;
 
+    //slider
+    private ViewPager2 sliderViewPager;
+    private LinearLayout layoutIndicator;
+
+    private String[] images = new String[]{
+            "https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
+            "https://cdn.pixabay.com/photo/2020/11/04/15/29/coffee-beans-5712780_1280.jpg",
+            "https://cdn.pixabay.com/photo/2020/03/08/21/41/landscape-4913841_1280.jpg",
+            "https://cdn.pixabay.com/photo/2020/09/02/18/03/girl-5539094_1280.jpg",
+            "https://cdn.pixabay.com/photo/2014/03/03/16/15/mosque-279015_1280.jpg"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_list_activity);
-
-        ivArea = (ImageView) findViewById(R.id.user_list_activity_iv_area);
-        btDirectoryImageLoad = (Button) findViewById(R.id.bt_directory_image_load);
 
         tvName = (TextView) findViewById(R.id.user_list_activity_tv_name);
         tvGender = (TextView) findViewById(R.id.user_list_activity_tv_gender);
@@ -67,20 +76,19 @@ public class UserListActivity extends Activity {
         Call<String> call = Retrofit_client.getApiService().findUserInformation(
                 "select");
 
-        call.enqueue(new Callback<String>(){
+        call.enqueue(new Callback<String>() {
             //콜백 받는 부분
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 String jsonResponse = response.body();
                 try {
                     JSONObject jsonObject = new JSONObject(jsonResponse);
-                    if (jsonObject.optString("status").equals("true")){
+                    if (jsonObject.optString("status").equals("true")) {
                         //Toast.makeText(UserListActivity.this, "File Get Error!!2", Toast.LENGTH_SHORT).show();
                         JSONArray jsonArray = jsonObject.getJSONArray("result");
                         List<TaskDTO.findUserInformationOutputDTO> findUserInfomationList = new ArrayList<>();
 
-                        for (int i=0; i < jsonArray.length(); i++)
-                        {
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             try {
                                 List<String> fileNameList = new ArrayList<>();
 
@@ -124,7 +132,7 @@ public class UserListActivity extends Activity {
 
                                 findUserInfomationList.add(findUserInformationOutput);
                             } catch (JSONException e) {
-                                    // json catch
+                                // json catch
                             } catch (UnsupportedEncodingException e) {
                                 e.printStackTrace();    // encoding catch
                             }
@@ -137,7 +145,7 @@ public class UserListActivity extends Activity {
                         showInformation(findUserInfomationList.get(0));
 
                         Toast.makeText(UserListActivity.this, "조회 성공", Toast.LENGTH_LONG).show();
-                    }else{
+                    } else {
                         Toast.makeText(UserListActivity.this, "조회 실패 : " + jsonObject.optString("query"), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
@@ -155,51 +163,92 @@ public class UserListActivity extends Activity {
          * 정보 조회 끝
          */
 
+        /* 전체 불러오기 주석처리(현재 안씀)
         btDirectoryImageLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadAllPhoto();
             }
         });
+         */
 
     }
 
-    private void showInformation(TaskDTO.findUserInformationOutputDTO info){
+    //slider
+    private void setupIndicators(int count) {
+        ImageView[] indicators = new ImageView[count];
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        params.setMargins(16, 8, 16, 8);
+
+        for (int i = 0; i < indicators.length; i++) {
+            indicators[i] = new ImageView(this);
+            indicators[i].setImageDrawable(ContextCompat.getDrawable(this,
+                    R.drawable.bg_indicator_inactive));
+            indicators[i].setLayoutParams(params);
+            layoutIndicator.addView(indicators[i]);
+        }
+        setCurrentIndicator(0);
+    }
+
+    private void setCurrentIndicator(int position) {
+        int childCount = layoutIndicator.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            ImageView imageView = (ImageView) layoutIndicator.getChildAt(i);
+            if (i == position) {
+                imageView.setImageDrawable(ContextCompat.getDrawable(
+                        this,
+                        R.drawable.bg_indicator_active
+                ));
+            } else {
+                imageView.setImageDrawable(ContextCompat.getDrawable(
+                        this,
+                        R.drawable.bg_indicator_inactive
+                ));
+            }
+        }
+    }
+    //
+
+    private void showInformation(TaskDTO.findUserInformationOutputDTO info) {
         tvName.setText(info.getUserName());
         tvGender.setText(info.getGender());
         tvAge.setText(info.getAge());
         tvPhoneNumber.setText(info.getPhoneNumber());
 
-        if(info.getFileNameList().size() > 0) {
-            showPhoto(info.getFileNameList().get(0));
-        }else{
+        if (info.getFileNameList().size() > 0) {
+            String[] fileNameArray = info.getFileNameList().toArray(new String[info.getFileNameList().size()]);
+            //Slide처리
+            showPhoto(this, fileNameArray);
+        } else {
             Toast.makeText(getApplicationContext(), "이미지가 없습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 
     //이미지 slide 추가 해야함.
-    private void showPhoto(String fileName){
-        String photoDir = "photos/";
-        String photoFullPath = photoDir + fileName;
-        storageRef.child(photoFullPath).getDownloadUrl()
-                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+    private void showPhoto(Context context, String[] fileNameArray) {
+
+        sliderViewPager = findViewById(R.id.sliderViewPager);
+        layoutIndicator = findViewById(R.id.layoutIndicators);
+
+        sliderViewPager.setOffscreenPageLimit(1);
+        sliderViewPager.setAdapter(new ImageSliderAdapter(context, fileNameArray));
+
+        sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(getApplicationContext())
-                        .load(uri)
-                        .into(ivArea);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                //이미지 로드 실패시
-                Toast.makeText(getApplicationContext(), "이미지 로드 실패", Toast.LENGTH_SHORT).show();
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                setCurrentIndicator(position);
             }
         });
+
+        setupIndicators(fileNameArray.length);
+
     }
 
     //폴더에 있는 이미지 전부 가져와서 동적으로 뿌려준다.
-    private void loadAllPhoto(){
+    private void loadAllPhoto() {
         storageRef.child("photos").listAll()
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
@@ -213,7 +262,7 @@ public class UserListActivity extends Activity {
                             // textview 동적생성
                             TextView tv = new TextView(UserListActivity.this);
                             tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            tv.setText(Integer.toString(i)+"번 이미지 / 파일명 : " + item.getName());
+                            tv.setText(Integer.toString(i) + "번 이미지 / 파일명 : " + item.getName());
                             tv.setTextSize(30);
                             tv.setTextColor(0xff004497);
                             layout.addView(tv);

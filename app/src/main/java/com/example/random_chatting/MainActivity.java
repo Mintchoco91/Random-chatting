@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private String jsonString, strUserName, strGender, strAge, strPhoneNumber;
     private EditText etUserName, etPhoneNumber;
-    private Button btnSave, btnList, btnUploadList;
+    private Button btnSave, btnList, btnUploadList, slideSample;
 
     private ActivityMainBinding binding;
 
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         btnSave = (Button) findViewById(R.id.activity_main_btn_save);
         btnList = (Button) findViewById(R.id.activity_main_btn_list);
         btnUploadList = (Button) findViewById(R.id.activity_main_btn_upload_list);
+        slideSample = (Button) findViewById(R.id.activity_main_slide_sample);
 
         etUserName = (EditText) findViewById(R.id.activity_main_et_user_name);
         etPhoneNumber = (EditText)findViewById(R.id.activity_main_et_phone_number);
@@ -145,6 +146,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentUploadList = new Intent(MainActivity.this, UserListActivity.class);
+                startActivity(intentUploadList);
+            }
+        });
+
+        slideSample.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentUploadList = new Intent(MainActivity.this, SlideSample.class);
                 startActivity(intentUploadList);
             }
         });

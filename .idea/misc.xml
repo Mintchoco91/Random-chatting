@@ -3,12 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/random-chatting/app/src/main/res/drawable/bg_indicator_active.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/drawable/btn_blue.xml" value="0.103" />
         <entry key="..\:/random-chatting/app/src/main/res/drawable/btn_white.xml" value="0.103" />
         <entry key="..\:/random-chatting/app/src/main/res/drawable/color_change.xml" value="0.103" />
-        <entry key="..\:/random-chatting/app/src/main/res/layout/activity_main.xml" value="0.2673716012084592" />
+        <entry key="..\:/random-chatting/app/src/main/res/layout/activity_main.xml" value="0.14666666666666667" />
+        <entry key="..\:/random-chatting/app/src/main/res/layout/bg_fading_edge.xml" value="0.1" />
+        <entry key="..\:/random-chatting/app/src/main/res/layout/bg_indicator_inactive.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/layout/file_upload_activity.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/layout/file_upload_list_activity.xml" value="0.17916666666666667" />
+        <entry key="..\:/random-chatting/app/src/main/res/layout/item_slider.xml" value="0.1" />
+        <entry key="..\:/random-chatting/app/src/main/res/layout/slide_sample.xml" value="0.1" />
+        <entry key="..\:/random-chatting/app/src/main/res/layout/test.xml" value="0.1" />
+        <entry key="..\:/random-chatting/app/src/main/res/layout/user_list_activity.xml" value="0.12" />
       </map>
     </option>
   </component>

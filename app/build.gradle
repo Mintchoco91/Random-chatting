@@ -67,4 +67,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     // 필요한 API를 찾아서 추가
     implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
+    // ViewPager2
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 }
