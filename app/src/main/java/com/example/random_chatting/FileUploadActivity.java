@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,8 +46,10 @@ public class FileUploadActivity extends Activity {
     private String strUserName, strGender, strAge, strPhoneNumber;
     private static final String TAG = "MainActivity";
     private String[] strFileNames = new String[6];
+    private String[] strFileNameUri = new String[6];
     private Uri[] uriImgPaths = new Uri[6];
     private StorageReference storageRef;
+    private StorageReference storageDirRef;
 
     private ImageView ivUserPicture0, ivUserPicture1, ivUserPicture2, ivUserPicture3, ivUserPicture4, ivUserPicture5;
 
@@ -159,7 +162,7 @@ public class FileUploadActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //DB Update
-                userRegistDB(strFileNames);
+                userRegistDB(strFileNameUri);
             }
         });
     }
@@ -224,15 +227,33 @@ public class FileUploadActivity extends Activity {
             strFileNames[imgNo] = formatter.format(now) + ".png";
             //storage 주소와 폴더 파일명을 지정해 준다.
             storageRef = FirebaseStorage.getInstance().getReference();
-            storageRef = storageRef.child("photos").child(strFileNames[imgNo]);
+            storageDirRef = storageRef.child("photos").child(strFileNames[imgNo]);
+            String photoDir = "photos/";
+            String photoFullPath = photoDir + strFileNames[imgNo];
 
             //업로드 시작
-            storageRef.putFile(uriImgPaths[imgNo])
+            storageDirRef.putFile(uriImgPaths[imgNo])
                     //성공시
                       .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
+
+                            //
+                            storageRef.child(photoFullPath).getDownloadUrl()
+                                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            strFileNameUri[imgNo] = uri.toString();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception exception) {
+                                            //이미지 로드 실패시
+                                            Toast.makeText(getApplicationContext(), "이미지 로드 실패", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
                         }
                     })
                     //실패시
