@@ -175,52 +175,15 @@ public class FindUserInformationTaskRxJava {
         sliderViewPager.setOffscreenPageLimit(1);
         sliderViewPager.setAdapter(new ImageSliderAdapter(context, fileNameArray));
 
+        ViewPagerClass viewPagerClass = new ViewPagerClass(userListActivityContext, layoutIndicator);
         sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                setCurrentIndicator(position);
+                viewPagerClass.setCurrentIndicator(position);
             }
         });
 
-        setupIndicators(fileNameArray.length);
+        viewPagerClass.setupIndicators(fileNameArray.length);
     }
-
-    //slider
-    private void setupIndicators(int count) {
-        layoutIndicator.removeAllViews();
-        ImageView[] indicators = new ImageView[count];
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        params.setMargins(16, 8, 16, 8);
-
-        for (int i = 0; i < indicators.length; i++) {
-            indicators[i] = new ImageView(userListActivityContext);
-            indicators[i].setImageDrawable(ContextCompat.getDrawable(userListActivityContext,
-                    R.drawable.bg_indicator_inactive));
-            indicators[i].setLayoutParams(params);
-            layoutIndicator.addView(indicators[i]);
-        }
-        setCurrentIndicator(0);
-    }
-
-    private void setCurrentIndicator(int position) {
-        int childCount = layoutIndicator.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            ImageView imageView = (ImageView) layoutIndicator.getChildAt(i);
-            if (i == position) {
-                imageView.setImageDrawable(ContextCompat.getDrawable(
-                        userListActivityContext,
-                        R.drawable.bg_indicator_active
-                ));
-            } else {
-                imageView.setImageDrawable(ContextCompat.getDrawable(
-                        userListActivityContext,
-                        R.drawable.bg_indicator_inactive
-                ));
-            }
-        }
-    }
-
 }
