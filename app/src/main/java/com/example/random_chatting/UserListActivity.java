@@ -44,13 +44,7 @@ import retrofit2.Response;
 
 public class UserListActivity extends Activity {
     public static List<TaskDTO.findUserInformationOutputDTO> mainFindUserInfomationList = new ArrayList<>();
-
-    private TextView tvName, tvGender, tvAge, tvPhoneNumber;
     private Button btnNextUser;
-
-    //slider
-    private ViewPager2 sliderViewPager;
-    private LinearLayout layoutIndicator;
 
     //page (1페이지 부터 시작)
     private Integer currentPageCnt = 1;
@@ -59,62 +53,23 @@ public class UserListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_list_activity);
-
-        tvName = (TextView) findViewById(R.id.user_list_activity_tv_name);
-        tvGender = (TextView) findViewById(R.id.user_list_activity_tv_gender);
-        tvAge = (TextView) findViewById(R.id.user_list_activity_tv_age);
-        tvPhoneNumber = (TextView) findViewById(R.id.user_list_activity_tv_phone_number);
         btnNextUser = (Button) findViewById(R.id.user_list_activity_btn_next_user);
 
         FindUserInformationTaskRxJava findUserInformationTaskRxJava = new FindUserInformationTaskRxJava(this);
         findUserInformationTaskRxJava.runFunc();
 
+        UserListService userListService = new UserListService(this);
+
         btnNextUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(currentPageCnt < mainFindUserInfomationList.size()) {
-                    showInformation(mainFindUserInfomationList.get(currentPageCnt));
+                    userListService.showInformation(mainFindUserInfomationList.get(currentPageCnt));
                     currentPageCnt++;
                 }else{
                     Toast.makeText(getApplicationContext(), "더 이상 회원이 없습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-    }
-
-    public void showInformation(TaskDTO.findUserInformationOutputDTO info) {
-        tvName.setText(info.getUserName());
-        tvGender.setText(info.getGender());
-        tvAge.setText(info.getAge());
-        tvPhoneNumber.setText(info.getPhoneNumber());
-
-        if (info.getFileNameList().size() > 0) {
-            String[] fileNameArray = info.getFileNameList().toArray(new String[info.getFileNameList().size()]);
-            //Slide처리
-            showPhoto(this, fileNameArray);
-        } else {
-            Toast.makeText(getApplicationContext(), "이미지가 없습니다.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    //이미지 slide 추가 해야함.
-    public void showPhoto(Context context, String[] fileNameArray) {
-        sliderViewPager = findViewById(R.id.sliderViewPager);
-        layoutIndicator = findViewById(R.id.layoutIndicators);
-
-        sliderViewPager.setOffscreenPageLimit(1);
-        sliderViewPager.setAdapter(new ImageSliderAdapter(context, fileNameArray));
-
-        ViewPagerClass viewPagerClass = new ViewPagerClass(this, layoutIndicator);
-
-        sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                viewPagerClass.setCurrentIndicator(position);
-            }
-        });
-
-        viewPagerClass.setupIndicators(fileNameArray.length);
     }
 }

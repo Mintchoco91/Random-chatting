@@ -36,13 +36,8 @@ import retrofit2.Response;
  * 유저 정보 검색
  */
 public class FindUserInformationTaskRxJava {
-    private TextView tvName, tvGender, tvAge, tvPhoneNumber;
-    static Context userListActivityContext;
+    Context userListActivityContext;
     Disposable backgroundTask;
-
-    //slider
-    private ViewPager2 sliderViewPager;
-    private LinearLayout layoutIndicator;
 
     List<TaskDTO.findUserInformationOutputDTO> localFindUserInfomationList = new ArrayList<>();
 
@@ -53,8 +48,11 @@ public class FindUserInformationTaskRxJava {
     //결과 처리
     private void resultPost(Integer code){
         if(code == 0){
-            showInformation(localFindUserInfomationList.get(0));
+            //전역 변수
             UserListActivity.mainFindUserInfomationList = localFindUserInfomationList;
+
+            UserListService userListService = new UserListService(userListActivityContext);
+            userListService.showInformation(localFindUserInfomationList.get(0));
 
             Toast.makeText(userListActivityContext, "조회 성공", Toast.LENGTH_LONG).show();
         }else{
@@ -64,13 +62,13 @@ public class FindUserInformationTaskRxJava {
 
     // backgroundTask를 실행하는 메소드. ex) main에서 호출 시 : insertLoginTaskRxjava.runFunc(...params)
     public void runFunc(String... params) {
-        //onPreExecute(task 시작 전 실행될 코드 여기에 작성)
         backgroundTask = Observable.fromCallable(() -> {
                     return findUserInformation();
                 }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> resultPost(result));
     }
 
+    //유저 정보 조회
     private Integer findUserInformation() throws IOException {
         Integer resultCode = 0;
         Call<String> call = Retrofit_client.getApiService().findUserInformation(
@@ -145,45 +143,5 @@ public class FindUserInformationTaskRxJava {
             resultCode = 2;
         }
         return resultCode;
-    }
-
-    public void showInformation(TaskDTO.findUserInformationOutputDTO info) {
-        tvName = ((TextView) ((Activity) userListActivityContext).findViewById(R.id.user_list_activity_tv_name));
-        tvGender = ((TextView) ((Activity) userListActivityContext).findViewById(R.id.user_list_activity_tv_gender));
-        tvAge = ((TextView) ((Activity) userListActivityContext).findViewById(R.id.user_list_activity_tv_age));
-        tvPhoneNumber = ((TextView) ((Activity) userListActivityContext).findViewById(R.id.user_list_activity_tv_phone_number));
-
-        tvName.setText(info.getUserName());
-        tvGender.setText(info.getGender());
-        tvAge.setText(info.getAge());
-        tvPhoneNumber.setText(info.getPhoneNumber());
-
-        if (info.getFileNameList().size() > 0) {
-            String[] fileNameArray = info.getFileNameList().toArray(new String[info.getFileNameList().size()]);
-            //Slide처리
-            showPhoto(userListActivityContext, fileNameArray);
-        } else {
-            Toast.makeText(userListActivityContext, "이미지가 없습니다.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    //이미지 slide 추가 해야함.
-    public void showPhoto(Context context, String[] fileNameArray) {
-        sliderViewPager = ((ViewPager2) ((Activity) userListActivityContext).findViewById(R.id.sliderViewPager));
-        layoutIndicator = ((LinearLayout) ((Activity) userListActivityContext).findViewById(R.id.layoutIndicators));
-
-        sliderViewPager.setOffscreenPageLimit(1);
-        sliderViewPager.setAdapter(new ImageSliderAdapter(context, fileNameArray));
-
-        ViewPagerClass viewPagerClass = new ViewPagerClass(userListActivityContext, layoutIndicator);
-        sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                viewPagerClass.setCurrentIndicator(position);
-            }
-        });
-
-        viewPagerClass.setupIndicators(fileNameArray.length);
     }
 }
