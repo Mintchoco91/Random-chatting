@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private String jsonString, strUserName, strGender, strAge, strPhoneNumber;
     private EditText etUserName, etPhoneNumber;
-    private Button btnSave, btnList, btnUploadList, slideSample;
+    private Button btnSave, btnUploadList;
 
     private ActivityMainBinding binding;
 
@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
@@ -55,9 +53,7 @@ public class MainActivity extends AppCompatActivity {
          */
 
         btnSave = (Button) findViewById(R.id.activity_main_btn_save);
-        btnList = (Button) findViewById(R.id.activity_main_btn_list);
         btnUploadList = (Button) findViewById(R.id.activity_main_btn_upload_list);
-        slideSample = (Button) findViewById(R.id.activity_main_slide_sample);
 
         etUserName = (EditText) findViewById(R.id.activity_main_et_user_name);
         etPhoneNumber = (EditText)findViewById(R.id.activity_main_et_phone_number);
@@ -132,28 +128,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        btnList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent -> 외부 activity 선언
-                Intent intentList = new Intent(MainActivity.this, ListActivity.class);
-                startActivity(intentList);
-            }
-        });
-
         btnUploadList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentUploadList = new Intent(MainActivity.this, UserListActivity.class);
-                startActivity(intentUploadList);
-            }
-        });
-
-        slideSample.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentUploadList = new Intent(MainActivity.this, SlideSample.class);
                 startActivity(intentUploadList);
             }
         });
