@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,15 +43,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FileUploadActivity extends Activity {
+    private static final String TAG = "FileUploadActivity";
 
     Button btnBack, btnRegist;
     private String strUserName, strGender, strAge, strPhoneNumber;
-    private static final String TAG = "MainActivity";
     private String[] strFileNames = new String[6];
     private String[] strFileNameUri = new String[6];
     private Uri[] uriImgPaths = new Uri[6];
     private StorageReference storageRef;
     private StorageReference storageDirRef;
+    private Context context;
 
     private ImageView ivUserPicture0, ivUserPicture1, ivUserPicture2, ivUserPicture3, ivUserPicture4, ivUserPicture5;
 
@@ -58,6 +61,7 @@ public class FileUploadActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.file_upload_activity);
 
+        context = this;
         //main에서 전달 받은 데이터
         Intent intentMain = getIntent();
         strUserName = intentMain.getStringExtra("strUserName");
@@ -162,7 +166,15 @@ public class FileUploadActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //DB Update
-                userRegistDB(strFileNameUri);
+                UserRegistInformationTaskRxJava userRegistInformationTaskRxJava =
+                        new UserRegistInformationTaskRxJava(
+                                context
+                                , strUserName
+                                , strGender
+                                , strAge
+                                , strPhoneNumber
+                                , strFileNameUri);
+                userRegistInformationTaskRxJava.runFunc();
             }
         });
     }
@@ -174,7 +186,7 @@ public class FileUploadActivity extends Activity {
         // requestCode 몇번째 이미지인지 확인용
         int imgNo = requestCode;
 
-        if(resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             uriImgPaths[imgNo] = data.getData();
             Log.d(TAG, "uri:" + String.valueOf(uriImgPaths[imgNo]));
             try {
@@ -214,12 +226,10 @@ public class FileUploadActivity extends Activity {
         //업로드할 파일이 있으면 수행
         if (uriImgPaths[imgNo] != null) {
             //업로드 진행 Dialog 보이기
-            final ProgressDialog progressDialog = new ProgressDialog(this);
+            final ProgressDialog progressDialog = new ProgressDialog(context);
             progressDialog.setTitle("업로드중...");
+            progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
-
-            //storage
-            FirebaseFirestore storage = FirebaseFirestore.getInstance();
 
             //Unique한 파일명을 만들자.
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmmss");
@@ -234,16 +244,14 @@ public class FileUploadActivity extends Activity {
             //업로드 시작
             storageDirRef.putFile(uriImgPaths[imgNo])
                     //성공시
-                      .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
-
-                            //
                             storageRef.child(photoFullPath).getDownloadUrl()
                                     .addOnSuccessListener(new OnSuccessListener<Uri>() {
                                         @Override
                                         public void onSuccess(Uri uri) {
+                                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
                                             strFileNameUri[imgNo] = uri.toString();
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
@@ -269,7 +277,7 @@ public class FileUploadActivity extends Activity {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             @SuppressWarnings("VisibleForTests") //이걸 넣어 줘야 아랫줄에 에러가 사라진다. 넌 누구냐?
-                            double progress = (100 * taskSnapshot.getBytesTransferred()) /  taskSnapshot.getTotalByteCount();
+                            double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
                             //dialog에 진행률을 퍼센트로 출력해 준다
                             progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
                         }
@@ -277,66 +285,5 @@ public class FileUploadActivity extends Activity {
         } else {
             Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void userRegistDB(String[] strFileNames){
-        String url = "https://androidserver-kw2.herokuapp.com/";
-        String mode = "insert";
-
-        //빈 Array를 제거하기 위해 list로 변경
-        List<String> lstFileName = new ArrayList<>(Arrays.asList(strFileNames));
-        lstFileName.removeAll(Collections.singletonList(null));
-
-        //빈배열 제거한 array
-        String[] insertFileNames = new String[6];
-
-        for(int i=0; i<6; i++){
-            if(i < lstFileName.size()) {
-                insertFileNames[i] = lstFileName.get(i);
-            }else{
-                insertFileNames[i] = null;
-            }
-        }
-
-        // AsyncTask를 통해 HttpURLConnection 수행.
-        // 예를들어 로그인관련 POST 요청을한다.
-        Context context = getApplicationContext();
-
-        //Insert
-        Call<String> call = Retrofit_client.getApiService().registDB(
-                "insert"
-                ,strUserName
-                ,strGender
-                ,strAge
-                ,strPhoneNumber
-                ,insertFileNames[0]
-                ,insertFileNames[1]
-                ,insertFileNames[2]
-                ,insertFileNames[3]
-                ,insertFileNames[4]
-                ,insertFileNames[5]);
-
-        call.enqueue(new Callback<String>(){
-            //콜백 받는 부분
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                String jsonResponse = response.body();
-                try {
-                    JSONObject jsonObject = new JSONObject(jsonResponse);
-                    if (jsonObject.optString("status").equals("true")){
-                        Toast.makeText(context, "등록 성공", Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(context, "등록 실패 : " + jsonObject.optString("query"), Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    Toast.makeText(context, "등록 실패 (catch) : " + e.getMessage().toString(), Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(context, "등록 실패 (onFailure)", Toast.LENGTH_LONG).show();
-            }
-        });
     }
 }
