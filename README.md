@@ -2,8 +2,7 @@
 random-chatting-prototype
 
 - 랜덤 채팅 Base code
-- 해당 어플에서 사용하는 Rest API -> [random-chatting-server] Repository 참고
-   -> https://github.com/Mintchoco91/random-chatting-server
+- 해당 어플에서 사용하는 Rest API -> https://github.com/Mintchoco91/random-chatting-server
  
 [Spec]
 - 언어 : Android Java
