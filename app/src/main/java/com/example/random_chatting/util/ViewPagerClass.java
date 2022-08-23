@@ -1,4 +1,4 @@
-package com.example.random_chatting;
+package com.example.random_chatting.util;
 
 import android.content.Context;
 import android.view.ViewGroup;
@@ -6,6 +6,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.core.content.ContextCompat;
+
+import com.example.random_chatting.R;
 
 public class ViewPagerClass {
     Context viewPagerContext;

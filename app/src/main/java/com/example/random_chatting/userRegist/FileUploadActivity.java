@@ -1,4 +1,4 @@
-package com.example.random_chatting;
+package com.example.random_chatting.userRegist;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -12,35 +12,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.random_chatting.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class FileUploadActivity extends Activity {
     private static final String TAG = "FileUploadActivity";
