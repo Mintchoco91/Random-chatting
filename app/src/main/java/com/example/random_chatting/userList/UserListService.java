@@ -1,4 +1,4 @@
-package com.example.random_chatting;
+package com.example.random_chatting.userList;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,6 +7,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.random_chatting.R;
+import com.example.random_chatting.util.ViewPagerClass;
+import com.example.random_chatting.util.ImageSliderAdapter;
 
 public class UserListService {
     Context userListServiceContext;
@@ -20,7 +24,7 @@ public class UserListService {
         userListServiceContext = context;
     }
 
-    public void showInformation(TaskDTO.findUserInformationOutputDTO info) {
+    public void showInformation(UserListDTO.outputDTO info) {
         tvName = ((TextView) ((Activity) userListServiceContext).findViewById(R.id.user_list_activity_tv_name));
         tvGender = ((TextView) ((Activity) userListServiceContext).findViewById(R.id.user_list_activity_tv_gender));
         tvAge = ((TextView) ((Activity) userListServiceContext).findViewById(R.id.user_list_activity_tv_age));

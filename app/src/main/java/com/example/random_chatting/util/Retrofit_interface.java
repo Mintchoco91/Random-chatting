@@ -1,4 +1,4 @@
-package com.example.random_chatting;
+package com.example.random_chatting.util;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

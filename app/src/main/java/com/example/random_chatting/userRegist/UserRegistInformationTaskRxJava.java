@@ -1,11 +1,12 @@
-package com.example.random_chatting;
+package com.example.random_chatting.userRegist;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.random_chatting.R;
+import com.example.random_chatting.util.Retrofit_client;
 
 import org.json.JSONException;
 import org.json.JSONObject;

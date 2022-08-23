@@ -1,12 +1,9 @@
-package com.example.random_chatting;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+package com.example.random_chatting.userList;
 
 import java.util.List;
 
-public class TaskDTO {
-    public static class findUserInformationOutputDTO {
+public class UserListDTO {
+    public static class outputDTO {
         private String id;
         private String userName;
         private String gender;

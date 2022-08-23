@@ -1,4 +1,4 @@
-package com.example.random_chatting;
+package com.example.random_chatting.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

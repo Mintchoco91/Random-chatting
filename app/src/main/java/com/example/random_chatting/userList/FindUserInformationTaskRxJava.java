@@ -1,15 +1,9 @@
-package com.example.random_chatting;
+package com.example.random_chatting.userList;
 
-import android.app.Activity;
 import android.content.Context;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.content.ContextCompat;
-import androidx.viewpager2.widget.ViewPager2;
+import com.example.random_chatting.util.Retrofit_client;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,8 +22,6 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * rxJava 형식으로 동기화 처리
@@ -39,7 +31,7 @@ public class FindUserInformationTaskRxJava {
     Context userListActivityContext;
     Disposable backgroundTask;
 
-    List<TaskDTO.findUserInformationOutputDTO> localFindUserInfomationList = new ArrayList<>();
+    List<UserListDTO.outputDTO> localUserList = new ArrayList<>();
 
     public FindUserInformationTaskRxJava (Context context) {
         userListActivityContext = context;
@@ -49,10 +41,10 @@ public class FindUserInformationTaskRxJava {
     private void resultPost(Integer code){
         if(code == 0){
             //전역 변수
-            UserListActivity.mainFindUserInfomationList = localFindUserInfomationList;
+            UserListActivity.mainUserList = localUserList;
 
             UserListService userListService = new UserListService(userListActivityContext);
-            userListService.showInformation(localFindUserInfomationList.get(0));
+            userListService.showInformation(localUserList.get(0));
 
             Toast.makeText(userListActivityContext, "조회 성공", Toast.LENGTH_LONG).show();
         }else{
@@ -80,7 +72,7 @@ public class FindUserInformationTaskRxJava {
             JSONObject jsonObject = new JSONObject(jsonResponse);
             if (jsonObject.optString("status").equals("true")) {
                 JSONArray jsonArray = jsonObject.getJSONArray("result");
-                List<TaskDTO.findUserInformationOutputDTO> findUserInfomationList = new ArrayList<>();
+                List<UserListDTO.outputDTO> userList = new ArrayList<>();
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     try {
@@ -88,7 +80,7 @@ public class FindUserInformationTaskRxJava {
 
                         JSONObject loopJsonObject = jsonArray.getJSONObject(i);
                         // Pulling items from the array
-                        TaskDTO.findUserInformationOutputDTO findUserInformationOutput = new TaskDTO.findUserInformationOutputDTO();
+                        UserListDTO.outputDTO userListOutput = new UserListDTO.outputDTO();
                         String id = loopJsonObject.getString("id");
                         String userName = loopJsonObject.getString("userName");
                         String gender = loopJsonObject.getString("gender");
@@ -116,15 +108,15 @@ public class FindUserInformationTaskRxJava {
                         //공백 제거
                         fileNameList.removeAll(Arrays.asList("", null));
 
-                        findUserInformationOutput.setId(id);
-                        findUserInformationOutput.setUserName(userName);
-                        findUserInformationOutput.setGender(gender);
-                        findUserInformationOutput.setAge(age);
-                        findUserInformationOutput.setPhoneNumber(phoneNumber);
-                        findUserInformationOutput.setFileNameList(fileNameList);
-                        findUserInformationOutput.setCountIdx(countIdx);
+                        userListOutput.setId(id);
+                        userListOutput.setUserName(userName);
+                        userListOutput.setGender(gender);
+                        userListOutput.setAge(age);
+                        userListOutput.setPhoneNumber(phoneNumber);
+                        userListOutput.setFileNameList(fileNameList);
+                        userListOutput.setCountIdx(countIdx);
 
-                        findUserInfomationList.add(findUserInformationOutput);
+                        userList.add(userListOutput);
                     } catch (JSONException e) {
                         // json catch
                     } catch (UnsupportedEncodingException e) {
@@ -133,9 +125,9 @@ public class FindUserInformationTaskRxJava {
                 }
 
                 //random 처리
-                Collections.shuffle(findUserInfomationList);
+                Collections.shuffle(userList);
 
-                localFindUserInfomationList = findUserInfomationList;
+                localUserList = userList;
             } else {
                 resultCode = 1;
             }

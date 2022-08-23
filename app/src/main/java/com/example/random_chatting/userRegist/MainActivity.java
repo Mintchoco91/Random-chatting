@@ -1,4 +1,4 @@
-package com.example.random_chatting;
+package com.example.random_chatting.userRegist;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.random_chatting.R;
+import com.example.random_chatting.userList.UserListActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
