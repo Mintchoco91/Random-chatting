@@ -7,7 +7,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.random_chatting"
+        applicationId "com.kj.random_chatting"
         minSdk 26
         targetSdk 32
         versionCode 1
