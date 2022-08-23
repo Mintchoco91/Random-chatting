@@ -6,5 +6,6 @@ random-chatting-prototype
  
 [Spec]
 - 언어 : Android Java
+- sdk : 32
 - Information Save DataBase : JawsDB Maria (Heroku Hosting)
 - Image Save Storage : Firebase Cloud Storage
