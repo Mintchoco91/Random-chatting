@@ -86,27 +86,20 @@ public class FindUserInformationTaskRxJava {
                         String gender = loopJsonObject.getString("gender");
                         String age = loopJsonObject.getString("age");
                         String phoneNumber = loopJsonObject.getString("phoneNumber");
-                        String fileName0 = loopJsonObject.getString("fileName0");
-                        String fileName1 = loopJsonObject.getString("fileName1");
-                        String fileName2 = loopJsonObject.getString("fileName2");
-                        String fileName3 = loopJsonObject.getString("fileName3");
-                        String fileName4 = loopJsonObject.getString("fileName4");
-                        String fileName5 = loopJsonObject.getString("fileName5");
-                        String countIdx = loopJsonObject.getString("countIdx");
+
+                        String fileName = "";
+                        for(int num=0; num<6; num++){
+                            fileName = loopJsonObject.getString("fileName"+num);
+                            if(fileName.equals("")){
+                                break;
+                            }else {
+                                fileNameList.add(fileName);
+                            }
+                        }
 
                         //decode
                         userName = URLDecoder.decode(userName, "utf-8");
                         gender = URLDecoder.decode(gender, "utf-8");
-
-                        fileNameList.add(fileName0);
-                        fileNameList.add(fileName1);
-                        fileNameList.add(fileName2);
-                        fileNameList.add(fileName3);
-                        fileNameList.add(fileName4);
-                        fileNameList.add(fileName5);
-
-                        //공백 제거
-                        fileNameList.removeAll(Arrays.asList("", null));
 
                         userListOutput.setId(id);
                         userListOutput.setUserName(userName);
