@@ -29,14 +29,17 @@ public class UserListService {
 
     public UserListService(Context context) {
         userListServiceContext = context;
-    }
-
-    public void showInformation(UserListDTO.outputDTO info) {
         tvName = ((TextView) ((Activity) userListServiceContext).findViewById(R.id.user_list_activity_tv_name));
         tvGender = ((TextView) ((Activity) userListServiceContext).findViewById(R.id.user_list_activity_tv_gender));
         tvAge = ((TextView) ((Activity) userListServiceContext).findViewById(R.id.user_list_activity_tv_age));
         tvPhoneNumber = ((TextView) ((Activity) userListServiceContext).findViewById(R.id.user_list_activity_tv_phone_number));
+        sliderViewPager = ((ViewPager2) ((Activity) userListServiceContext).findViewById(R.id.sliderViewPager));
+        layoutIndicator = ((LinearLayout) ((Activity) userListServiceContext).findViewById(R.id.layoutIndicators));
 
+        sliderViewPager.setOffscreenPageLimit(1);
+    }
+
+    public void showInformation(UserListDTO.outputDTO info) {
         tvName.setText(info.getUserName());
         tvGender.setText(info.getGender());
         tvAge.setText(info.getAge());
@@ -45,19 +48,14 @@ public class UserListService {
         if (info.getFileNameList().size() > 0) {
             String[] fileNameArray = info.getFileNameList().toArray(new String[info.getFileNameList().size()]);
             //Slide처리
-            showPhoto(userListServiceContext, fileNameArray);
+            showPhoto(fileNameArray);
         } else {
             Toast.makeText(userListServiceContext, "이미지가 없습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    //이미지 slide 추가 해야함.
-    public void showPhoto(Context context, String[] fileNameArray) {
-        sliderViewPager = ((ViewPager2) ((Activity) userListServiceContext).findViewById(R.id.sliderViewPager));
-        layoutIndicator = ((LinearLayout) ((Activity) userListServiceContext).findViewById(R.id.layoutIndicators));
-
-        sliderViewPager.setOffscreenPageLimit(1);
-        sliderViewPager.setAdapter(new ImageSliderAdapter(context, fileNameArray));
+    public void showPhoto(String[] fileNameArray) {
+        sliderViewPager.setAdapter(new ImageSliderAdapter(userListServiceContext, fileNameArray));
 
         ViewPagerClass viewPagerClass = new ViewPagerClass(userListServiceContext, layoutIndicator);
         sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
