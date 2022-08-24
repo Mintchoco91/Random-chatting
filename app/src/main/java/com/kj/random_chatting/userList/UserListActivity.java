@@ -20,7 +20,7 @@ public class UserListActivity extends Activity {
         setListener();
     }
 
-    public void initializeView() {
+    private void initializeView() {
         btnNextUser = (Button) findViewById(R.id.user_list_activity_btn_next_user);
         userListService = new UserListService(this);
         FindUserInformationTaskRxJava findUserInformationTaskRxJava = new FindUserInformationTaskRxJava(this);
@@ -28,7 +28,7 @@ public class UserListActivity extends Activity {
     }
 
 
-    public void setListener() {
+    private void setListener() {
         View.OnClickListener Listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
