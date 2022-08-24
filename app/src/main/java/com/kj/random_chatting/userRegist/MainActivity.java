@@ -59,11 +59,11 @@ public class MainActivity extends AppCompatActivity {
         setListener();
     }
 
-    public void initializeView(){
+    public void initializeView() {
         btnSave = (Button) findViewById(R.id.activity_main_btn_save);
         btnUploadList = (Button) findViewById(R.id.activity_main_btn_upload_list);
         //spinner
-        spinnerAge = (Spinner)findViewById(R.id.activity_main_spn_age);
+        spinnerAge = (Spinner) findViewById(R.id.activity_main_spn_age);
         spinnerAge.setSelection(0);
         ArrayAdapter adapterAge = ArrayAdapter.createFromResource(this,
                 R.array.age, android.R.layout.simple_spinner_item);
@@ -76,12 +76,13 @@ public class MainActivity extends AppCompatActivity {
         userRegistService = new UserRegistService(this);
     }
 
-    public void setListener(){
-        View.OnClickListener Listener = new View.OnClickListener(){
+    public void setListener() {
+        View.OnClickListener Listener = new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                switch(v.getId()){
-                    case R.id.activity_main_btn_gender_man : case R.id.activity_main_btn_gender_woman:
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.activity_main_btn_gender_man:
+                    case R.id.activity_main_btn_gender_woman:
                         String genderText = ((AppCompatButton) v).getText().toString();
                         userRegistService.btnGenderClick(genderText);
                         v.setSelected(!v.isSelected());

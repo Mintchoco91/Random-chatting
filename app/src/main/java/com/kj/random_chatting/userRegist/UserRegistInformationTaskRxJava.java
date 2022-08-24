@@ -23,7 +23,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 
-public class UserRegistInformationTaskRxJava{
+public class UserRegistInformationTaskRxJava {
     Context fileUploadActivityContext;
     Disposable backgroundTask;
     private String userName, gender, age, phoneNumber;
@@ -31,7 +31,7 @@ public class UserRegistInformationTaskRxJava{
     Button btnBack, btnRegist;
 
 
-    public UserRegistInformationTaskRxJava (Context context, String strUserName, String strGender
+    public UserRegistInformationTaskRxJava(Context context, String strUserName, String strGender
             , String strAge, String strPhoneNumber, String[] strFileNameUri) {
         fileUploadActivityContext = context;
         userName = strUserName;
@@ -45,12 +45,12 @@ public class UserRegistInformationTaskRxJava{
     }
 
     //결과 처리
-    private void resultPost(Integer code){
-        if(code == 0){
+    private void resultPost(Integer code) {
+        if (code == 0) {
             btnRegist.setEnabled(false);
             btnBack.setEnabled(false);
             Toast.makeText(fileUploadActivityContext, "등록 성공", Toast.LENGTH_LONG).show();
-        }else{
+        } else {
             Toast.makeText(fileUploadActivityContext, "등록 실패 ! ErrorCode : " + code, Toast.LENGTH_LONG).show();
         }
     }
@@ -106,7 +106,7 @@ public class UserRegistInformationTaskRxJava{
             } catch (JSONException e) {
                 resultCode = 2;
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             resultCode = 3;
         }
         return resultCode;
