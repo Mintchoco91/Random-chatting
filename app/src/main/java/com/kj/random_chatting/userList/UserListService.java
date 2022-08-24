@@ -12,13 +12,20 @@ import com.kj.random_chatting.R;
 import com.kj.random_chatting.util.ViewPagerClass;
 import com.kj.random_chatting.util.ImageSliderAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserListService {
+    public static List<UserListDTO.outputDTO> mainUserList = new ArrayList<>();
     Context userListServiceContext;
     private TextView tvName, tvGender, tvAge, tvPhoneNumber;
 
     //slider
     private ViewPager2 sliderViewPager;
     private LinearLayout layoutIndicator;
+
+    //page (1페이지 부터 시작)
+    private Integer currentPageCnt = 1;
 
     public UserListService (Context context) {
         userListServiceContext = context;
@@ -63,5 +70,22 @@ public class UserListService {
 
         viewPagerClass.setupIndicators(fileNameArray.length);
     }
+
+    /**************************************************************
+     *  버튼 클릭 이벤트 시작
+     **************************************************************/
+
+    public void btnNextUserClick(){
+        if(currentPageCnt < mainUserList.size()) {
+            showInformation(mainUserList.get(currentPageCnt));
+            currentPageCnt++;
+        }else{
+            Toast.makeText(userListServiceContext, "더 이상 회원이 없습니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**************************************************************
+     *  버튼 클릭 이벤트 끝
+     **************************************************************/
 
 }

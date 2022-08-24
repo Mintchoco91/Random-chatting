@@ -1,5 +1,6 @@
 package com.kj.random_chatting.userRegist;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,25 +17,29 @@ import com.kj.random_chatting.userList.UserListActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
-    private String strUserName, strGender, strAge, strPhoneNumber;
-    private EditText etUserName, etPhoneNumber;
-    private Button btnSave, btnUploadList;
+    private Button btnSave, btnUploadList, btnGenderMan, btnGenderWoman;
+    private Spinner spinnerAge;
 
     private ActivityMainBinding binding;
+
+    UserRegistService userRegistService;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /**
-         * Default Setting Start
-         */
         super.onCreate(savedInstanceState);
+
+        /**
+         * 하단 네비게이션 기본 설정 시작
+         */
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -47,17 +52,18 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         /**
-         * Default Setting End
+         * 하단 네비게이션 기본 설정 끝
          */
 
+        initializeView();
+        setListener();
+    }
+
+    public void initializeView(){
         btnSave = (Button) findViewById(R.id.activity_main_btn_save);
         btnUploadList = (Button) findViewById(R.id.activity_main_btn_upload_list);
-
-        etUserName = (EditText) findViewById(R.id.activity_main_et_user_name);
-        etPhoneNumber = (EditText)findViewById(R.id.activity_main_et_phone_number);
-
         //spinner
-        Spinner spinnerAge = (Spinner)findViewById(R.id.activity_main_spn_age);
+        spinnerAge = (Spinner)findViewById(R.id.activity_main_spn_age);
         spinnerAge.setSelection(0);
         ArrayAdapter adapterAge = ArrayAdapter.createFromResource(this,
                 R.array.age, android.R.layout.simple_spinner_item);
@@ -65,74 +71,35 @@ public class MainActivity extends AppCompatActivity {
         spinnerAge.setPrompt("나이를 선택하세요.");
         spinnerAge.setAdapter(adapterAge);
 
-        Button btnGenderMan = findViewById(R.id.activity_main_btn_gender_man);
-        Button btnGenderWoman = findViewById(R.id.activity_main_btn_gender_woman);
+        btnGenderMan = findViewById(R.id.activity_main_btn_gender_man);
+        btnGenderWoman = findViewById(R.id.activity_main_btn_gender_woman);
+        userRegistService = new UserRegistService(this);
+    }
 
-        btnGenderMan.setOnClickListener(new View.OnClickListener() {
+    public void setListener(){
+        View.OnClickListener Listener = new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                strGender = "남";
-                v.setSelected(!v.isSelected());
-                btnGenderWoman.setSelected(false);
-            }
-        });
-
-        btnGenderWoman.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                strGender = "여";
-                v.setSelected(!v.isSelected());
-                btnGenderMan.setSelected(false);
-            }
-        });
-
-
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                strUserName = String.valueOf(etUserName.getText()).trim();
-                strAge = spinnerAge.getSelectedItem().toString();
-                strPhoneNumber = String.valueOf(etPhoneNumber.getText()).trim();
-
-                if(strUserName.length() == 0){
-                    Toast.makeText(MainActivity.this, "이름을 입력하세요.", Toast.LENGTH_SHORT).show();
-                    etUserName.requestFocus();
-                    return;
+            public void onClick(View v){
+                switch(v.getId()){
+                    case R.id.activity_main_btn_gender_man : case R.id.activity_main_btn_gender_woman:
+                        String genderText = ((AppCompatButton) v).getText().toString();
+                        userRegistService.btnGenderClick(genderText);
+                        v.setSelected(!v.isSelected());
+                        break;
+                    case R.id.activity_main_btn_save:
+                        userRegistService.btnSaveClick();
+                        break;
+                    case R.id.activity_main_btn_upload_list:
+                        userRegistService.btnUploadClick();
+                        break;
                 }
-                if(strGender == null){
-                    Toast.makeText(MainActivity.this, "성별을 선택하세요.", Toast.LENGTH_SHORT).show();
-                    btnGenderMan.requestFocus();
-                    return;
-                }
-                if(strAge.equals("선택")){
-                    Toast.makeText(MainActivity.this, "나이를 선택하세요.", Toast.LENGTH_SHORT).show();
-                    spinnerAge.requestFocus();
-                    return;
-                }
-                if(strPhoneNumber.length() == 0){
-                    Toast.makeText(MainActivity.this, "핸드폰 번호를 입력하세요.", Toast.LENGTH_SHORT).show();
-                    etPhoneNumber.requestFocus();
-                    return;
-                }
-
-                //다음 단계로 (이미지 업로드)
-                Intent intentUpload = new Intent(MainActivity.this, FileUploadActivity.class);
-                intentUpload.putExtra("strUserName",strUserName);
-                intentUpload.putExtra("strGender",strGender);
-                intentUpload.putExtra("strAge",strAge);
-                intentUpload.putExtra("strPhoneNumber",strPhoneNumber);
-
-                startActivity(intentUpload);
             }
-        });
+        };
 
-        btnUploadList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentUploadList = new Intent(MainActivity.this, UserListActivity.class);
-                startActivity(intentUploadList);
-            }
-        });
+        btnGenderMan.setOnClickListener(Listener);
+        btnGenderWoman.setOnClickListener(Listener);
+        btnSave.setOnClickListener(Listener);
+        btnUploadList.setOnClickListener(Listener);
     }
 
 }

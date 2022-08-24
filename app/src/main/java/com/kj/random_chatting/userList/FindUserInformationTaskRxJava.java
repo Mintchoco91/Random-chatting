@@ -41,7 +41,7 @@ public class FindUserInformationTaskRxJava {
     private void resultPost(Integer code){
         if(code == 0){
             //전역 변수
-            UserListActivity.mainUserList = localUserList;
+            UserListService.mainUserList = localUserList;
 
             UserListService userListService = new UserListService(userListActivityContext);
             userListService.showInformation(localUserList.get(0));
@@ -73,7 +73,6 @@ public class FindUserInformationTaskRxJava {
             if (jsonObject.optString("status").equals("true")) {
                 JSONArray jsonArray = jsonObject.getJSONArray("result");
                 List<UserListDTO.outputDTO> userList = new ArrayList<>();
-
                 for (int i = 0; i < jsonArray.length(); i++) {
                     try {
                         List<String> fileNameList = new ArrayList<>();
