@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         setListener();
     }
 
-    public void initializeView() {
+    private void initializeView() {
         btnSave = (Button) findViewById(R.id.activity_main_btn_save);
         btnUploadList = (Button) findViewById(R.id.activity_main_btn_upload_list);
         //spinner
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         userRegistService = new UserRegistService(this);
     }
 
-    public void setListener() {
+    private void setListener() {
         View.OnClickListener Listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
