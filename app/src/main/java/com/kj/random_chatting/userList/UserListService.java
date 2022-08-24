@@ -27,7 +27,7 @@ public class UserListService {
     //page (1페이지 부터 시작)
     private Integer currentPageCnt = 1;
 
-    public UserListService (Context context) {
+    public UserListService(Context context) {
         userListServiceContext = context;
     }
 
@@ -75,11 +75,11 @@ public class UserListService {
      *  버튼 클릭 이벤트 시작
      **************************************************************/
 
-    public void btnNextUserClick(){
-        if(currentPageCnt < mainUserList.size()) {
+    public void btnNextUserClick() {
+        if (currentPageCnt < mainUserList.size()) {
             showInformation(mainUserList.get(currentPageCnt));
             currentPageCnt++;
-        }else{
+        } else {
             Toast.makeText(userListServiceContext, "더 이상 회원이 없습니다.", Toast.LENGTH_SHORT).show();
         }
     }

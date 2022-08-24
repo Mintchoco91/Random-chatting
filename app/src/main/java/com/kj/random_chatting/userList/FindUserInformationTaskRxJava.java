@@ -33,13 +33,13 @@ public class FindUserInformationTaskRxJava {
 
     List<UserListDTO.outputDTO> localUserList = new ArrayList<>();
 
-    public FindUserInformationTaskRxJava (Context context) {
+    public FindUserInformationTaskRxJava(Context context) {
         userListActivityContext = context;
     }
 
     //결과 처리
-    private void resultPost(Integer code){
-        if(code == 0){
+    private void resultPost(Integer code) {
+        if (code == 0) {
             //전역 변수
             UserListService.mainUserList = localUserList;
 
@@ -47,7 +47,7 @@ public class FindUserInformationTaskRxJava {
             userListService.showInformation(localUserList.get(0));
 
             Toast.makeText(userListActivityContext, "조회 성공", Toast.LENGTH_LONG).show();
-        }else{
+        } else {
             Toast.makeText(userListActivityContext, "조회 실패", Toast.LENGTH_LONG).show();
         }
     }
@@ -87,11 +87,11 @@ public class FindUserInformationTaskRxJava {
                         String phoneNumber = loopJsonObject.getString("phoneNumber");
 
                         String fileName = "";
-                        for(int num=0; num<6; num++){
-                            fileName = loopJsonObject.getString("fileName"+num);
-                            if(fileName.equals("")){
+                        for (int num = 0; num < 6; num++) {
+                            fileName = loopJsonObject.getString("fileName" + num);
+                            if (fileName.equals("")) {
                                 break;
-                            }else {
+                            } else {
                                 fileNameList.add(fileName);
                             }
                         }

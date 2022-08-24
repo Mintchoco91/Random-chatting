@@ -19,34 +19,34 @@ public class UserRegistService {
     private String strUserName, strGender, strAge, strPhoneNumber;
 
 
-    public UserRegistService (Context context) {
+    public UserRegistService(Context context) {
         userRegistServiceContext = context;
         etUserName = ((EditText) ((Activity) userRegistServiceContext).findViewById(R.id.activity_main_et_user_name));
-        btnGenderMan = ((Button) ((Activity) userRegistServiceContext). findViewById(R.id.activity_main_btn_gender_man));
-        btnGenderWoman = ((Button) ((Activity) userRegistServiceContext). findViewById(R.id.activity_main_btn_gender_woman));
+        btnGenderMan = ((Button) ((Activity) userRegistServiceContext).findViewById(R.id.activity_main_btn_gender_man));
+        btnGenderWoman = ((Button) ((Activity) userRegistServiceContext).findViewById(R.id.activity_main_btn_gender_woman));
         spinnerAge = ((Spinner) ((Activity) userRegistServiceContext).findViewById(R.id.activity_main_spn_age));
         etPhoneNumber = ((EditText) ((Activity) userRegistServiceContext).findViewById(R.id.activity_main_et_phone_number));
     }
 
     // 기본사항 validation
     // Error 존재 -> return true
-    public boolean validation(UserRegistDTO.inputDTO registInputDTO){
-        if(registInputDTO.getUserName().length() == 0){
+    public boolean validation(UserRegistDTO.inputDTO registInputDTO) {
+        if (registInputDTO.getUserName().length() == 0) {
             Toast.makeText(userRegistServiceContext, "이름을 입력하세요.", Toast.LENGTH_SHORT).show();
             etUserName.requestFocus();
             return true;
         }
-        if(registInputDTO.getGender() == null){
+        if (registInputDTO.getGender() == null) {
             Toast.makeText(userRegistServiceContext, "성별을 선택하세요.", Toast.LENGTH_SHORT).show();
             btnGenderMan.requestFocus();
             return true;
         }
-        if(registInputDTO.getAge().equals("선택")){
+        if (registInputDTO.getAge().equals("선택")) {
             Toast.makeText(userRegistServiceContext, "나이를 선택하세요.", Toast.LENGTH_SHORT).show();
             spinnerAge.requestFocus();
             return true;
         }
-        if(registInputDTO.getPhoneNumber().length() == 0){
+        if (registInputDTO.getPhoneNumber().length() == 0) {
             Toast.makeText(userRegistServiceContext, "핸드폰 번호를 입력하세요.", Toast.LENGTH_SHORT).show();
             etPhoneNumber.requestFocus();
             return true;
@@ -55,12 +55,12 @@ public class UserRegistService {
     }
 
     //다음 단계로 (이미지 업로드)
-    public void nextStep(UserRegistDTO.inputDTO registInputDTO){
+    public void nextStep(UserRegistDTO.inputDTO registInputDTO) {
         Intent intentUpload = new Intent(userRegistServiceContext, FileUploadActivity.class);
-        intentUpload.putExtra("strUserName",registInputDTO.getUserName());
-        intentUpload.putExtra("strGender",registInputDTO.getGender());
-        intentUpload.putExtra("strAge",registInputDTO.getAge());
-        intentUpload.putExtra("strPhoneNumber",registInputDTO.getPhoneNumber());
+        intentUpload.putExtra("strUserName", registInputDTO.getUserName());
+        intentUpload.putExtra("strGender", registInputDTO.getGender());
+        intentUpload.putExtra("strAge", registInputDTO.getAge());
+        intentUpload.putExtra("strPhoneNumber", registInputDTO.getPhoneNumber());
 
         userRegistServiceContext.startActivity(intentUpload);
     }
@@ -69,9 +69,9 @@ public class UserRegistService {
      *  버튼 클릭 이벤트 시작
      **************************************************************/
 
-    public void btnGenderClick(String genderText){
+    public void btnGenderClick(String genderText) {
         strGender = genderText;
-        switch (strGender){
+        switch (strGender) {
             case "남":
                 btnGenderWoman.setSelected(false);
                 break;
@@ -83,7 +83,7 @@ public class UserRegistService {
         }
     }
 
-    public void btnSaveClick(){
+    public void btnSaveClick() {
         boolean isError = true;
         strUserName = String.valueOf(etUserName.getText()).trim();
         strAge = spinnerAge.getSelectedItem().toString();
@@ -97,12 +97,12 @@ public class UserRegistService {
 
         isError = validation(registInputDTO);
 
-        if(!isError){
+        if (!isError) {
             nextStep(registInputDTO);
         }
     }
 
-    public void btnUploadClick(){
+    public void btnUploadClick() {
         Intent intentUploadList = new Intent(userRegistServiceContext, UserListActivity.class);
         userRegistServiceContext.startActivity(intentUploadList);
     }
