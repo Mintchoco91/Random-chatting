@@ -1,4 +1,4 @@
-package com.kj.random_chatting.userRegist;
+package com.kj.random_chatting.UserFileUpload;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -6,163 +6,81 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.kj.random_chatting.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.kj.random_chatting.R;
+import com.kj.random_chatting.userRegist.UserRegistDTO;
+import com.kj.random_chatting.userRegist.UserRegistInformationTaskRxJava;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FileUploadActivity extends Activity {
-    private static final String TAG = "FileUploadActivity";
 
-    Button btnBack, btnRegist;
-    private String strUserName, strGender, strAge, strPhoneNumber;
+public class FileUploadService extends Activity {
+    private static final String TAG = "FileUploadActivity";
+    private Context fileUploadServiceContext;
+    private Uri[] uriImgPaths = new Uri[6];
     private String[] strFileNames = new String[6];
     private String[] strFileNameUri = new String[6];
-    private Uri[] uriImgPaths = new Uri[6];
     private StorageReference storageRef;
     private StorageReference storageDirRef;
-    private Context context;
-
     private ImageView ivUserPicture0, ivUserPicture1, ivUserPicture2, ivUserPicture3, ivUserPicture4, ivUserPicture5;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.file_upload_activity);
-
-        context = this;
-        //main에서 전달 받은 데이터
-        Intent intentMain = getIntent();
-        strUserName = intentMain.getStringExtra("strUserName");
-        strGender = intentMain.getStringExtra("strGender");
-        strAge = intentMain.getStringExtra("strAge");
-        strPhoneNumber = intentMain.getStringExtra("strPhoneNumber");
-
-        btnBack = (Button) findViewById(R.id.file_upload_activity_btn_back);
-        btnRegist = (Button) findViewById(R.id.file_upload_activity_btn_regist);
-
+    public FileUploadService(Context context) {
+        fileUploadServiceContext = context;
         //이미지 추가
-        ivUserPicture0 = (ImageView) findViewById(R.id.file_upload_activity_iv_user_picture0);
-        ivUserPicture1 = (ImageView) findViewById(R.id.file_upload_activity_iv_user_picture1);
-        ivUserPicture2 = (ImageView) findViewById(R.id.file_upload_activity_iv_user_picture2);
-        ivUserPicture3 = (ImageView) findViewById(R.id.file_upload_activity_iv_user_picture3);
-        ivUserPicture4 = (ImageView) findViewById(R.id.file_upload_activity_iv_user_picture4);
-        ivUserPicture5 = (ImageView) findViewById(R.id.file_upload_activity_iv_user_picture5);
+        ivUserPicture0 = ((ImageView) ((Activity) fileUploadServiceContext).findViewById(R.id.file_upload_activity_iv_user_picture0));
+        ivUserPicture1 = ((ImageView) ((Activity) fileUploadServiceContext).findViewById(R.id.file_upload_activity_iv_user_picture1));
+        ivUserPicture2 = ((ImageView) ((Activity) fileUploadServiceContext).findViewById(R.id.file_upload_activity_iv_user_picture2));
+        ivUserPicture3 = ((ImageView) ((Activity) fileUploadServiceContext).findViewById(R.id.file_upload_activity_iv_user_picture3));
+        ivUserPicture4 = ((ImageView) ((Activity) fileUploadServiceContext).findViewById(R.id.file_upload_activity_iv_user_picture4));
+        ivUserPicture5 = ((ImageView) ((Activity) fileUploadServiceContext).findViewById(R.id.file_upload_activity_iv_user_picture5));
+    }
 
-        //이미지 업로드 클릭
-        ivUserPicture0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //이미지를 선택
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);
+    public void uploadResult(int imgNo, int resultCode, Intent data) {
+        uriImgPaths[imgNo] = data.getData();
+        Log.d(TAG, "uri:" + String.valueOf(uriImgPaths[imgNo]));
+        try {
+            //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(fileUploadServiceContext.getContentResolver(), uriImgPaths[imgNo]);
+            switch (imgNo) {
+                case 0:
+                    ivUserPicture0.setImageBitmap(bitmap);
+                    break;
+                case 1:
+                    ivUserPicture1.setImageBitmap(bitmap);
+                    break;
+                case 2:
+                    ivUserPicture2.setImageBitmap(bitmap);
+                    break;
+                case 3:
+                    ivUserPicture3.setImageBitmap(bitmap);
+                    break;
+                case 4:
+                    ivUserPicture4.setImageBitmap(bitmap);
+                    break;
+                case 5:
+                    ivUserPicture5.setImageBitmap(bitmap);
+                    break;
             }
-        });
 
-        //이미지 업로드 클릭
-        ivUserPicture1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //이미지를 선택
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 1);
-            }
-        });
-
-        //이미지 업로드 클릭
-        ivUserPicture2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //이미지를 선택
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 2);
-            }
-        });
-
-        //이미지 업로드 클릭
-        ivUserPicture3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //이미지를 선택
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 3);
-            }
-        });
-
-        //이미지 업로드 클릭
-        ivUserPicture4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //이미지를 선택
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 4);
-            }
-        });
-
-        //이미지 업로드 클릭
-        ivUserPicture5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //이미지를 선택
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 5);
-            }
-        });
-
-        //뒤로 가기
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-
-        //회원 등록(Firebase 이미지 업로드 -> DB회원 저장)
-        btnRegist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //DB Update
-                UserRegistInformationTaskRxJava userRegistInformationTaskRxJava =
-                        new UserRegistInformationTaskRxJava(
-                                context
-                                , strUserName
-                                , strGender
-                                , strAge
-                                , strPhoneNumber
-                                , strFileNameUri);
-                userRegistInformationTaskRxJava.runFunc();
-            }
-        });
+            //fireBase Upload
+            uploadFileAndRegistDB(uriImgPaths, imgNo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //파일 선택 후 결과 처리
@@ -212,7 +130,7 @@ public class FileUploadActivity extends Activity {
         //업로드할 파일이 있으면 수행
         if (uriImgPaths[imgNo] != null) {
             //업로드 진행 Dialog 보이기
-            final ProgressDialog progressDialog = new ProgressDialog(context);
+            final ProgressDialog progressDialog = new ProgressDialog(fileUploadServiceContext);
             progressDialog.setTitle("업로드중...");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
@@ -244,7 +162,7 @@ public class FileUploadActivity extends Activity {
                                         @Override
                                         public void onFailure(@NonNull Exception exception) {
                                             //이미지 로드 실패시
-                                            Toast.makeText(getApplicationContext(), "이미지 로드 실패", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(fileUploadServiceContext, "이미지 로드 실패", Toast.LENGTH_SHORT).show();
                                         }
                                     });
 
@@ -255,7 +173,7 @@ public class FileUploadActivity extends Activity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "업로드 실패!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(fileUploadServiceContext, "업로드 실패!", Toast.LENGTH_SHORT).show();
                         }
                     })
                     //진행중
@@ -269,7 +187,38 @@ public class FileUploadActivity extends Activity {
                         }
                     });
         } else {
-            Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(fileUploadServiceContext, "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
         }
     }
+
+    /**************************************************************
+     *  버튼 클릭 이벤트 시작
+     **************************************************************/
+
+    public void ivUserPictureClick(Integer tag) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        ((FileUploadActivity) fileUploadServiceContext).startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), tag);
+    }
+
+    public void btnBackClick() {
+        finish();
+    }
+
+    public void btnRegistClick(UserRegistDTO.inputDTO userRegistInputDTO) {
+        UserRegistInformationTaskRxJava userRegistInformationTaskRxJava =
+                new UserRegistInformationTaskRxJava(
+                        fileUploadServiceContext
+                        , userRegistInputDTO.getUserName()
+                        , userRegistInputDTO.getGender()
+                        , userRegistInputDTO.getAge()
+                        , userRegistInputDTO.getPhoneNumber()
+                        , strFileNameUri);
+        userRegistInformationTaskRxJava.runFunc();
+    }
+
+    /**************************************************************
+     *  버튼 클릭 이벤트 끝
+     **************************************************************/
 }

@@ -9,6 +9,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.UserFileUpload.FileUploadActivity;
 import com.kj.random_chatting.userList.UserListActivity;
 
 public class UserRegistService {
