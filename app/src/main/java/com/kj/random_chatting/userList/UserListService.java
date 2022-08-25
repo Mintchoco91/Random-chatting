@@ -50,7 +50,12 @@ public class UserListService {
             //Slide처리
             showPhoto(fileNameArray);
         } else {
-            Toast.makeText(userListServiceContext, "이미지가 없습니다.", Toast.LENGTH_SHORT).show();
+            //이미지 없는 회원 noImage 처리
+            List<String> emptyImage = new ArrayList<>();
+            emptyImage.add("https://firebasestorage.googleapis.com/v0/b/random-chatting-b52bc.appspot.com/o/etc%2Fno_image.png?alt=media&token=b62b692a-6a40-49f7-a44f-3ff8c6cb41fa");
+            info.setFileNameList(emptyImage);
+            String[] fileNameArray = info.getFileNameList().toArray(new String[info.getFileNameList().size()]);
+            showPhoto(fileNameArray);
         }
     }
 
