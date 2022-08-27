@@ -13,18 +13,21 @@
             android:id="@+id/file_upload_activity_iv_user_picture0"
             android:layout_width="62dp"
             android:layout_height="120dp"
+            android:tag="0"
             android:src="@drawable/add_image" />
 
         <ImageView
             android:id="@+id/file_upload_activity_iv_user_picture1"
             android:layout_width="62dp"
             android:layout_height="120dp"
+            android:tag="1"
             android:src="@drawable/add_image" />
 
         <ImageView
             android:id="@+id/file_upload_activity_iv_user_picture2"
             android:layout_width="62dp"
             android:layout_height="120dp"
+            android:tag="2"
             android:src="@drawable/add_image" />
     </LinearLayout>
 
@@ -37,18 +40,21 @@
             android:id="@+id/file_upload_activity_iv_user_picture3"
             android:layout_width="62dp"
             android:layout_height="120dp"
+            android:tag="3"
             android:src="@drawable/add_image" />
 
         <ImageView
             android:id="@+id/file_upload_activity_iv_user_picture4"
             android:layout_width="62dp"
             android:layout_height="120dp"
+            android:tag="4"
             android:src="@drawable/add_image" />
 
         <ImageView
             android:id="@+id/file_upload_activity_iv_user_picture5"
             android:layout_width="62dp"
             android:layout_height="120dp"
+            android:tag="5"
             android:src="@drawable/add_image" />
 
     </LinearLayout>
