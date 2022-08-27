@@ -1,4 +1,4 @@
-package com.kj.random_chatting.userRegist;
+package com.kj.random_chatting.common;
 
 import android.os.Bundle;
 import android.view.MenuItem;

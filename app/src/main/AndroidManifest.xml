@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.kj.random_chatting.userRegist.MainActivity"
+            android:name="com.kj.random_chatting.common.MainActivity"
             android:exported="true"
             android:label="@string/app_name">
         </activity>
