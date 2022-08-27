@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.userList.UserListActivity;
-import com.kj.random_chatting.userRegist.UserRegisterActivity;
+import com.kj.random_chatting.userRegist.UserRegistActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         regist_button.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( LoginActivity.this, UserRegisterActivity.class );
+                Intent intent = new Intent( LoginActivity.this, UserRegistActivity.class );
                 startActivity( intent );
             }
         });
