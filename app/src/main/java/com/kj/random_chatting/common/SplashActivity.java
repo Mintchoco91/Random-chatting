@@ -8,6 +8,7 @@ import android.os.Handler;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.userRegist.MainActivity;
+import com.kj.random_chatting.userRegist.UserRegisterActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
