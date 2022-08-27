@@ -34,7 +34,7 @@
             android:exported="true"
             android:label="@string/app_name">
         </activity>
-        <activity android:name="com.kj.random_chatting.userRegist.UserRegisterActivity" />
+        <activity android:name="com.kj.random_chatting.userRegist.UserRegistActivity" />
         <activity android:name="com.kj.random_chatting.UserFileUpload.FileUploadActivity" />
         <activity android:name="com.kj.random_chatting.userList.UserListActivity" />
         <activity android:name="com.kj.random_chatting.login.LoginActivity" />

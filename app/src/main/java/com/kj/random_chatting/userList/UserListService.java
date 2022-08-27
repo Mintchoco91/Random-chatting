@@ -2,6 +2,7 @@ package com.kj.random_chatting.userList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserListService {
+    private static final String TAG = "UserListFragment";
     public static List<UserListDTO.outputDTO> mainUserList = new ArrayList<>();
     Context userListServiceContext;
     private TextView tvName, tvGender, tvAge, tvPhoneNumber;
@@ -28,6 +30,7 @@ public class UserListService {
     private Integer currentPageCnt = 1;
 
     public UserListService(Context context) {
+        Log.d(TAG, "Log : " + TAG + " -> UserListService");
         userListServiceContext = context;
         tvName = ((TextView) ((Activity) userListServiceContext).findViewById(R.id.user_list_activity_tv_name));
         tvGender = ((TextView) ((Activity) userListServiceContext).findViewById(R.id.user_list_activity_tv_gender));
@@ -40,6 +43,7 @@ public class UserListService {
     }
 
     public void showInformation(UserListDTO.outputDTO info) {
+        Log.d(TAG, "Log : " + TAG + " -> showInformation");
         tvName.setText(info.getUserName());
         tvGender.setText(info.getGender());
         tvAge.setText(info.getAge());
@@ -60,6 +64,7 @@ public class UserListService {
     }
 
     public void showPhoto(String[] fileNameArray) {
+        Log.d(TAG, "Log : " + TAG + " -> showPhoto");
         sliderViewPager.setAdapter(new ImageSliderAdapter(userListServiceContext, fileNameArray));
 
         ViewPagerClass viewPagerClass = new ViewPagerClass(userListServiceContext, layoutIndicator);
@@ -79,6 +84,7 @@ public class UserListService {
      **************************************************************/
 
     public void btnNextUserClick() {
+        Log.d(TAG, "Log : " + TAG + " -> btnNextUserClick");
         if (currentPageCnt < mainUserList.size()) {
             showInformation(mainUserList.get(currentPageCnt));
             currentPageCnt++;

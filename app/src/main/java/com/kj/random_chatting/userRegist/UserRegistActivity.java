@@ -23,7 +23,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class UserRegisterActivity extends AppCompatActivity {
+public class UserRegistActivity extends AppCompatActivity {
     private Button btnSave, btnUploadList, btnGenderMan, btnGenderWoman;
     private Spinner spinnerAge;
 
