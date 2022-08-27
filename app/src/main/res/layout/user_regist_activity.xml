@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:text="이름 : "
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
-        app:layout_constraintTop_toTopOf="@id/nav_host_fragment_activity_main" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/activity_main_et_user_name"
@@ -22,7 +22,7 @@
         android:ems="8"
         android:hint="입력 해 주세요"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_tv_user_name" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:text="성별 : "
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_et_user_name" />
 
 
@@ -44,7 +44,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_tv_gender" />
 
     <Button
@@ -57,7 +57,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_tv_gender" />
 
     <TextView
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:text="나이 : "
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_btn_gender_man" />
 
     <Spinner
@@ -77,7 +77,7 @@
         android:prompt="@string/promt_age"
         android:textSize="18sp"
         android:background="@drawable/spinner_theme"
-        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_tv_age" />
 
     <TextView
@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:text="핸드폰번호 : "
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_spn_age"  />
 
     <EditText
@@ -98,7 +98,7 @@
         android:hint="입력 해 주세요"
         android:inputType="phone"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_tv_phone_number" />
 
 
@@ -107,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="다 음"
-        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_et_phone_number" />
 
     <Button
@@ -117,32 +117,7 @@
         android:layout_marginStart="90dp"
         android:text="목 록"
         app:layout_constraintLeft_toRightOf="@+id/activity_main_btn_save"
-        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_et_phone_number" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nav_host_fragment_activity_main"
-        app:menu="@menu/bottom_nav_menu" />
-
-    <fragment
-        android:id="@+id/nav_host_fragment_activity_main"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="55dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@+id/nav_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/mobile_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

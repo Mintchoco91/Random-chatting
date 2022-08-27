@@ -10,10 +10,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import com.kj.random_chatting.R;
+
+/**
+ * 나중에 사진 업로드부분 fragment 처리할때 참고할 것
+ */
 
 public class UserRegistFragment extends Fragment {
     private static final String TAG = "UserListFragment";
@@ -29,7 +32,7 @@ public class UserRegistFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d(TAG, "Log : " + TAG + " -> onCreateView");
-        return inflater.inflate(R.layout.user_register_activity, container, false);
+        return inflater.inflate(R.layout.user_regist_activity, container, false);
     }
 
     @Override
