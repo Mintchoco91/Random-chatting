@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 public class UserRegistActivity extends AppCompatActivity {
-    private Button btnSave, btnUploadList, btnGenderMan, btnGenderWoman;
+    private Button btnSave, btnGenderMan, btnGenderWoman;
     private Spinner spinnerAge;
 
     private MainActivityBinding binding;
@@ -32,7 +32,6 @@ public class UserRegistActivity extends AppCompatActivity {
 
     private void initializeView() {
         btnSave = (Button) findViewById(R.id.activity_main_btn_save);
-        btnUploadList = (Button) findViewById(R.id.activity_main_btn_upload_list);
         //spinner
         spinnerAge = (Spinner) findViewById(R.id.activity_main_spn_age);
         spinnerAge.setSelection(0);
@@ -61,9 +60,6 @@ public class UserRegistActivity extends AppCompatActivity {
                     case R.id.activity_main_btn_save:
                         userRegistService.btnSaveClick();
                         break;
-                    case R.id.activity_main_btn_upload_list:
-                        userRegistService.btnUploadClick();
-                        break;
                 }
             }
         };
@@ -71,7 +67,6 @@ public class UserRegistActivity extends AppCompatActivity {
         btnGenderMan.setOnClickListener(Listener);
         btnGenderWoman.setOnClickListener(Listener);
         btnSave.setOnClickListener(Listener);
-        btnUploadList.setOnClickListener(Listener);
     }
 
 }

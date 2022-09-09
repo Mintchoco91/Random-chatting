@@ -110,14 +110,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_et_phone_number" />
 
-    <Button
-        android:id="@+id/activity_main_btn_upload_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="90dp"
-        android:text="목 록"
-        app:layout_constraintLeft_toRightOf="@+id/activity_main_btn_save"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_main_et_phone_number" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

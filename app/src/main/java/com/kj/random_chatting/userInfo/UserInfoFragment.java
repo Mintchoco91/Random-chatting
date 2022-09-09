@@ -21,7 +21,7 @@ import com.kj.random_chatting.userRegist.UserRegistService;
 
 public class UserInfoFragment extends Fragment {
     private static final String TAG = "UserInfoFragment";
-    private Button btnSave, btnUploadList, btnGenderMan, btnGenderWoman;
+    private Button btnSave, btnGenderMan, btnGenderWoman;
     private Spinner spinnerAge;
 
     private UserRegistService userRegistService;
@@ -50,7 +50,6 @@ public class UserInfoFragment extends Fragment {
         fragmentActivity = getActivity();
 
         btnSave = (Button) fragmentActivity.findViewById(R.id.activity_main_btn_save);
-        btnUploadList = (Button) fragmentActivity.findViewById(R.id.activity_main_btn_upload_list);
         //spinner
         spinnerAge = (Spinner) fragmentActivity.findViewById(R.id.activity_main_spn_age);
         spinnerAge.setSelection(0);
@@ -80,9 +79,6 @@ public class UserInfoFragment extends Fragment {
                     case R.id.activity_main_btn_save:
                         userRegistService.btnSaveClick();
                         break;
-                    case R.id.activity_main_btn_upload_list:
-                        userRegistService.btnUploadClick();
-                        break;
                 }
             }
         };
@@ -90,7 +86,6 @@ public class UserInfoFragment extends Fragment {
         btnGenderMan.setOnClickListener(Listener);
         btnGenderWoman.setOnClickListener(Listener);
         btnSave.setOnClickListener(Listener);
-        btnUploadList.setOnClickListener(Listener);
     }
 
 }
