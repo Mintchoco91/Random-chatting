@@ -1,6 +1,7 @@
 package com.kj.random_chatting.userList;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.util.Log;
 import android.widget.LinearLayout;
@@ -23,7 +24,7 @@ public class UserListService {
     private TextView tvName, tvGender, tvAge, tvPhoneNumber;
 
     //slider
-    private ViewPager2 sliderViewPager;
+    public static ViewPager2 sliderViewPager;
     private LinearLayout layoutIndicator;
 
     //page (1페이지 부터 시작)

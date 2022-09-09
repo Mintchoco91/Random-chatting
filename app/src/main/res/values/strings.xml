@@ -4,5 +4,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_2th_Fragment">hello_2th_Fragment(userChatting)</string>
+    <string name="hello_3th_Fragment">hello_3th_Fragment(userLocation)</string>
 </resources>

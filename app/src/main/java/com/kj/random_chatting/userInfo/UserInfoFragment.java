@@ -1,4 +1,4 @@
-package com.kj.random_chatting.userRegist;
+package com.kj.random_chatting.userInfo;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,13 +13,14 @@ import android.widget.Spinner;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.userRegist.UserRegistService;
 
 /**
  * 나중에 사진 업로드부분 fragment 처리할때 참고할 것
  */
 
-public class UserRegistFragment extends Fragment {
-    private static final String TAG = "UserListFragment";
+public class UserInfoFragment extends Fragment {
+    private static final String TAG = "UserInfoFragment";
     private Button btnSave, btnUploadList, btnGenderMan, btnGenderWoman;
     private Spinner spinnerAge;
 

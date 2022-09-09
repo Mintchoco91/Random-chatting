@@ -1,5 +1,7 @@
 package com.kj.random_chatting.userList;
 
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.kj.random_chatting.R;
+
+import java.util.List;
 
 public class UserListFragment extends Fragment {
     private static final String TAG = "UserListFragment";
