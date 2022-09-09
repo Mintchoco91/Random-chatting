@@ -12,10 +12,15 @@
         <entry key="..\:/random-chatting/app/src/main/res/drawable/menu_selector_color.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/drawable/spinner_theme.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/random-chatting/app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/layout/bg_fading_edge.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/layout/bg_indicator_inactive.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/layout/file_upload_activity.xml" value="0.1962962962962963" />
         <entry key="..\:/random-chatting/app/src/main/res/layout/file_upload_list_activity.xml" value="0.17916666666666667" />
+        <entry key="..\:/random-chatting/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
+        <entry key="..\:/random-chatting/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/random-chatting/app/src/main/res/layout/fragment_user_chatting.xml" value="0.1" />
+        <entry key="..\:/random-chatting/app/src/main/res/layout/fragment_user_location.xml" value="0.16666666666666666" />
         <entry key="..\:/random-chatting/app/src/main/res/layout/fragment_user_matching.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/layout/item_slider.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/layout/list_activity.xml" value="0.1" />

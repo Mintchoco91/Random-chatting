@@ -1,4 +1,4 @@
-package com.kj.random_chatting.userMatching;
+package com.kj.random_chatting.userChatting;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import com.kj.random_chatting.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link UserMatchingFragment#newInstance} factory method to
+ * Use the {@link UserChattingFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserMatchingFragment extends Fragment {
+public class UserChattingFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class UserMatchingFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public UserMatchingFragment() {
+    public UserChattingFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class UserMatchingFragment extends Fragment {
      * @return A new instance of fragment UserMatchingFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static UserMatchingFragment newInstance(String param1, String param2) {
-        UserMatchingFragment fragment = new UserMatchingFragment();
+    public static UserChattingFragment newInstance(String param1, String param2) {
+        UserChattingFragment fragment = new UserChattingFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class UserMatchingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_matching, container, false);
+        return inflater.inflate(R.layout.fragment_user_chatting, container, false);
     }
 }
