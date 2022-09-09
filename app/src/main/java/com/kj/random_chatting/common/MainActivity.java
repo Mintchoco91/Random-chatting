@@ -24,7 +24,7 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "Log : " + TAG + " -> onCreate");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
 
         /**
          * 하단 네비게이션 기본 설정 시작

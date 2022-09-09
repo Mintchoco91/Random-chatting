@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.kj.random_chatting.R;
-import com.kj.random_chatting.databinding.ActivityMainBinding;
+import com.kj.random_chatting.databinding.MainActivityBinding;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -16,7 +16,7 @@ public class UserRegistActivity extends AppCompatActivity {
     private Button btnSave, btnUploadList, btnGenderMan, btnGenderWoman;
     private Spinner spinnerAge;
 
-    private ActivityMainBinding binding;
+    private MainActivityBinding binding;
 
     UserRegistService userRegistService;
 
