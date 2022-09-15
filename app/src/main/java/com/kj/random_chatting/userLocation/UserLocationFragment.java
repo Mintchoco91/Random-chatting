@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.databinding.FragmentUserLocationBinding;
+import com.kj.random_chatting.databinding.UserRegistActivityBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +18,7 @@ import com.kj.random_chatting.R;
  * create an instance of this fragment.
  */
 public class UserLocationFragment extends Fragment {
+    private FragmentUserLocationBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,7 +63,14 @@ public class UserLocationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_location, container, false);
+        binding = FragmentUserLocationBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+        return view;
+    }
+
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+        binding = null;
     }
 }

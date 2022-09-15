@@ -20,6 +20,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.databinding.FileUploadActivityBinding;
 import com.kj.random_chatting.userRegist.UserRegistDTO;
 import com.kj.random_chatting.userRegist.UserRegistInformationTaskRxJava;
 
@@ -29,6 +30,7 @@ import java.util.Date;
 
 
 public class FileUploadService extends Activity {
+    private FileUploadActivityBinding fileUploadActivitybinding;
     private static final String TAG = "FileUploadActivity";
     private Context fileUploadServiceContext;
     private Uri[] uriImgPaths = new Uri[6];
@@ -36,18 +38,11 @@ public class FileUploadService extends Activity {
     private String[] strFileNameUri = new String[6];
     private StorageReference storageRef;
     private StorageReference storageDirRef;
-    private ImageView ivUserPicture0, ivUserPicture1, ivUserPicture2, ivUserPicture3, ivUserPicture4, ivUserPicture5;
 
-    public FileUploadService(Context context) {
+    public FileUploadService(Context context, FileUploadActivityBinding binding) {
         fileUploadServiceContext = context;
-        //이미지 추가
-        ivUserPicture0 = ((ImageView) ((Activity) fileUploadServiceContext).findViewById(R.id.file_upload_activity_iv_user_picture0));
-        ivUserPicture1 = ((ImageView) ((Activity) fileUploadServiceContext).findViewById(R.id.file_upload_activity_iv_user_picture1));
-        ivUserPicture2 = ((ImageView) ((Activity) fileUploadServiceContext).findViewById(R.id.file_upload_activity_iv_user_picture2));
-        ivUserPicture3 = ((ImageView) ((Activity) fileUploadServiceContext).findViewById(R.id.file_upload_activity_iv_user_picture3));
-        ivUserPicture4 = ((ImageView) ((Activity) fileUploadServiceContext).findViewById(R.id.file_upload_activity_iv_user_picture4));
-        ivUserPicture5 = ((ImageView) ((Activity) fileUploadServiceContext).findViewById(R.id.file_upload_activity_iv_user_picture5));
-    }
+        fileUploadActivitybinding = binding;
+ }
 
     public void uploadResult(int imgNo, int resultCode, Intent data) {
         uriImgPaths[imgNo] = data.getData();
@@ -57,22 +52,22 @@ public class FileUploadService extends Activity {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(fileUploadServiceContext.getContentResolver(), uriImgPaths[imgNo]);
             switch (imgNo) {
                 case 0:
-                    ivUserPicture0.setImageBitmap(bitmap);
+                    fileUploadActivitybinding.fileUploadActivityIvUserPicture0.setImageBitmap(bitmap);
                     break;
                 case 1:
-                    ivUserPicture1.setImageBitmap(bitmap);
+                    fileUploadActivitybinding.fileUploadActivityIvUserPicture1.setImageBitmap(bitmap);
                     break;
                 case 2:
-                    ivUserPicture2.setImageBitmap(bitmap);
+                    fileUploadActivitybinding.fileUploadActivityIvUserPicture2.setImageBitmap(bitmap);
                     break;
                 case 3:
-                    ivUserPicture3.setImageBitmap(bitmap);
+                    fileUploadActivitybinding.fileUploadActivityIvUserPicture3.setImageBitmap(bitmap);
                     break;
                 case 4:
-                    ivUserPicture4.setImageBitmap(bitmap);
+                    fileUploadActivitybinding.fileUploadActivityIvUserPicture4.setImageBitmap(bitmap);
                     break;
                 case 5:
-                    ivUserPicture5.setImageBitmap(bitmap);
+                    fileUploadActivitybinding.fileUploadActivityIvUserPicture5.setImageBitmap(bitmap);
                     break;
             }
 
@@ -98,22 +93,22 @@ public class FileUploadService extends Activity {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriImgPaths[imgNo]);
                 switch (imgNo) {
                     case 0:
-                        ivUserPicture0.setImageBitmap(bitmap);
+                        fileUploadActivitybinding.fileUploadActivityIvUserPicture0.setImageBitmap(bitmap);
                         break;
                     case 1:
-                        ivUserPicture1.setImageBitmap(bitmap);
+                        fileUploadActivitybinding.fileUploadActivityIvUserPicture1.setImageBitmap(bitmap);
                         break;
                     case 2:
-                        ivUserPicture2.setImageBitmap(bitmap);
+                        fileUploadActivitybinding.fileUploadActivityIvUserPicture2.setImageBitmap(bitmap);
                         break;
                     case 3:
-                        ivUserPicture3.setImageBitmap(bitmap);
+                        fileUploadActivitybinding.fileUploadActivityIvUserPicture3.setImageBitmap(bitmap);
                         break;
                     case 4:
-                        ivUserPicture4.setImageBitmap(bitmap);
+                        fileUploadActivitybinding.fileUploadActivityIvUserPicture4.setImageBitmap(bitmap);
                         break;
                     case 5:
-                        ivUserPicture5.setImageBitmap(bitmap);
+                        fileUploadActivitybinding.fileUploadActivityIvUserPicture0.setImageBitmap(bitmap);
                         break;
                 }
 
@@ -195,13 +190,6 @@ public class FileUploadService extends Activity {
      *  버튼 클릭 이벤트 시작
      **************************************************************/
 
-    public void ivUserPictureClick(Integer tag) {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        ((FileUploadActivity) fileUploadServiceContext).startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), tag);
-    }
-
     public void btnBackClick() {
         finish();
     }
@@ -210,6 +198,7 @@ public class FileUploadService extends Activity {
         UserRegistInformationTaskRxJava userRegistInformationTaskRxJava =
                 new UserRegistInformationTaskRxJava(
                         fileUploadServiceContext
+                        , fileUploadActivitybinding
                         , userRegistInputDTO.getUserName()
                         , userRegistInputDTO.getGender()
                         , userRegistInputDTO.getAge()
