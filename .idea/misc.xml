@@ -7,6 +7,7 @@
         <entry key="..\:/random-chatting/app/src/main/res/drawable/bg_indicator_active.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/drawable/btn_blue.xml" value="0.103" />
         <entry key="..\:/random-chatting/app/src/main/res/drawable/btn_white.xml" value="0.103" />
+        <entry key="..\:/random-chatting/app/src/main/res/drawable/button_background.xml" value="0.1265" />
         <entry key="..\:/random-chatting/app/src/main/res/drawable/color_change.xml" value="0.103" />
         <entry key="..\:/random-chatting/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/drawable/menu_selector_color.xml" value="0.1" />
@@ -29,8 +30,9 @@
         <entry key="..\:/random-chatting/app/src/main/res/layout/slide_sample.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/layout/test.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/layout/user_list_activity.xml" value="0.13333333333333333" />
-        <entry key="..\:/random-chatting/app/src/main/res/layout/user_regist_activity.xml" value="0.140625" />
+        <entry key="..\:/random-chatting/app/src/main/res/layout/user_regist_activity.xml" value="0.12" />
         <entry key="..\:/random-chatting/app/src/main/res/layout/user_register_activity.xml" value="0.1" />
+        <entry key="..\:/random-chatting/app/src/main/res/menu/bottom_nav_menu.xml" value="0.15416666666666667" />
       </map>
     </option>
   </component>

@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.databinding.FileUploadActivityBinding;
 import com.kj.random_chatting.util.Retrofit_client;
 
 import org.json.JSONException;
@@ -24,31 +25,29 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 
 public class UserRegistInformationTaskRxJava {
+    private FileUploadActivityBinding fileUploadActivityBinding;
     Context fileUploadActivityContext;
     Disposable backgroundTask;
     private String userName, gender, age, phoneNumber;
     private String[] fileNameUri = new String[6];
-    Button btnBack, btnRegist;
 
 
-    public UserRegistInformationTaskRxJava(Context context, String strUserName, String strGender
+    public UserRegistInformationTaskRxJava(Context context, FileUploadActivityBinding binding, String strUserName, String strGender
             , String strAge, String strPhoneNumber, String[] strFileNameUri) {
         fileUploadActivityContext = context;
+        fileUploadActivityBinding = binding;
         userName = strUserName;
         gender = strGender;
         age = strAge;
         phoneNumber = strPhoneNumber;
         fileNameUri = strFileNameUri;
-
-        btnRegist = ((Button) ((Activity) fileUploadActivityContext).findViewById(R.id.file_upload_activity_btn_regist));
-        btnBack = ((Button) ((Activity) fileUploadActivityContext).findViewById(R.id.file_upload_activity_btn_back));
     }
 
     //결과 처리
     private void resultPost(Integer code) {
         if (code == 0) {
-            btnRegist.setEnabled(false);
-            btnBack.setEnabled(false);
+            fileUploadActivityBinding.fileUploadActivityBtnRegist.setEnabled(false);
+            fileUploadActivityBinding.fileUploadActivityBtnBack.setEnabled(false);
             Toast.makeText(fileUploadActivityContext, "등록 성공", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(fileUploadActivityContext, "등록 실패 ! ErrorCode : " + code, Toast.LENGTH_LONG).show();

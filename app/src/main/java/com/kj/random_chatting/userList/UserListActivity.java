@@ -8,27 +8,29 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.databinding.MainActivityBinding;
+import com.kj.random_chatting.databinding.UserListActivityBinding;
 
 import java.util.List;
 
 public class UserListActivity extends Activity {
-    private Button btnNextUser;
-
+    private UserListActivityBinding binding;
     UserListService userListService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_list_activity);
+        binding = UserListActivityBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         initializeView();
         setListener();
     }
 
     private void initializeView() {
-        btnNextUser = (Button) findViewById(R.id.user_list_activity_btn_next_user);
-        userListService = new UserListService(this);
-        FindUserInformationTaskRxJava findUserInformationTaskRxJava = new FindUserInformationTaskRxJava(this);
+        userListService = new UserListService(this, binding);
+        FindUserInformationTaskRxJava findUserInformationTaskRxJava = new FindUserInformationTaskRxJava(this, binding);
         findUserInformationTaskRxJava.runFunc();
     }
 
@@ -45,6 +47,6 @@ public class UserListActivity extends Activity {
             }
         };
 
-        btnNextUser.setOnClickListener(Listener);
+        binding.userListActivityBtnNextUser.setOnClickListener(Listener);
     }
 }

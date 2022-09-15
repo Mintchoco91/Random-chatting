@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.databinding.UserListActivityBinding;
 import com.kj.random_chatting.util.Retrofit_client;
 
 import org.json.JSONArray;
@@ -29,13 +30,15 @@ import retrofit2.Call;
  * 유저 정보 검색
  */
 public class FindUserInformationTaskRxJava {
+    private UserListActivityBinding userListActivityBinding;
     Context userListActivityContext;
     Disposable backgroundTask;
 
     List<UserListDTO.outputDTO> localUserList = new ArrayList<>();
 
-    public FindUserInformationTaskRxJava(Context context) {
+    public FindUserInformationTaskRxJava(Context context, UserListActivityBinding binding) {
         userListActivityContext = context;
+        userListActivityBinding = binding;
     }
 
     //결과 처리
@@ -44,7 +47,7 @@ public class FindUserInformationTaskRxJava {
             //전역 변수
             UserListService.mainUserList = localUserList;
 
-            UserListService userListService = new UserListService(userListActivityContext);
+            UserListService userListService = new UserListService(userListActivityContext, userListActivityBinding);
             userListService.showInformation(localUserList.get(0));
 
             Toast.makeText(userListActivityContext, "조회 성공", Toast.LENGTH_LONG).show();
