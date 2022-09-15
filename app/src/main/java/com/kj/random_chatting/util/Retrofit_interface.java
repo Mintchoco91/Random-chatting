@@ -1,6 +1,10 @@
 package com.kj.random_chatting.util;
 
+import com.kj.random_chatting.login.LoginRequest;
+import com.kj.random_chatting.login.LoginResponse;
+
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -27,5 +31,8 @@ public interface Retrofit_interface {
     Call<String> findUserInformation(
             @Field("mode") String mode
     );
+
+    @POST("/userLogin.php")
+    Call<LoginResponse> getLoginResponse(@Body LoginRequest loginRequest);
 
 }
