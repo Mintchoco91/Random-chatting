@@ -9,9 +9,9 @@ random-chatting-prototype
 
  - Android
  
-  - 언어 : Android Java
-  - sdk Version: 32
-  - Image Save Storage : Firebase Cloud Storage
+   - 언어 : Android Java
+   - sdk Version: 32
+   - Image Save Storage : Firebase Cloud Storage
 
  - Rest API Server
  
