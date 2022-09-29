@@ -21,7 +21,7 @@ random-chatting-prototype
  
    - Hosting : Heroku
    - DEV language : Nodejs 16
-   - socket.IO Server Version : 4.5.2
-   - socket.IO Client Version : 2.1.0
+   - Socket.IO Server Version : 4.5.2
+   - Socket.IO Client Version : 2.1.0
    - Socket.IO Compatibility Info : https://socketio.github.io/socket.io-client-java/installation.html
    - Repository : https://github.com/Mintchoco91/random-chatting-chat-server
