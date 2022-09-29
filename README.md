@@ -5,7 +5,7 @@ random-chatting-prototype
 
  - Android
  
-   - 언어 : Android Java
+   - DEV language : Android Java
    - sdk Version: 32
    - Image Save Storage : Firebase Cloud Storage
    - Repository : https://github.com/Mintchoco91/random-chatting (현재 Repository)
@@ -21,5 +21,7 @@ random-chatting-prototype
  
    - Hosting : Heroku
    - DEV language : Nodejs 16.x
-   - socketIO version : 4.5.2
+   - socketIO Server Version : 4.5.2
+   - socketIO Client Version : 2.1.0
+   - Socket Compatibility Info : https://socketio.github.io/socket.io-client-java/installation.html
    - Repository : https://github.com/Mintchoco91/random-chatting-chat-server
