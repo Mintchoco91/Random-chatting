@@ -1,6 +1,7 @@
 package com.kj.random_chatting.userChatting;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -49,7 +50,7 @@ public class UserChattingFragment extends Fragment {
     private void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = getContext();
-
+        binding.fragmentUserChattingTvChatScreen.setTextColor(Color.BLACK);
         userChattingService = new UserChattingService(context, binding);
     }
 

@@ -26,7 +26,7 @@ public class UserChattingService extends Activity {
 
         try {
             socket = IO.socket(socketBaseURL);
-            socket.on("msg", onMessage);
+            socket.on("ServerToClientMsg", onMessage);
             socket.connect();
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -34,7 +34,10 @@ public class UserChattingService extends Activity {
     }
 
     public void btnSendClick(String chatMessage){
-        socket.emit("msg", chatMessage);
+        //공백 입력일 경우 서버 전송 안함.
+        if(!chatMessage.equals("")) {
+            socket.emit("clientToServerMsg", chatMessage);
+        }
     }
 
     private Emitter.Listener onMessage = new Emitter.Listener() {
@@ -44,6 +47,14 @@ public class UserChattingService extends Activity {
                 @Override
                 public void run() {
                     String data = (String) args[0];
+                    String historyChatText = fragmentUserChattingBinding.fragmentUserChattingTvChatScreen.getText().toString();
+                    //가장 첫 메세지일 경우, 개행 안함
+                    if (historyChatText != null && !historyChatText.equals("")) {
+                        historyChatText = historyChatText + "\n";
+                    }
+                    String recentChatText = historyChatText + data;
+                    fragmentUserChattingBinding.fragmentUserChattingTvChatScreen.setText(recentChatText);
+                    fragmentUserChattingBinding.fragmentUserChattingEtMessage.setText("");
                     Log.e("get", data);
                 }
             });
