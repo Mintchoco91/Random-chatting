@@ -3,8 +3,10 @@ package com.kj.random_chatting.common;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -12,12 +14,14 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.databinding.MainActivityBinding;
 import com.kj.random_chatting.userList.UserListFragment;
 import com.kj.random_chatting.userChatting.UserChattingFragment;
 import com.kj.random_chatting.userInfo.UserInfoFragment;
 import com.kj.random_chatting.userLocation.UserLocationFragment;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
+    private MainActivityBinding binding;
     private FragmentManager fragmentManager;
     private Fragment matchingFragment, chattingFragment, locationFragment, infoFragment;
     private static final String TAG = "MainActivity";
@@ -26,19 +30,20 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "Log : " + TAG + " -> onCreate");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+        binding = MainActivityBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
         fragmentManager = getSupportFragmentManager();
 
         /**
          * 하단 네비게이션 기본 설정 시작
          */
-        BottomNavigationView navView = findViewById(R.id.nav_view);
 
         //첫 실행 시 첫번째 fragment 무조건 실행
         matchingFragment = new UserListFragment();
         fragmentManager.beginTransaction().replace(R.id.frameLayout, matchingFragment).commit();
 
-        navView.setOnItemSelectedListener(
+        binding.navView.setOnItemSelectedListener(
                 new NavigationBarView.OnItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -116,7 +121,7 @@ public class MainActivity extends FragmentActivity {
                 }
         );
 
-        navView.setSelectedItemId(R.id.navigation_matching);
+        binding.navView.setSelectedItemId(R.id.navigation_matching);
 
         /**
          * 하단 네비게이션 기본 설정 끝

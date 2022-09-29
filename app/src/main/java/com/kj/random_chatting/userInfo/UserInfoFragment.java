@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.databinding.UserRegistActivityBinding;
 import com.kj.random_chatting.userRegist.UserRegistService;
 
 /**
@@ -20,20 +21,20 @@ import com.kj.random_chatting.userRegist.UserRegistService;
  */
 
 public class UserInfoFragment extends Fragment {
+    private UserRegistActivityBinding binding;
     private static final String TAG = "UserInfoFragment";
-    private Button btnSave, btnGenderMan, btnGenderWoman;
-    private Spinner spinnerAge;
 
     private UserRegistService userRegistService;
     private Context context;
-    private FragmentActivity fragmentActivity;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d(TAG, "Log : " + TAG + " -> onCreateView");
-        return inflater.inflate(R.layout.user_regist_activity, container, false);
+        binding = UserRegistActivityBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+        return view;
     }
 
     @Override
@@ -44,24 +45,23 @@ public class UserInfoFragment extends Fragment {
         setListener();
     }
 
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+        binding = null;
+    }
+
     private void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = getContext();
-        fragmentActivity = getActivity();
 
-        btnSave = (Button) fragmentActivity.findViewById(R.id.activity_main_btn_save);
-        //spinner
-        spinnerAge = (Spinner) fragmentActivity.findViewById(R.id.activity_main_spn_age);
-        spinnerAge.setSelection(0);
+        binding.activityMainSpnAge.setSelection(0);
         ArrayAdapter adapterAge = ArrayAdapter.createFromResource(context,
                 R.array.age, android.R.layout.simple_spinner_item);
         adapterAge.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAge.setPrompt("나이를 선택하세요.");
-        spinnerAge.setAdapter(adapterAge);
-
-        btnGenderMan = fragmentActivity.findViewById(R.id.activity_main_btn_gender_man);
-        btnGenderWoman = fragmentActivity.findViewById(R.id.activity_main_btn_gender_woman);
-        userRegistService = new UserRegistService(context);
+        binding.activityMainSpnAge.setPrompt("나이를 선택하세요.");
+        binding.activityMainSpnAge.setAdapter(adapterAge);
+        userRegistService = new UserRegistService(context, binding);
     }
 
     private void setListener() {
@@ -83,9 +83,9 @@ public class UserInfoFragment extends Fragment {
             }
         };
 
-        btnGenderMan.setOnClickListener(Listener);
-        btnGenderWoman.setOnClickListener(Listener);
-        btnSave.setOnClickListener(Listener);
+        binding.activityMainBtnGenderMan.setOnClickListener(Listener);
+        binding.activityMainBtnGenderWoman.setOnClickListener(Listener);
+        binding.activityMainBtnSave.setOnClickListener(Listener);
     }
 
 }

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.common.MainActivity;
+import com.kj.random_chatting.databinding.LoginActivityBinding;
 import com.kj.random_chatting.userRegist.UserRegistActivity;
 import com.kj.random_chatting.util.Retrofit_client;
 
@@ -19,18 +20,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-
-    private EditText user_email, user_password;
-    private Button login_button, regist_button, list_button;
+    private LoginActivityBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_activity);
+        binding = LoginActivityBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         // 회원가입 버튼 관련 리스너 등록
-        regist_button = findViewById( R.id.login_activity_btn_regist);
-        regist_button.setOnClickListener( new View.OnClickListener() {
+        binding.loginActivityBtnRegist.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent( LoginActivity.this, UserRegistActivity.class );
@@ -39,8 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // 회원 목록 조회
-        list_button = findViewById(R.id.button_user_list);
-        list_button.setOnClickListener( new View.OnClickListener() {
+        binding.buttonUserList.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent( LoginActivity.this, MainActivity.class );
@@ -49,21 +48,17 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // 로그인 버튼 관련
-        user_email = findViewById(R.id.login_activity_et_email);
-        user_password = findViewById(R.id.login_activity_et_password);
-        login_button = findViewById(R.id.login_activity_btn_login);
-        login_button.setOnClickListener(new View.OnClickListener() {
+        binding.loginActivityBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // doLogin();
             }
         });
-
     }
 
     public void doLogin() {
-        String email = user_email.getText().toString().trim();
-        String password = user_password.getText().toString().trim();
+        String email = binding.loginActivityEtEmail.getText().toString().trim();
+        String password = binding.loginActivityEtPassword.getText().toString().trim();
 
         LoginRequest loginRequest = new LoginRequest(email, password);
 

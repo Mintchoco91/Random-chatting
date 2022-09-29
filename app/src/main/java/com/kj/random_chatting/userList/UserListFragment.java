@@ -14,12 +14,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.databinding.UserListActivityBinding;
+import com.kj.random_chatting.databinding.UserRegistActivityBinding;
 
 import java.util.List;
 
 public class UserListFragment extends Fragment {
+    private UserListActivityBinding binding;
     private static final String TAG = "UserListFragment";
-    private Button btnNextUser;
     private UserListService userListService;
     private Context context;
     private FragmentActivity fragmentActivity;
@@ -28,7 +30,9 @@ public class UserListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d(TAG, "Log : " + TAG + " -> onCreateView");
-        return inflater.inflate(R.layout.user_list_activity, container, false);
+        binding = UserListActivityBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+        return view;
     }
 
     @Override
@@ -39,14 +43,19 @@ public class UserListFragment extends Fragment {
         setListener();
     }
 
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+        binding = null;
+    }
+
     public void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = getContext();
         fragmentActivity = getActivity();
 
-        btnNextUser = (Button) fragmentActivity.findViewById(R.id.user_list_activity_btn_next_user);
-        userListService = new UserListService(context);
-        FindUserInformationTaskRxJava findUserInformationTaskRxJava = new FindUserInformationTaskRxJava(context);
+        userListService = new UserListService(context, binding);
+        FindUserInformationTaskRxJava findUserInformationTaskRxJava = new FindUserInformationTaskRxJava(context, binding);
         findUserInformationTaskRxJava.runFunc();
     }
 
@@ -64,6 +73,6 @@ public class UserListFragment extends Fragment {
             }
         };
 
-        btnNextUser.setOnClickListener(Listener);
+        binding.userListActivityBtnNextUser.setOnClickListener(Listener);
     }
 }

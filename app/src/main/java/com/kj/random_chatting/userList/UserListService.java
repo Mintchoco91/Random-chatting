@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.databinding.UserListActivityBinding;
 import com.kj.random_chatting.util.ViewPagerClass;
 import com.kj.random_chatting.util.ImageSliderAdapter;
 
@@ -18,37 +19,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserListService {
+    private UserListActivityBinding userListActivityBinding;
     private static final String TAG = "UserListFragment";
     public static List<UserListDTO.outputDTO> mainUserList = new ArrayList<>();
     Context userListServiceContext;
-    private TextView tvName, tvGender, tvAge, tvPhoneNumber;
-
-    //slider
-    public static ViewPager2 sliderViewPager;
-    private LinearLayout layoutIndicator;
 
     //page (1페이지 부터 시작)
     private Integer currentPageCnt = 1;
 
-    public UserListService(Context context) {
+    public UserListService(Context context, UserListActivityBinding binding) {
         Log.d(TAG, "Log : " + TAG + " -> UserListService");
         userListServiceContext = context;
-        tvName = ((TextView) ((Activity) userListServiceContext).findViewById(R.id.user_list_activity_tv_name));
-        tvGender = ((TextView) ((Activity) userListServiceContext).findViewById(R.id.user_list_activity_tv_gender));
-        tvAge = ((TextView) ((Activity) userListServiceContext).findViewById(R.id.user_list_activity_tv_age));
-        tvPhoneNumber = ((TextView) ((Activity) userListServiceContext).findViewById(R.id.user_list_activity_tv_phone_number));
-        sliderViewPager = ((ViewPager2) ((Activity) userListServiceContext).findViewById(R.id.sliderViewPager));
-        layoutIndicator = ((LinearLayout) ((Activity) userListServiceContext).findViewById(R.id.layoutIndicators));
-
-        sliderViewPager.setOffscreenPageLimit(1);
+        userListActivityBinding = binding;
+        userListActivityBinding.sliderViewPager.setOffscreenPageLimit(1);
     }
 
     public void showInformation(UserListDTO.outputDTO info) {
         Log.d(TAG, "Log : " + TAG + " -> showInformation");
-        tvName.setText(info.getUserName());
-        tvGender.setText(info.getGender());
-        tvAge.setText(info.getAge());
-        tvPhoneNumber.setText(info.getPhoneNumber());
+        userListActivityBinding.userListActivityTvName.setText(info.getUserName());
+        userListActivityBinding.userListActivityTvGender.setText(info.getGender());
+        userListActivityBinding.userListActivityTvAge.setText(info.getAge());
+        userListActivityBinding.userListActivityTvPhoneNumber.setText(info.getPhoneNumber());
 
         if (info.getFileNameList().size() > 0) {
             String[] fileNameArray = info.getFileNameList().toArray(new String[info.getFileNameList().size()]);
@@ -66,10 +57,10 @@ public class UserListService {
 
     public void showPhoto(String[] fileNameArray) {
         Log.d(TAG, "Log : " + TAG + " -> showPhoto");
-        sliderViewPager.setAdapter(new ImageSliderAdapter(userListServiceContext, fileNameArray));
+        userListActivityBinding.sliderViewPager.setAdapter(new ImageSliderAdapter(userListServiceContext, fileNameArray));
 
-        ViewPagerClass viewPagerClass = new ViewPagerClass(userListServiceContext, layoutIndicator);
-        sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        ViewPagerClass viewPagerClass = new ViewPagerClass(userListServiceContext, userListActivityBinding.layoutIndicators);
+        userListActivityBinding.sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);

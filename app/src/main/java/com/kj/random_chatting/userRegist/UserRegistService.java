@@ -11,25 +11,19 @@ import android.widget.Toast;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.UserFileUpload.FileUploadActivity;
+import com.kj.random_chatting.databinding.UserRegistActivityBinding;
 import com.kj.random_chatting.userList.UserListActivity;
 
 public class UserRegistService {
+    private UserRegistActivityBinding userRegistActivityBinding;
     private static final String TAG = "UserRegistService";
     private Context userRegistServiceContext;
-    private EditText etUserName, etPhoneNumber;
-    private Button btnGenderMan, btnGenderWoman;
-    private Spinner spinnerAge;
     private String strUserName, strGender, strAge, strPhoneNumber;
 
-
-    public UserRegistService(Context context) {
+    public UserRegistService(Context context, UserRegistActivityBinding binding) {
         Log.d(TAG, "Log : " + TAG + " -> UserRegistService");
         userRegistServiceContext = context;
-        etUserName = ((EditText) ((Activity) userRegistServiceContext).findViewById(R.id.activity_main_et_user_name));
-        btnGenderMan = ((Button) ((Activity) userRegistServiceContext).findViewById(R.id.activity_main_btn_gender_man));
-        btnGenderWoman = ((Button) ((Activity) userRegistServiceContext).findViewById(R.id.activity_main_btn_gender_woman));
-        spinnerAge = ((Spinner) ((Activity) userRegistServiceContext).findViewById(R.id.activity_main_spn_age));
-        etPhoneNumber = ((EditText) ((Activity) userRegistServiceContext).findViewById(R.id.activity_main_et_phone_number));
+        userRegistActivityBinding = binding;
     }
 
     // 기본사항 validation
@@ -38,22 +32,22 @@ public class UserRegistService {
         Log.d(TAG, "Log : " + TAG + " -> validation");
         if (registInputDTO.getUserName().length() == 0) {
             Toast.makeText(userRegistServiceContext, "이름을 입력하세요.", Toast.LENGTH_SHORT).show();
-            etUserName.requestFocus();
+            userRegistActivityBinding.activityMainEtUserName.requestFocus();
             return true;
         }
         if (registInputDTO.getGender() == null) {
             Toast.makeText(userRegistServiceContext, "성별을 선택하세요.", Toast.LENGTH_SHORT).show();
-            btnGenderMan.requestFocus();
+            userRegistActivityBinding.activityMainBtnGenderMan.requestFocus();
             return true;
         }
         if (registInputDTO.getAge().equals("선택")) {
             Toast.makeText(userRegistServiceContext, "나이를 선택하세요.", Toast.LENGTH_SHORT).show();
-            spinnerAge.requestFocus();
+            userRegistActivityBinding.activityMainSpnAge.requestFocus();
             return true;
         }
         if (registInputDTO.getPhoneNumber().length() == 0) {
             Toast.makeText(userRegistServiceContext, "핸드폰 번호를 입력하세요.", Toast.LENGTH_SHORT).show();
-            etPhoneNumber.requestFocus();
+            userRegistActivityBinding.activityMainEtPhoneNumber.requestFocus();
             return true;
         }
         return false;
@@ -80,10 +74,10 @@ public class UserRegistService {
         strGender = genderText;
         switch (strGender) {
             case "남":
-                btnGenderWoman.setSelected(false);
+                userRegistActivityBinding.activityMainBtnGenderWoman.setSelected(false);
                 break;
             case "여":
-                btnGenderMan.setSelected(false);
+                userRegistActivityBinding.activityMainBtnGenderMan.setSelected(false);
                 break;
             default:
                 break;
@@ -93,9 +87,9 @@ public class UserRegistService {
     public void btnSaveClick() {
         Log.d(TAG, "Log : " + TAG + "btnSaveClick");
         boolean isError = true;
-        strUserName = String.valueOf(etUserName.getText()).trim();
-        strAge = spinnerAge.getSelectedItem().toString();
-        strPhoneNumber = String.valueOf(etPhoneNumber.getText()).trim();
+        strUserName = String.valueOf(userRegistActivityBinding.activityMainEtUserName.getText()).trim();
+        strAge = userRegistActivityBinding.activityMainSpnAge.getSelectedItem().toString();
+        strPhoneNumber = String.valueOf(userRegistActivityBinding.activityMainEtPhoneNumber.getText()).trim();
 
         UserRegistDTO.inputDTO registInputDTO = new UserRegistDTO.inputDTO();
         registInputDTO.setUserName(strUserName);
