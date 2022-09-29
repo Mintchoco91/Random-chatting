@@ -6,11 +6,13 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.FragmentUserChattingBinding;
@@ -51,6 +53,7 @@ public class UserChattingFragment extends Fragment {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = getContext();
         binding.fragmentUserChattingTvChatScreen.setTextColor(Color.BLACK);
+        binding.fragmentUserChattingTvChatScreen.setMovementMethod(new ScrollingMovementMethod());
         userChattingService = new UserChattingService(context, binding);
     }
 
