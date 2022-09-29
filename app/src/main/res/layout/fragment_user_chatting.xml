@@ -8,12 +8,13 @@
     tools:context=".userChatting.UserChattingFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
     <TextView
         android:id="@+id/fragment_user_chatting_tv_chat_screen"
         android:layout_width="match_parent"
         android:layout_height="400dp"
+        android:paddingLeft="5dp"
         android:background="@drawable/btn_white"
+        android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
