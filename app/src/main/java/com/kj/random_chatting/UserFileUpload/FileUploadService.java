@@ -31,7 +31,7 @@ import java.util.Date;
 
 public class FileUploadService extends Activity {
     private FileUploadActivityBinding fileUploadActivitybinding;
-    private static final String TAG = "FileUploadActivity";
+    private static final String TAG = "FileUploadService";
     private Context fileUploadServiceContext;
     private Uri[] uriImgPaths = new Uri[6];
     private String[] strFileNames = new String[6];
@@ -42,7 +42,7 @@ public class FileUploadService extends Activity {
     public FileUploadService(Context context, FileUploadActivityBinding binding) {
         fileUploadServiceContext = context;
         fileUploadActivitybinding = binding;
- }
+    }
 
     public void uploadResult(int imgNo, int resultCode, Intent data) {
         uriImgPaths[imgNo] = data.getData();

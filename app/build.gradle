@@ -69,4 +69,9 @@ dependencies {
     implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
     // ViewPager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+    // socketIO
+    implementation ('io.socket:socket.io-client:2.1.0') {
+        // excluding org.json which is provided by Android
+        exclude group: 'org.json', module: 'json'
+    }
 }
