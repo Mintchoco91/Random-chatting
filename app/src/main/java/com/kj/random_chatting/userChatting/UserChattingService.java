@@ -67,14 +67,11 @@ public class UserChattingService extends Activity {
     //서버에서 받은 메세지 표기
     private void refreshChatScreen(String ServerToClientMsg){
         String historyChatText = fragmentUserChattingBinding.fragmentUserChattingTvChatScreen.getText().toString();
-        String recentChatText = "";
-        //가장 첫 메세지일 경우, 개행 안함
+        //두번째 줄 부터 개행 처리
         if (historyChatText != null && !historyChatText.equals("")) {
-            recentChatText = "\n" + ServerToClientMsg;
-        }else{
-            recentChatText = ServerToClientMsg;
+            fragmentUserChattingBinding.fragmentUserChattingTvChatScreen.append("\n");
         }
-        fragmentUserChattingBinding.fragmentUserChattingTvChatScreen.append(recentChatText);
+        fragmentUserChattingBinding.fragmentUserChattingTvChatScreen.append(ServerToClientMsg);
         fragmentUserChattingBinding.fragmentUserChattingEtMessage.setText("");
         scrollBottom(fragmentUserChattingBinding.fragmentUserChattingTvChatScreen);
     }
