@@ -12,6 +12,7 @@ import com.kj.random_chatting.databinding.UserRegistActivityBinding;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatRadioButton;
 
 public class UserRegistActivity extends AppCompatActivity {
     private UserRegistActivityBinding binding;
@@ -45,7 +46,7 @@ public class UserRegistActivity extends AppCompatActivity {
                 switch (v.getId()) {
                     case R.id.activity_main_btn_gender_man:
                     case R.id.activity_main_btn_gender_woman:
-                        String genderText = ((AppCompatButton) v).getText().toString();
+                        String genderText = ((AppCompatRadioButton) v).getText().toString();
                         userRegistService.btnGenderClick(genderText);
                         v.setSelected(!v.isSelected());
                         break;
