@@ -6,7 +6,7 @@ random-chatting-prototype
  - Android
  
    - DEV language : Android Java
-   - sdk Version: 32
+   - SDK Version: 32
    - Image Save Storage : Firebase Cloud Storage
    - Repository : https://github.com/Mintchoco91/random-chatting (현재 Repository)
 
