@@ -6,12 +6,21 @@ random-chatting-prototype
 - 해당 어플에서 사용하는 Socket Server Repository -> https://github.com/Mintchoco91/random-chatting-chat-server
  
 [Spec]
-- 언어 : Android Java
-- sdk : 32
-- Information Save DataBase : JawsDB Maria (Heroku Hosting)
-- Image Save Storage : Firebase Cloud Storage
+
+ - Android
+ 
+  - 언어 : Android Java
+  - sdk Version: 32
+  - Image Save Storage : Firebase Cloud Storage
+
+ - Rest API Server
+ 
+   - Hosting : Heroku
+   - DEV language : PHP 5.3
+   - Database : JawsDB Maria (Heroku Hosting)
 
  - Socket Server 
+ 
    - Hosting : Heroku
-   - 언어 : Nodejs 16.x
+   - DEV language : Nodejs 16.x
    - socket Server version : socket.io 4.5.2
