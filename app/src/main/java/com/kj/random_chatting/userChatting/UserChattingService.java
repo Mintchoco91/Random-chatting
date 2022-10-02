@@ -7,6 +7,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.kj.random_chatting.common.UtilClass;
 import com.kj.random_chatting.databinding.FragmentUserChattingBinding;
 
 import java.net.URISyntaxException;
@@ -17,6 +18,8 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 public class UserChattingService extends Activity {
+    private UtilClass utilClass;
+
     private Socket socket;
     private static final String TAG = "UserChattingService";
     private FragmentUserChattingBinding fragmentUserChattingBinding;
@@ -24,8 +27,10 @@ public class UserChattingService extends Activity {
     private final String socketBaseURL = "https://random-chatting-chat-server.herokuapp.com/";
     private String tempId = "";
 
+
     public UserChattingService(Context context, FragmentUserChattingBinding binding) {
         Log.d(TAG, "Log : " + TAG + " -> UserChattingService");
+        utilClass = new UtilClass();
         userChattingServiceContext = context;
         fragmentUserChattingBinding = binding;
 
@@ -73,18 +78,8 @@ public class UserChattingService extends Activity {
         }
         fragmentUserChattingBinding.fragmentUserChattingTvChatScreen.append(ServerToClientMsg);
         fragmentUserChattingBinding.fragmentUserChattingEtMessage.setText("");
-        scrollBottom(fragmentUserChattingBinding.fragmentUserChattingTvChatScreen);
+        utilClass.scrollBottom(fragmentUserChattingBinding.fragmentUserChattingTvChatScreen);
     }
 
-    //textView 밑으로 자동 스크롤처리
-    private void scrollBottom(TextView textView) {
-        int lineTop =  textView.getLayout().getLineTop(textView.getLineCount()) ;
-        int scrollY = lineTop - textView.getHeight();
-        if (scrollY > 0) {
-            textView.scrollTo(0, scrollY);
-        } else {
-            textView.scrollTo(0, 0);
-        }
-    }
 
 }
