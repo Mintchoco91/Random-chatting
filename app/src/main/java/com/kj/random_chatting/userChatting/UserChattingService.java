@@ -32,7 +32,7 @@ public class UserChattingService extends Activity {
         userChattingServiceContext = context;
         fragmentUserChattingBinding = binding;
 
-        //임시방편으로 랜덤 닉네임
+        //임시방편 으로 랜덤 닉네임
         Random random = new Random();
         bound = random.nextInt(999999);
         tempId = "임시계정" + bound;
