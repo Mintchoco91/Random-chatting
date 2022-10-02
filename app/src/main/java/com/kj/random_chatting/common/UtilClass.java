@@ -10,7 +10,7 @@ public class UtilClass {
 
     /**
      * textView 스크롤바 넘어갈 시 밑으로 자동 스크롤처리
-     * [textView객체].setMovementMethod(new ScrollingMovementMethod()) 선언 후 사용 할 것.
+     * [textView객체].setMovementMethod(new ScrollingMovementMethod()) 선언 후 사용 할 것
      */
 
     public void scrollBottom(TextView textView) {
