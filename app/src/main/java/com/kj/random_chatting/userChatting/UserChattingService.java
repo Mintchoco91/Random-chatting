@@ -2,10 +2,7 @@ package com.kj.random_chatting.userChatting;
 
 import android.app.Activity;
 import android.content.Context;
-import android.text.method.LinkMovementMethod;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.kj.random_chatting.common.UtilClass;
 import com.kj.random_chatting.databinding.FragmentUserChattingBinding;
@@ -26,6 +23,7 @@ public class UserChattingService extends Activity {
     private Context userChattingServiceContext;
     private final String socketBaseURL = "https://random-chatting-chat-server.herokuapp.com/";
     private String tempId = "";
+    int bound;
 
 
     public UserChattingService(Context context, FragmentUserChattingBinding binding) {
@@ -36,13 +34,18 @@ public class UserChattingService extends Activity {
 
         //임시방편으로 랜덤 닉네임
         Random random = new Random();
-        int bound = 999999;
-        tempId = "임시계정" + random.nextInt(bound);
+        bound = random.nextInt(999999);
+        tempId = "임시계정" + bound;
 
         try {
             socket = IO.socket(socketBaseURL);
-            socket.on("ServerToClientMsg", onMessage);
             socket.connect();
+
+            //방생성
+            socket.emit("joinRoom", bound);
+
+            //메세지 Listener
+            socket.on("ServerToClientMsg", onMessage);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -51,7 +54,8 @@ public class UserChattingService extends Activity {
     public void btnSendClick(String chatMessage){
         //공백 입력일 경우 서버 전송 안함.
         if(!chatMessage.equals("")) {
-            socket.emit("clientToServerMsg", tempId + " : " + chatMessage);
+            // param -> 방제, 메세지
+            socket.emit("clientToServerMsg", bound, tempId + " : " + chatMessage);
         }
     }
 
@@ -80,6 +84,4 @@ public class UserChattingService extends Activity {
         fragmentUserChattingBinding.fragmentUserChattingEtMessage.setText("");
         utilClass.scrollBottom(fragmentUserChattingBinding.fragmentUserChattingTvChatScreen);
     }
-
-
 }
