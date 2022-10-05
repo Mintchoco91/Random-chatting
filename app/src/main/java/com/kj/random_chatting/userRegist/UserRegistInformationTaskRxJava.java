@@ -1,8 +1,11 @@
 package com.kj.random_chatting.userRegist;
 
+import android.app.Activity;
 import android.content.Context;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.FileUploadActivityBinding;
 import com.kj.random_chatting.util.Retrofit_client;
 
@@ -25,16 +28,14 @@ public class UserRegistInformationTaskRxJava {
     private FileUploadActivityBinding fileUploadActivityBinding;
     Context fileUploadActivityContext;
     Disposable backgroundTask;
-    private String email, password, userName, gender, age, phoneNumber;
+    private String userName, gender, age, phoneNumber;
     private String[] fileNameUri = new String[6];
 
 
-    public UserRegistInformationTaskRxJava(Context context, FileUploadActivityBinding binding, String strEmail, String strPassword, String strUserName, String strGender
+    public UserRegistInformationTaskRxJava(Context context, FileUploadActivityBinding binding, String strUserName, String strGender
             , String strAge, String strPhoneNumber, String[] strFileNameUri) {
         fileUploadActivityContext = context;
         fileUploadActivityBinding = binding;
-        email = strEmail;
-        password = strPassword;
         userName = strUserName;
         gender = strGender;
         age = strAge;
@@ -79,20 +80,19 @@ public class UserRegistInformationTaskRxJava {
             }
 
             //Insert
-            UserRegistDTO.inputDTO dto = new UserRegistDTO.inputDTO();
-            dto.setEmail(email);
-            dto.setPassword(password);
-            dto.setUserName(userName);
-            dto.setGender(gender);
-            dto.setPhoneNumber(phoneNumber);
-            dto.setFileName0(insertFileNames[0]);
-            dto.setFileName1(insertFileNames[1]);
-            dto.setFileName2(insertFileNames[2]);
-            dto.setFileName3(insertFileNames[3]);
-            dto.setFileName4(insertFileNames[4]);
-            dto.setFileName5(insertFileNames[5]);
+            Call<String> call = Retrofit_client.getApiService().registDB(
+                    "insert"
+                    , userName
+                    , gender
+                    , age
+                    , phoneNumber
+                    , insertFileNames[0]
+                    , insertFileNames[1]
+                    , insertFileNames[2]
+                    , insertFileNames[3]
+                    , insertFileNames[4]
+                    , insertFileNames[5]);
 
-            Call<String> call = Retrofit_client.getApiService().createUser(dto);
             String jsonResponse = call.execute().body();
 
             try {

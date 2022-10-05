@@ -61,14 +61,13 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/activity_main_et_email"
+                    android:id="@+id/editTextTextEmailAddress2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:ems="10"
                     android:hint="이메일을 입력하세요"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/black"
                     android:textColorHint="#818181" />
 
             </TableRow>
@@ -85,13 +84,12 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/activity_main_et_password"
+                    android:id="@+id/editTextTextPassword2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="비밀번호를 입력하세요"
                     android:inputType="textPassword"
-                    android:textColor="@color/black"
                     android:textColorHint="#818181" />
             </TableRow>
 
@@ -190,7 +188,6 @@
                     android:ems="10"
                     android:hint="핸드폰 번호를 입력하세요"
                     android:inputType="phone"
-                    android:textColor="@color/black"
                     android:textColorHint="#818181" />
             </TableRow>
 
