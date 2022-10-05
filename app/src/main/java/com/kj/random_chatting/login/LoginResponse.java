@@ -12,6 +12,9 @@ public class LoginResponse {
     @SerializedName("token")
     private String token;
 
+    @SerializedName("code")
+    private int code;
+
     public int getStatus() {
         return status;
     }
@@ -34,5 +37,13 @@ public class LoginResponse {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 }
