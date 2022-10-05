@@ -199,6 +199,8 @@ public class FileUploadService extends Activity {
                 new UserRegistInformationTaskRxJava(
                         fileUploadServiceContext
                         , fileUploadActivitybinding
+                        , userRegistInputDTO.getEmail()
+                        , userRegistInputDTO.getPassword()
                         , userRegistInputDTO.getUserName()
                         , userRegistInputDTO.getGender()
                         , userRegistInputDTO.getAge()
