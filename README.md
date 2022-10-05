@@ -25,3 +25,4 @@ random-chatting-prototype
    - Socket.IO Client Version : 2.1.0
    - Socket.IO Compatibility Info : https://socketio.github.io/socket.io-client-java/installation.html
    - Repository : https://github.com/Mintchoco91/random-chatting-chat-server
+..

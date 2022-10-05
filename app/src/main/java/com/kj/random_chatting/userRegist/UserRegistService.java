@@ -13,7 +13,7 @@ public class UserRegistService {
     private UserRegistActivityBinding userRegistActivityBinding;
     private static final String TAG = "UserRegistService";
     private Context userRegistServiceContext;
-    private String strUserName, strGender, strAge, strPhoneNumber;
+    private String strEmail, strPassword, strUserName, strGender, strAge, strPhoneNumber;
 
     public UserRegistService(Context context, UserRegistActivityBinding binding) {
         Log.d(TAG, "Log : " + TAG + " -> UserRegistService");
@@ -52,6 +52,8 @@ public class UserRegistService {
     public void nextStep(UserRegistDTO.inputDTO registInputDTO) {
         Log.d(TAG, "Log : " + TAG + "nextStep");
         Intent intentUpload = new Intent(userRegistServiceContext, FileUploadActivity.class);
+        intentUpload.putExtra("strEmail", registInputDTO.getEmail());
+        intentUpload.putExtra("strPassword", registInputDTO.getPassword());
         intentUpload.putExtra("strUserName", registInputDTO.getUserName());
         intentUpload.putExtra("strGender", registInputDTO.getGender());
         intentUpload.putExtra("strAge", registInputDTO.getAge());
@@ -82,11 +84,15 @@ public class UserRegistService {
     public void btnSaveClick() {
         Log.d(TAG, "Log : " + TAG + "btnSaveClick");
         boolean isError = true;
+        strEmail = String.valueOf(userRegistActivityBinding.activityMainEtEmail.getText()).trim();
+        strPassword = String.valueOf(userRegistActivityBinding.activityMainEtPassword.getText()).trim();
         strUserName = String.valueOf(userRegistActivityBinding.activityMainEtUserName.getText()).trim();
         strAge = userRegistActivityBinding.activityMainSpnAge.getSelectedItem().toString();
         strPhoneNumber = String.valueOf(userRegistActivityBinding.activityMainEtPhoneNumber.getText()).trim();
 
         UserRegistDTO.inputDTO registInputDTO = new UserRegistDTO.inputDTO();
+        registInputDTO.setEmail(strEmail);
+        registInputDTO.setPassword(strPassword);
         registInputDTO.setUserName(strUserName);
         registInputDTO.setAge(strAge);
         registInputDTO.setPhoneNumber(strPhoneNumber);
