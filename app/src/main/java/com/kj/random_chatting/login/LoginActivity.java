@@ -12,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.common.MainActivity;
+import com.kj.random_chatting.common.SplashActivity;
 import com.kj.random_chatting.databinding.LoginActivityBinding;
+import com.kj.random_chatting.userList.UserListActivity;
 import com.kj.random_chatting.userRegist.UserRegistActivity;
 import com.kj.random_chatting.util.Retrofit_client;
 
@@ -79,6 +81,9 @@ public class LoginActivity extends AppCompatActivity {
                         editor.commit();
 
                         Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(LoginActivity.this, UserListActivity.class);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
                     }

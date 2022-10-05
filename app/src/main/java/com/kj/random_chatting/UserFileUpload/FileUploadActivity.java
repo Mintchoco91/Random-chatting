@@ -38,6 +38,8 @@ public class FileUploadActivity extends Activity {
         Intent intentMain = getIntent();
 
         userRegistInputDTO = new UserRegistDTO.inputDTO();
+        userRegistInputDTO.setEmail(intentMain.getStringExtra("strEmail"));
+        userRegistInputDTO.setPassword(intentMain.getStringExtra("strPassword"));
         userRegistInputDTO.setUserName(intentMain.getStringExtra("strUserName"));
         userRegistInputDTO.setGender(intentMain.getStringExtra("strGender"));
         userRegistInputDTO.setAge(intentMain.getStringExtra("strAge"));
