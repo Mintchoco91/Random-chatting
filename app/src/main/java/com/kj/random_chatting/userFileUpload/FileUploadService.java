@@ -1,4 +1,4 @@
-package com.kj.random_chatting.UserFileUpload;
+package com.kj.random_chatting.userFileUpload;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,7 +18,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.FileUploadActivityBinding;
 import com.kj.random_chatting.userRegist.UserRegistDTO;
 import com.kj.random_chatting.userRegist.UserRegistInformationTaskRxJava;

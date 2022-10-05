@@ -1,16 +1,11 @@
 package com.kj.random_chatting.userRegist;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.kj.random_chatting.R;
-import com.kj.random_chatting.UserFileUpload.FileUploadActivity;
+import com.kj.random_chatting.userFileUpload.FileUploadActivity;
 import com.kj.random_chatting.databinding.UserRegistActivityBinding;
 import com.kj.random_chatting.userList.UserListActivity;
 

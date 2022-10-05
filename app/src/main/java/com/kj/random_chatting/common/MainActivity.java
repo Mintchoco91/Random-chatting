@@ -8,22 +8,20 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.UserChattingRoomList.UserChattingRoomListFragment;
 import com.kj.random_chatting.databinding.MainActivityBinding;
 import com.kj.random_chatting.userList.UserListFragment;
-import com.kj.random_chatting.userChatting.UserChattingFragment;
 import com.kj.random_chatting.userInfo.UserInfoFragment;
 import com.kj.random_chatting.userLocation.UserLocationFragment;
 
 public class MainActivity extends AppCompatActivity {
     private MainActivityBinding binding;
     private FragmentManager fragmentManager;
-    private Fragment matchingFragment, chattingFragment, locationFragment, infoFragment;
+    private Fragment matchingFragment, chattingListFragment, locationFragment, infoFragment;
     private static final String TAG = "MainActivity";
 
     @Override
@@ -59,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
                                 if (matchingFragment != null)
                                     fragmentManager.beginTransaction().show(matchingFragment).commit();
-                                if (chattingFragment != null)
-                                    fragmentManager.beginTransaction().hide(chattingFragment).commit();
+                                if (chattingListFragment != null)
+                                    fragmentManager.beginTransaction().hide(chattingListFragment).commit();
                                 if (locationFragment != null)
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
                                 if (infoFragment != null)
@@ -68,16 +66,16 @@ public class MainActivity extends AppCompatActivity {
                                 return true;
 
                             case R.id.navigation_chatting:
-                                if (chattingFragment == null) {
+                                if (chattingListFragment == null) {
                                     //유저등록 (임시로 사용)
-                                    chattingFragment = new UserChattingFragment();
-                                    fragmentManager.beginTransaction().add(R.id.frameLayout, chattingFragment).commit();
+                                    chattingListFragment = new UserChattingRoomListFragment();
+                                    fragmentManager.beginTransaction().add(R.id.frameLayout, chattingListFragment).commit();
                                 }
 
                                 if (matchingFragment != null)
                                     fragmentManager.beginTransaction().hide(matchingFragment).commit();
-                                if (chattingFragment != null)
-                                    fragmentManager.beginTransaction().show(chattingFragment).commit();
+                                if (chattingListFragment != null)
+                                    fragmentManager.beginTransaction().show(chattingListFragment).commit();
                                 if (locationFragment != null)
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
                                 if (infoFragment != null)
@@ -92,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
                                 if (matchingFragment != null)
                                     fragmentManager.beginTransaction().hide(matchingFragment).commit();
-                                if (chattingFragment != null)
-                                    fragmentManager.beginTransaction().hide(chattingFragment).commit();
+                                if (chattingListFragment != null)
+                                    fragmentManager.beginTransaction().hide(chattingListFragment).commit();
                                 if (locationFragment != null)
                                     fragmentManager.beginTransaction().show(locationFragment).commit();
                                 if (infoFragment != null)
@@ -108,8 +106,8 @@ public class MainActivity extends AppCompatActivity {
 
                                 if (matchingFragment != null)
                                     fragmentManager.beginTransaction().hide(matchingFragment).commit();
-                                if (chattingFragment != null)
-                                    fragmentManager.beginTransaction().hide(chattingFragment).commit();
+                                if (chattingListFragment != null)
+                                    fragmentManager.beginTransaction().hide(chattingListFragment).commit();
                                 if (locationFragment != null)
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
                                 if (infoFragment != null)

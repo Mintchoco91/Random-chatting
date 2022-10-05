@@ -1,16 +1,13 @@
-package com.kj.random_chatting.UserFileUpload;
+package com.kj.random_chatting.userFileUpload;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.FileUploadActivityBinding;
-import com.kj.random_chatting.databinding.MainActivityBinding;
 import com.kj.random_chatting.userRegist.UserRegistDTO;
 
 public class FileUploadActivity extends Activity {

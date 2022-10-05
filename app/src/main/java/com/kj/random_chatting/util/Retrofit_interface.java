@@ -2,6 +2,7 @@ package com.kj.random_chatting.util;
 
 import com.kj.random_chatting.login.LoginRequest;
 import com.kj.random_chatting.login.LoginResponse;
+import com.kj.random_chatting.UserChattingRoomList.UserChattingRoomListDTO;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -34,5 +35,8 @@ public interface Retrofit_interface {
 
     @POST("/userLogin.php")
     Call<LoginResponse> getLoginResponse(@Body LoginRequest loginRequest);
+
+    @POST("/searchChattingRoomList.php")
+    Call<String> searchChattingRoomList(@Body UserChattingRoomListDTO.inputDTO inputParam);
 
 }
