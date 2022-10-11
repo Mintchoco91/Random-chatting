@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
-import com.kj.random_chatting.common.UtilClass;
+import com.kj.random_chatting.util.UtilClass;
 import com.kj.random_chatting.databinding.FragmentUserChattingBinding;
 
 import java.net.URISyntaxException;

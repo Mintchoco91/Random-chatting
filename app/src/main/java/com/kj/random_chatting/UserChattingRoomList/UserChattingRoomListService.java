@@ -1,11 +1,12 @@
 package com.kj.random_chatting.UserChattingRoomList;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
-import com.kj.random_chatting.userList.UserListActivity;
+import com.kj.random_chatting.util.ChatListRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +15,16 @@ public class UserChattingRoomListService {
     private static final String TAG = "UserChattingRoomListService";
     private Context userChattingRoomListServiceContext;
     private FragmentUserChattingRoomListBinding fragmentUserChattingRoomListBinding;
+    private ChatListRecyclerAdapter chatListRecyclerAdapter;
     public static List<UserChattingRoomListDTO.outputDTO> mainUserChattingRoomList = new ArrayList<>();
 
-
-    public UserChattingRoomListService(Context context, FragmentUserChattingRoomListBinding binding) {
+    public UserChattingRoomListService(Context context, FragmentUserChattingRoomListBinding binding, ChatListRecyclerAdapter adapter) {
         Log.d(TAG, "Log : " + TAG + " -> UserChattingRoomListService");
         userChattingRoomListServiceContext = context;
         fragmentUserChattingRoomListBinding = binding;
-        UserChattingRoomListTaskRxJava userChattingRoomListTaskRxJava = new UserChattingRoomListTaskRxJava(userChattingRoomListServiceContext, fragmentUserChattingRoomListBinding);
+        chatListRecyclerAdapter = adapter;
+
+        UserChattingRoomListTaskRxJava userChattingRoomListTaskRxJava = new UserChattingRoomListTaskRxJava(userChattingRoomListServiceContext, fragmentUserChattingRoomListBinding, chatListRecyclerAdapter);
         userChattingRoomListTaskRxJava.searchChattingRoomRunFunc();
     }
 
@@ -33,8 +36,8 @@ public class UserChattingRoomListService {
     public void btnMakeRoomClick() {
         Log.d(TAG, "Log : " + TAG + "btnMakeRoomClick");
 
-        UserChattingRoomListTaskRxJava userChattingRoomListTaskRxJava = new UserChattingRoomListTaskRxJava(userChattingRoomListServiceContext, fragmentUserChattingRoomListBinding);
-        userChattingRoomListTaskRxJava.searchChattingRoomRunFunc();
+        //UserChattingRoomListTaskRxJava userChattingRoomListTaskRxJava = new UserChattingRoomListTaskRxJava(userChattingRoomListServiceContext, fragmentUserChattingRoomListBinding);
+        //userChattingRoomListTaskRxJava.searchChattingRoomRunFunc();
         //Intent intentMakeRoom = new Intent(userChattingRoomListServiceContext, UserListActivity.class);
         //userChattingRoomListServiceContext.startActivity(intentMakeRoom);
     }
