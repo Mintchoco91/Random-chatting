@@ -1,24 +1,30 @@
 package com.kj.random_chatting.UserChattingRoomList;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
+import com.kj.random_chatting.util.RecyclerImageTextAdapter;
+import com.kj.random_chatting.util.RecyclerItem;
+
+import java.util.ArrayList;
 
 public class UserChattingRoomListFragment extends Fragment {
     private static final String TAG = "UserChattingRoomListFragment";
     private FragmentUserChattingRoomListBinding binding;
     private Context context;
     private UserChattingRoomListService userChattingRoomListService;
+
+    RecyclerImageTextAdapter mAdapter = null ;
+    ArrayList<RecyclerItem> mList = new ArrayList<RecyclerItem>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,9 +51,33 @@ public class UserChattingRoomListFragment extends Fragment {
     private void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = getContext();
-        binding.fragmentUserChattingRoomListTvList.setTextColor(Color.BLACK);
-        binding.fragmentUserChattingRoomListTvList.setMovementMethod(new ScrollingMovementMethod());
+
+        // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
+        mAdapter = new RecyclerImageTextAdapter(mList) ;
+        binding.fragmentUserChattingRoomListRecyclerviewList.setAdapter(mAdapter) ;
+        // 리사이클러뷰에 LinearLayoutManager 지정. (vertical)
+        binding.fragmentUserChattingRoomListRecyclerviewList.setLayoutManager(new LinearLayoutManager(context));
         userChattingRoomListService = new UserChattingRoomListService(context, binding);
+
+
+        // 아이템 추가.
+        addItem("Box", "Account Box Black 36dp") ;
+        // 두 번째 아이템 추가.
+        addItem("Circle", "Account Circle Black 36dp") ;
+        // 세 번째 아이템 추가.
+        addItem("Ind", "Assignment Ind Black 36dp") ;
+
+        mAdapter.notifyDataSetChanged() ;
+    }
+
+    //kw sample make
+    public void addItem(String title, String desc) {
+        RecyclerItem item = new RecyclerItem();
+
+        item.setTitle(title);
+        item.setDesc(desc);
+
+        mList.add(item);
     }
 
     private void setListener() {

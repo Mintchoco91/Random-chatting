@@ -7,18 +7,17 @@
     android:background="@color/black"
     tools:context=".UserChattingRoomList.UserChattingRoomListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/fragment_user_chatting_room_list_tv_list"
-        android:layout_width="match_parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_user_chatting_room_list_recyclerview_list"
+        android:layout_width="0dp"
         android:layout_height="400dp"
+        android:text="Hello World!"
+        android:scrollbars="vertical"
         android:background="@drawable/btn_white"
         android:paddingLeft="5dp"
-        android:scrollbars="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <Button
         android:id="@+id/fragment_user_chatting_room_list_btn_make_room"
@@ -31,6 +30,6 @@
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fragment_user_chatting_room_list_tv_list" />
+        app:layout_constraintTop_toTopOf="@+id/fragment_user_chatting_room_list_recyclerview_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
