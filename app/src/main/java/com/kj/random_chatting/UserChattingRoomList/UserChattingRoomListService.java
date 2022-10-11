@@ -32,8 +32,11 @@ public class UserChattingRoomListService {
 
     public void btnMakeRoomClick() {
         Log.d(TAG, "Log : " + TAG + "btnMakeRoomClick");
-        Intent intentMakeRoom = new Intent(userChattingRoomListServiceContext, UserListActivity.class);
-        userChattingRoomListServiceContext.startActivity(intentMakeRoom);
+
+        UserChattingRoomListTaskRxJava userChattingRoomListTaskRxJava = new UserChattingRoomListTaskRxJava(userChattingRoomListServiceContext, fragmentUserChattingRoomListBinding);
+        userChattingRoomListTaskRxJava.searchChattingRoomRunFunc();
+        //Intent intentMakeRoom = new Intent(userChattingRoomListServiceContext, UserListActivity.class);
+        //userChattingRoomListServiceContext.startActivity(intentMakeRoom);
     }
 
     /**************************************************************

@@ -2,6 +2,7 @@ package com.kj.random_chatting.UserChattingRoomList;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
 import com.kj.random_chatting.util.Retrofit_client;
@@ -46,18 +47,11 @@ public class UserChattingRoomListTaskRxJava {
     private void resultPost(Integer code) {
         if (code == 0) {
             //전역 변수
-
             UserChattingRoomListService.mainUserChattingRoomList = localChattingRoomList;
-/*
-            UserListService userListService = new UserListService(userListActivityContext, userListActivityBinding);
-            userListService.showInformation(localUserList.get(0));
+            Toast.makeText(userChattingListTaskRxJavaContext, "리스트 새로고침", Toast.LENGTH_LONG).show();
 
-            Toast.makeText(userListActivityContext, "조회 성공", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(userListActivityContext, "조회 실패", Toast.LENGTH_LONG).show();
-        }
-
-             */
+        }else{
+            Toast.makeText(userChattingListTaskRxJavaContext, "조회 실패", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -92,8 +86,8 @@ public class UserChattingRoomListTaskRxJava {
                         String userId = loopJsonObject.getString("userId");
                         String roomId = loopJsonObject.getString("roomId");
                         String roomName = loopJsonObject.getString("roomName");
-                        String isMovie = loopJsonObject.getString("isMovie");
-                        String isDrive = loopJsonObject.getString("isDrive");
+                        boolean isMovie = loopJsonObject.getString("isMovie").equals("1") ? true : false;
+                        boolean isDrive = loopJsonObject.getString("isDrive").equals("1") ? true : false;
 
                         //decode
                         roomName = URLDecoder.decode(roomName, "utf-8");
@@ -101,8 +95,8 @@ public class UserChattingRoomListTaskRxJava {
                         userChattingList.setUserId(userId);
                         userChattingList.setRoomId(roomId);
                         userChattingList.setRoomName(roomName);
-                        userChattingList.setMovie(Boolean.parseBoolean(isMovie));
-                        userChattingList.setDrive(Boolean.parseBoolean(isDrive));
+                        userChattingList.setMovie(isMovie);
+                        userChattingList.setDrive(isDrive);
 
                         searchList.add(userChattingList);
                     } catch (JSONException e) {
