@@ -5,7 +5,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
+import com.kj.random_chatting.util.ChatListRecyclerAdapter;
+import com.kj.random_chatting.util.RecyclerItem;
 import com.kj.random_chatting.util.Retrofit_client;
+import com.kj.random_chatting.util.UtilClass;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +18,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -32,15 +34,20 @@ import retrofit2.Call;
 public class UserChattingRoomListTaskRxJava {
     private static final String TAG = "UserChattingListTaskRxJava";
     private FragmentUserChattingRoomListBinding fragmentUserChattingRoomListBinding;
-    Context userChattingListTaskRxJavaContext;
+    private Context userChattingListTaskRxJavaContext;
+    private ChatListRecyclerAdapter chatListRecyclerAdapter;
+
     Disposable backgroundTask;
+
+    UtilClass utilClass;
 
     List<UserChattingRoomListDTO.outputDTO> localChattingRoomList = new ArrayList<>();
 
-    public UserChattingRoomListTaskRxJava(Context context, FragmentUserChattingRoomListBinding binding) {
+    public UserChattingRoomListTaskRxJava(Context context, FragmentUserChattingRoomListBinding binding,ChatListRecyclerAdapter adapter) {
         Log.d(TAG, "Log : " + TAG + " -> UserChattingListTaskRxJava");
         userChattingListTaskRxJavaContext = context;
         fragmentUserChattingRoomListBinding = binding;
+        chatListRecyclerAdapter = adapter;
     }
 
     //결과 처리
@@ -48,6 +55,11 @@ public class UserChattingRoomListTaskRxJava {
         if (code == 0) {
             //전역 변수
             UserChattingRoomListService.mainUserChattingRoomList = localChattingRoomList;
+
+            utilClass = new UtilClass();
+            //recyclerView list setting
+            utilClass.chatRecyclerViewCreateList(fragmentUserChattingRoomListBinding, UserChattingRoomListService.mainUserChattingRoomList, chatListRecyclerAdapter);
+
             Toast.makeText(userChattingListTaskRxJavaContext, "리스트 새로고침", Toast.LENGTH_LONG).show();
 
         }else{

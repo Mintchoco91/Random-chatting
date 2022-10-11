@@ -1,29 +1,22 @@
 package com.kj.random_chatting.util;
 
-import android.graphics.drawable.Drawable;
-
 public class RecyclerItem {
-    private Drawable iconDrawable ;
-    private String titleStr ;
-    private String descStr ;
+    private String roomId;
+    private String roomName;
 
-    public void setIcon(Drawable icon) {
-        iconDrawable = icon ;
-    }
-    public void setTitle(String title) {
-        titleStr = title ;
-    }
-    public void setDesc(String desc) {
-        descStr = desc ;
+    public String getRoomId() {
+        return roomId;
     }
 
-    public Drawable getIcon() {
-        return this.iconDrawable ;
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
     }
-    public String getTitle() {
-        return this.titleStr ;
+
+    public String getRoomName() {
+        return roomName;
     }
-    public String getDesc() {
-        return this.descStr ;
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 }
