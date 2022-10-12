@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +25,6 @@
             android:name="com.kj.random_chatting.common.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,6 +42,9 @@
         <activity android:name="com.kj.random_chatting.login.LoginActivity" />
         <activity android:name="com.kj.random_chatting.userChatting.UserChattingActivity" />
 
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="14559e5e5e2d7a6c6bbc8df6c1cb8b83" />
     </application>
 
 </manifest>
