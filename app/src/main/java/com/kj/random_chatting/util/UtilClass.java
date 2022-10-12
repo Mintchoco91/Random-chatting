@@ -53,17 +53,6 @@ public class UtilClass {
 
         ChatListRecyclerAdapter mAdapter = new ChatListRecyclerAdapter(UserChattingRoomListFragment.staticRoomList) ;
 
-        /*
-        adapter.setOnItemClickListener(new ChatListRecyclerAdapter.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(View v, int pos)
-            {
-                // 실행 내용
-                Log.d("TESTTE", "onItemClick: ");
-            }
-        });
-*/
         binding.fragmentUserChattingRoomListRecyclerviewList.setAdapter(adapter) ;
         mAdapter.notifyDataSetChanged() ;
     }

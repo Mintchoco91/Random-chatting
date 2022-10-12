@@ -1,6 +1,7 @@
 package com.kj.random_chatting.UserChattingRoomList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
+import com.kj.random_chatting.userChatting.UserChattingActivity;
+import com.kj.random_chatting.userFileUpload.FileUploadActivity;
 import com.kj.random_chatting.util.ChatListRecyclerAdapter;
 import com.kj.random_chatting.util.RecyclerItem;
 
@@ -62,8 +65,15 @@ public class UserChattingRoomListFragment extends Fragment {
             @Override
             public void onItemClick(View v, int pos)
             {
+                String roomId = staticRoomList.get(pos).getRoomId();
                 // 실행 내용
-                Toast.makeText(context, "Position:" + pos , Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "roomId: " + staticRoomList.get(pos).getRoomId());
+                Log.d(TAG, "roomName: " + staticRoomList.get(pos).getRoomName());
+
+                Intent intent = new Intent(context, UserChattingActivity.class);
+                intent.putExtra("roomId", roomId);
+
+                context.startActivity(intent);
             }
         });
 

@@ -1,61 +1,48 @@
 package com.kj.random_chatting.userChatting;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.FragmentUserChattingBinding;
-import com.kj.random_chatting.databinding.UserRegistActivityBinding;
-import com.kj.random_chatting.userRegist.UserRegistService;
+import com.kj.random_chatting.databinding.UserListActivityBinding;
+import com.kj.random_chatting.userList.FindUserInformationTaskRxJava;
+import com.kj.random_chatting.userList.UserListService;
+import com.kj.random_chatting.userRegist.UserRegistDTO;
 
-public class UserChattingFragment extends Fragment {
+public class UserChattingActivity extends Activity {
+    private static final String TAG = "UserChattingActivity";
     private FragmentUserChattingBinding binding;
-    private static final String TAG = "UserChattingFragment";
     private Context context;
-
     private UserChattingService userChattingService;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = FragmentUserChattingBinding.inflate(inflater, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = FragmentUserChattingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
-        return view;
-    }
+        setContentView(view);
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        Log.d(TAG, "Log : " + TAG + " -> onViewCreated");
-        super.onViewCreated(view, savedInstanceState);
         initializeView();
         setListener();
     }
 
-    @Override
-    public void onDestroyView(){
-        super.onDestroyView();
-        binding = null;
-    }
-
-
     private void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
-        context = getContext();
+        context = this;
+
+        Intent intentMain = getIntent();
+        String roomId = intentMain.getStringExtra("roomId");
+
         binding.fragmentUserChattingTvChatScreen.setTextColor(Color.BLACK);
         binding.fragmentUserChattingTvChatScreen.setMovementMethod(new ScrollingMovementMethod());
-        //Fragment를 현재 안씀
-        //userChattingService = new UserChattingService(context, binding, "roomId2");
+        userChattingService = new UserChattingService(context, binding, roomId);
     }
 
     private void setListener() {
