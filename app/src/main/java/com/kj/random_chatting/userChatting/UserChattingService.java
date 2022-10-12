@@ -48,6 +48,9 @@ public class UserChattingService extends Activity {
 
             //메세지 Listener
             socket.on("ServerToClientMsg", onMessage);
+
+            String firstMsg = "* ["+ roomId + "] 채널에 접속하였습니다.";
+            fragmentUserChattingBinding.fragmentUserChattingTvChatScreen.setText(firstMsg);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
