@@ -1,15 +1,14 @@
 package com.kj.random_chatting.common;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.login.LoginActivity;
-import com.kj.random_chatting.userList.UserListActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -27,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
                 if (token == null) {
                     intent = new Intent(SplashActivity.this, LoginActivity.class);
                 } else {
-                    intent = new Intent(SplashActivity.this, UserListActivity.class);
+                    intent = new Intent(SplashActivity.this, MainActivity.class);
                 }
 
                 startActivity(intent);
