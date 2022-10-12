@@ -22,15 +22,17 @@ public class UserChattingService extends Activity {
     private FragmentUserChattingBinding fragmentUserChattingBinding;
     private Context userChattingServiceContext;
     private final String socketBaseURL = "https://random-chatting-chat-server.herokuapp.com/";
+    private String roomId;
     private String tempId = "";
     String strRandNumber;
 
 
-    public UserChattingService(Context context, FragmentUserChattingBinding binding) {
+    public UserChattingService(Context context, FragmentUserChattingBinding binding, String mRoomId) {
         Log.d(TAG, "Log : " + TAG + " -> UserChattingService");
         utilClass = new UtilClass();
         userChattingServiceContext = context;
         fragmentUserChattingBinding = binding;
+        roomId = mRoomId;
 
         //임시방편 으로 랜덤 닉네임
         Random random = new Random();
@@ -42,7 +44,7 @@ public class UserChattingService extends Activity {
             socket.connect();
 
             //방생성
-            socket.emit("joinRoom", strRandNumber);
+            socket.emit("joinRoom", roomId);
 
             //메세지 Listener
             socket.on("ServerToClientMsg", onMessage);
@@ -55,7 +57,7 @@ public class UserChattingService extends Activity {
         //공백 입력일 경우 서버 전송 안함.
         if(!chatMessage.equals("")) {
             // param -> 방제, 메세지
-            socket.emit("clientToServerMsg", strRandNumber, tempId + " : " + chatMessage);
+            socket.emit("clientToServerMsg", roomId, tempId + " : " + chatMessage);
         }
     }
 

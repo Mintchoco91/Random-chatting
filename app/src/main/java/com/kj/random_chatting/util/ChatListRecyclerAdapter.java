@@ -77,23 +77,6 @@ public class ChatListRecyclerAdapter extends RecyclerView.Adapter<ChatListRecycl
         View view = inflater.inflate(R.layout.recycler_item, parent, false) ;
         ChatListRecyclerAdapter.ViewHolder vh = new ChatListRecyclerAdapter.ViewHolder(view) ;
 
-        //===== [Click 이벤트 구현을 위해 추가된 코드] =====================
-        /*
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String data = "";
-                int position = vh.getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    data = vh.getRoomName().getText().toString();
-                }
-                //itemClickListener.onItemClicked(position, data);
-            }
-        });
-
-         */
-        //==================================================================
-
         return vh ;
     }
 
@@ -104,6 +87,7 @@ public class ChatListRecyclerAdapter extends RecyclerView.Adapter<ChatListRecycl
         RecyclerItem item = mData.get(position) ;
 
         holder.roomName.setText(item.getRoomName()) ;
+        holder.roomName.setTag(item.getRoomId());
     }
 
     // getItemCount() - 전체 데이터 갯수 리턴.
