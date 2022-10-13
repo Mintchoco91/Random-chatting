@@ -39,10 +39,15 @@ public class UserChattingActivity extends Activity {
 
         Intent intentMain = getIntent();
         String roomId = intentMain.getStringExtra("roomId");
+        String roomName = intentMain.getStringExtra("roomName");
+
+        UserChattingDTO.RoomInfo roomInfo = new UserChattingDTO.RoomInfo();
+        roomInfo.setRoomId(roomId);
+        roomInfo.setRoomName(roomName);
 
         binding.fragmentUserChattingTvChatScreen.setTextColor(Color.BLACK);
         binding.fragmentUserChattingTvChatScreen.setMovementMethod(new ScrollingMovementMethod());
-        userChattingService = new UserChattingService(context, binding, roomId);
+        userChattingService = new UserChattingService(context, binding, roomInfo);
     }
 
     private void setListener() {

@@ -9,11 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.kj.random_chatting.R;
-import com.kj.random_chatting.UserChattingRoomList.UserChattingRoomListFragment;
+import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListFragment;
 import com.kj.random_chatting.databinding.MainActivityBinding;
 import com.kj.random_chatting.userList.UserListFragment;
 import com.kj.random_chatting.userInfo.UserInfoFragment;

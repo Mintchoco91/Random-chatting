@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".UserChattingRoomList.UserChattingRoomListFragment">
+    tools:context=".userChattingRoomList.UserChattingRoomListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_user_chatting_room_list_recyclerview_list"
