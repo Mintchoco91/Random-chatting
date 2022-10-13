@@ -19,25 +19,24 @@ public class UserChattingService extends Activity {
 
     private Socket socket;
     private static final String TAG = "UserChattingService";
-    private FragmentUserChattingBinding fragmentUserChattingBinding;
-    private Context userChattingServiceContext;
+    private FragmentUserChattingBinding binding;
+    private Context context;
     private final String socketBaseURL = "https://random-chatting-chat-server.herokuapp.com/";
-    private String roomId;
     private String tempId = "";
-    String strRandNumber;
+    String roomId;
+    String roomName;
 
 
-    public UserChattingService(Context context, FragmentUserChattingBinding binding, String mRoomId) {
+    public UserChattingService(Context mContext, FragmentUserChattingBinding mBinding, UserChattingDTO.RoomInfo mRoomInfo) {
         Log.d(TAG, "Log : " + TAG + " -> UserChattingService");
         utilClass = new UtilClass();
-        userChattingServiceContext = context;
-        fragmentUserChattingBinding = binding;
-        roomId = mRoomId;
+        context = mContext;
+        binding = mBinding;
+        roomId = mRoomInfo.getRoomId();
+        roomName = mRoomInfo.getRoomName();
 
         //임시방편 으로 랜덤 닉네임
-        Random random = new Random();
-        strRandNumber = random.nextInt(999999) + "";
-        tempId = "임시계정" + strRandNumber;
+        tempId = "임시계정" + utilClass.createRandomNumber(6).toString();;
 
         try {
             socket = IO.socket(socketBaseURL);
@@ -49,8 +48,8 @@ public class UserChattingService extends Activity {
             //메세지 Listener
             socket.on("ServerToClientMsg", onMessage);
 
-            String firstMsg = "* ["+ roomId + "] 채널에 접속하였습니다.";
-            fragmentUserChattingBinding.fragmentUserChattingTvChatScreen.setText(firstMsg);
+            String firstMsg = "* ["+ roomName + "] 방에 접속하였습니다. - 방 ID : " + roomId;
+            binding.fragmentUserChattingTvChatScreen.setText(firstMsg);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -80,13 +79,13 @@ public class UserChattingService extends Activity {
 
     //서버에서 받은 메세지 표기
     private void refreshChatScreen(String ServerToClientMsg){
-        String historyChatText = fragmentUserChattingBinding.fragmentUserChattingTvChatScreen.getText().toString();
+        String historyChatText = binding.fragmentUserChattingTvChatScreen.getText().toString();
         //두번째 줄 부터 개행 처리
         if (historyChatText != null && !historyChatText.equals("")) {
-            fragmentUserChattingBinding.fragmentUserChattingTvChatScreen.append("\n");
+            binding.fragmentUserChattingTvChatScreen.append("\n");
         }
-        fragmentUserChattingBinding.fragmentUserChattingTvChatScreen.append(ServerToClientMsg);
-        fragmentUserChattingBinding.fragmentUserChattingEtMessage.setText("");
-        utilClass.scrollBottom(fragmentUserChattingBinding.fragmentUserChattingTvChatScreen);
+        binding.fragmentUserChattingTvChatScreen.append(ServerToClientMsg);
+        binding.fragmentUserChattingEtMessage.setText("");
+        utilClass.scrollBottom(binding.fragmentUserChattingTvChatScreen);
     }
 }

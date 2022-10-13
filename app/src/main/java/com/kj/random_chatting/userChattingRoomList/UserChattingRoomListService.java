@@ -1,11 +1,11 @@
-package com.kj.random_chatting.UserChattingRoomList;
+package com.kj.random_chatting.userChattingRoomList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
+import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomCreateActivity;
 import com.kj.random_chatting.util.ChatListRecyclerAdapter;
 
 import java.util.ArrayList;
@@ -33,13 +33,11 @@ public class UserChattingRoomListService {
      *  버튼 클릭 이벤트 시작
      **************************************************************/
 
-    public void btnMakeRoomClick() {
-        Log.d(TAG, "Log : " + TAG + "btnMakeRoomClick");
+    public void btnMoveRoomCreateClick() {
+        Log.d(TAG, "Log : " + TAG + "btnMoveRoomCreateClick");
 
-        //UserChattingRoomListTaskRxJava userChattingRoomListTaskRxJava = new UserChattingRoomListTaskRxJava(userChattingRoomListServiceContext, fragmentUserChattingRoomListBinding);
-        //userChattingRoomListTaskRxJava.searchChattingRoomRunFunc();
-        //Intent intentMakeRoom = new Intent(userChattingRoomListServiceContext, UserListActivity.class);
-        //userChattingRoomListServiceContext.startActivity(intentMakeRoom);
+        Intent intentMakeRoom = new Intent(userChattingRoomListServiceContext, UserChattingRoomCreateActivity.class);
+        userChattingRoomListServiceContext.startActivity(intentMakeRoom);
     }
 
     /**************************************************************

@@ -1,4 +1,4 @@
-package com.kj.random_chatting.UserChattingRoomList;
+package com.kj.random_chatting.userChattingRoomList;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
 import com.kj.random_chatting.util.ChatListRecyclerAdapter;
-import com.kj.random_chatting.util.RecyclerItem;
 import com.kj.random_chatting.util.Retrofit_client;
 import com.kj.random_chatting.util.UtilClass;
 

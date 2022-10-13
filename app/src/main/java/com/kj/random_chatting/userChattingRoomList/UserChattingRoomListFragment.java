@@ -1,4 +1,4 @@
-package com.kj.random_chatting.UserChattingRoomList;
+package com.kj.random_chatting.userChattingRoomList;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
 import com.kj.random_chatting.userChatting.UserChattingActivity;
-import com.kj.random_chatting.userFileUpload.FileUploadActivity;
 import com.kj.random_chatting.util.ChatListRecyclerAdapter;
 import com.kj.random_chatting.util.RecyclerItem;
 
@@ -66,12 +64,14 @@ public class UserChattingRoomListFragment extends Fragment {
             public void onItemClick(View v, int pos)
             {
                 String roomId = staticRoomList.get(pos).getRoomId();
+                String roomName = staticRoomList.get(pos).getRoomName();
                 // 실행 내용
                 Log.d(TAG, "roomId: " + staticRoomList.get(pos).getRoomId());
                 Log.d(TAG, "roomName: " + staticRoomList.get(pos).getRoomName());
 
                 Intent intent = new Intent(context, UserChattingActivity.class);
                 intent.putExtra("roomId", roomId);
+                intent.putExtra("roomName", roomName);
 
                 context.startActivity(intent);
             }
@@ -88,7 +88,7 @@ public class UserChattingRoomListFragment extends Fragment {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.fragment_user_chatting_room_list_btn_make_room:
-                        userChattingRoomListService.btnMakeRoomClick();
+                        userChattingRoomListService.btnMoveRoomCreateClick();
                         break;
                 }
             }

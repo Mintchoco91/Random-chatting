@@ -1,4 +1,4 @@
-package com.kj.random_chatting.UserChattingRoomList;
+package com.kj.random_chatting.userChattingRoomList;
 
 import com.google.gson.annotations.SerializedName;
 

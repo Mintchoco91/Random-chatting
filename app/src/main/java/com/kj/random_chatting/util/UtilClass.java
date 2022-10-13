@@ -1,17 +1,14 @@
 package com.kj.random_chatting.util;
 
-import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.kj.random_chatting.UserChattingRoomList.UserChattingRoomListDTO;
-import com.kj.random_chatting.UserChattingRoomList.UserChattingRoomListFragment;
-import com.kj.random_chatting.UserChattingRoomList.UserChattingRoomListService;
+import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListDTO;
+import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListFragment;
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 공통으로 사용 할 Util 함수 정의
@@ -44,6 +41,21 @@ public class UtilClass {
         mList.add(item);
     }
 
+    /**
+     * 해당 자리수 까지 랜덤 처리
+     * @param digit : 자릿수
+     */
+    public Integer createRandomNumber(Integer digit){
+        Random random = new Random();
+
+        String strMaxNumber = String.format("%0"+digit+"d", 0);
+        Integer maxNumber = Integer.parseInt(strMaxNumber.replace("0","9"));
+        Integer randNumber = random.nextInt(maxNumber);
+
+        return randNumber;
+    }
+
+    //ChatList부분 RecycleViewList 구조 생성해주는 함수
     public void chatRecyclerViewCreateList(FragmentUserChattingRoomListBinding binding, List<UserChattingRoomListDTO.outputDTO> roomList, ChatListRecyclerAdapter adapter){
         utilClass = new UtilClass();
 
