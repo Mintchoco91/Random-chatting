@@ -22,7 +22,7 @@ public class UserChattingService extends Activity {
     private FragmentUserChattingBinding binding;
     private Context context;
     private final String socketBaseURL = "https://random-chatting-chat-server.herokuapp.com/";
-    private String tempId = "";
+    private String userNickName = "";
     String roomId;
     String roomName;
 
@@ -36,14 +36,14 @@ public class UserChattingService extends Activity {
         roomName = mRoomInfo.getRoomName();
 
         //임시방편 으로 랜덤 닉네임
-        tempId = "임시계정" + utilClass.createRandomNumber(6).toString();;
+        userNickName = "임시계정" + utilClass.createRandomNumber(6).toString();;
 
         try {
             socket = IO.socket(socketBaseURL);
             socket.connect();
 
             //방생성
-            socket.emit("joinRoom", roomId);
+            socket.emit("joinRoom", roomId, userNickName);
 
             //메세지 Listener
             socket.on("ServerToClientMsg", onMessage);
@@ -59,7 +59,7 @@ public class UserChattingService extends Activity {
         //공백 입력일 경우 서버 전송 안함.
         if(!chatMessage.equals("")) {
             // param -> 방제, 메세지
-            socket.emit("clientToServerMsg", roomId, tempId + " : " + chatMessage);
+            socket.emit("clientToServerMsg", roomId, userNickName + " : " + chatMessage);
         }
     }
 
