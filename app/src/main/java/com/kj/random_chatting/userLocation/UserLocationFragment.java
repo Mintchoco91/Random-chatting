@@ -66,6 +66,7 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
             mDatabase.child("userLocation").child(userId).removeValue();
         }
         super.onDestroy();
+        //
     }
 
     @Override
