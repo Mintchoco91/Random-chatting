@@ -10,11 +10,10 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
-import com.kj.random_chatting.userChatting.UserChattingActivity;
-import com.kj.random_chatting.util.ChatListRecyclerAdapter;
 import com.kj.random_chatting.util.RecyclerItem;
 
 import java.util.ArrayList;
@@ -24,9 +23,6 @@ public class UserChattingRoomListFragment extends Fragment {
     private FragmentUserChattingRoomListBinding binding;
     private Context context;
     private UserChattingRoomListService userChattingRoomListService;
-
-    //adapter 변수. 외부 class로 이동하면서 adapter 에 지속적으로 연결되야해서 static 선언.
-    public static ArrayList<RecyclerItem> staticRoomList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,32 +50,9 @@ public class UserChattingRoomListFragment extends Fragment {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = getContext();
 
-        // 리사이클러뷰에 LinearLayoutManager 지정. (vertical)
-        binding.fragmentUserChattingRoomListRecyclerviewList.setLayoutManager(new LinearLayoutManager(context));
-        ChatListRecyclerAdapter chatListRecyclerAdapter = new ChatListRecyclerAdapter(staticRoomList);
-
-        chatListRecyclerAdapter.setOnItemClickListener(new ChatListRecyclerAdapter.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(View v, int pos)
-            {
-                String roomId = staticRoomList.get(pos).getRoomId();
-                String roomName = staticRoomList.get(pos).getRoomName();
-                // 실행 내용
-                Log.d(TAG, "roomId: " + staticRoomList.get(pos).getRoomId());
-                Log.d(TAG, "roomName: " + staticRoomList.get(pos).getRoomName());
-
-                Intent intent = new Intent(context, UserChattingActivity.class);
-                intent.putExtra("roomId", roomId);
-                intent.putExtra("roomName", roomName);
-
-                context.startActivity(intent);
-            }
-        });
-
-
-        userChattingRoomListService = new UserChattingRoomListService(context, binding, chatListRecyclerAdapter);
+       userChattingRoomListService = new UserChattingRoomListService(context, binding);
     }
+
 
     private void setListener() {
         Log.d(TAG, "Log : " + TAG + " -> setListener");
@@ -93,6 +66,16 @@ public class UserChattingRoomListFragment extends Fragment {
                 }
             }
         };
+
+        binding.swiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                userChattingRoomListService = new UserChattingRoomListService(context, binding);
+                /* 업데이트가 끝났음을 알림 */
+                binding.swiperefreshlayout.setRefreshing(false);
+            }
+        });
+
 
         binding.fragmentUserChattingRoomListBtnMakeRoom.setOnClickListener(Listener);
     }

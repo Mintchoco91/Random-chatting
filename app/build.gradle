@@ -78,4 +78,7 @@ dependencies {
 
     //daumMap
     implementation files('libs/libDaumMapAndroid.jar')
+
+    //slide refresh
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }

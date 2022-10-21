@@ -4,8 +4,11 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
 import com.kj.random_chatting.util.ChatListRecyclerAdapter;
+import com.kj.random_chatting.util.RecyclerItem;
 import com.kj.random_chatting.util.Retrofit_client;
 import com.kj.random_chatting.util.UtilClass;
 
@@ -32,21 +35,17 @@ import retrofit2.Call;
 
 public class UserChattingRoomListTaskRxJava {
     private static final String TAG = "UserChattingListTaskRxJava";
-    private FragmentUserChattingRoomListBinding fragmentUserChattingRoomListBinding;
-    private Context userChattingListTaskRxJavaContext;
-    private ChatListRecyclerAdapter chatListRecyclerAdapter;
+    private FragmentUserChattingRoomListBinding binding;
+    private Context context;
 
     Disposable backgroundTask;
 
-    UtilClass utilClass;
-
     List<UserChattingRoomListDTO.outputDTO> localChattingRoomList = new ArrayList<>();
 
-    public UserChattingRoomListTaskRxJava(Context context, FragmentUserChattingRoomListBinding binding,ChatListRecyclerAdapter adapter) {
+    public UserChattingRoomListTaskRxJava(Context mContext, FragmentUserChattingRoomListBinding mBinding) {
         Log.d(TAG, "Log : " + TAG + " -> UserChattingListTaskRxJava");
-        userChattingListTaskRxJavaContext = context;
-        fragmentUserChattingRoomListBinding = binding;
-        chatListRecyclerAdapter = adapter;
+        context = mContext;
+        binding = mBinding;
     }
 
     //결과 처리
@@ -55,14 +54,12 @@ public class UserChattingRoomListTaskRxJava {
             //전역 변수
             UserChattingRoomListService.mainUserChattingRoomList = localChattingRoomList;
 
-            utilClass = new UtilClass();
             //recyclerView list setting
-            utilClass.chatRecyclerViewCreateList(fragmentUserChattingRoomListBinding, UserChattingRoomListService.mainUserChattingRoomList, chatListRecyclerAdapter);
-
-            Toast.makeText(userChattingListTaskRxJavaContext, "리스트 새로고침", Toast.LENGTH_LONG).show();
-
+            ArrayList<RecyclerItem> recyclerRoomList = new ArrayList<>();
+            recyclerRoomList = chatRecyclerViewCreateList(context, binding, UserChattingRoomListService.mainUserChattingRoomList);
+            recyclerInit(recyclerRoomList);
         }else{
-            Toast.makeText(userChattingListTaskRxJavaContext, "조회 실패", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "조회 실패", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -127,5 +124,33 @@ public class UserChattingRoomListTaskRxJava {
         return resultCode;
     }
 
+
+    //ChatList부분 RecycleViewList 구조 생성해주는 함수
+    private ArrayList<RecyclerItem> chatRecyclerViewCreateList(Context mContext, FragmentUserChattingRoomListBinding mBinding, List<UserChattingRoomListDTO.outputDTO> roomList){
+        ArrayList<RecyclerItem> resultList  = new ArrayList<>();
+        for(UserChattingRoomListDTO.outputDTO target : roomList){
+            chatRecyclerViewAddItem(resultList, target.getRoomId(), target.getRoomName());
+        }
+        return resultList;
+    }
+
+    private void chatRecyclerViewAddItem(ArrayList<RecyclerItem> recyclerRoomList, String roomId, String roomName) {
+        RecyclerItem item = new RecyclerItem();
+
+        item.setRoomId(roomId);
+        item.setRoomName(roomName);
+
+        recyclerRoomList.add(item);
+    }
+
+    private void recyclerInit(ArrayList<RecyclerItem> recyclerRoomList){
+        //recycler 객체 생성
+        ChatListRecyclerAdapter adapter = new ChatListRecyclerAdapter(context, recyclerRoomList) ;
+        binding.fragmentUserChattingRoomListRecyclerviewList.setAdapter(adapter) ;
+        // 리사이클러뷰에 LinearLayoutManager 지정. (vertical)
+        binding.fragmentUserChattingRoomListRecyclerviewList.setLayoutManager(new LinearLayoutManager(context));
+        adapter.notifyDataSetChanged() ;
+        Toast.makeText(context, "리스트 새로고침 완료", Toast.LENGTH_LONG).show();
+    }
 
 }
