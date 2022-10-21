@@ -1,6 +1,7 @@
 package com.kj.random_chatting.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
+import com.kj.random_chatting.userChatting.UserChattingActivity;
 
 import java.util.ArrayList;
 
@@ -17,6 +20,8 @@ public class ChatListRecyclerAdapter extends RecyclerView.Adapter<ChatListRecycl
     private ArrayList<RecyclerItem> mData = null ;
     // OnItemClickListener 참조 변수 선언
     private OnItemClickListener itemClickListener = null;
+    private Context context;
+    private FragmentUserChattingRoomListBinding binding;
 
     //===== [Click 이벤트 구현을 위해 추가된 코드] ==========================
     // OnItemClickListener 인터페이스 선언
@@ -32,7 +37,8 @@ public class ChatListRecyclerAdapter extends RecyclerView.Adapter<ChatListRecycl
     //======================================================================
 
     // 생성자에서 데이터 리스트 객체를 전달받음.
-    public ChatListRecyclerAdapter(ArrayList<RecyclerItem> list) {
+    public ChatListRecyclerAdapter(Context mContext, ArrayList<RecyclerItem> list) {
+        context = mContext;
         mData = list ;
     }
 
@@ -52,7 +58,13 @@ public class ChatListRecyclerAdapter extends RecyclerView.Adapter<ChatListRecycl
                     int pos = getAdapterPosition();
                     if (pos != RecyclerView.NO_POSITION)
                     {
-                        itemClickListener.onItemClick(v, pos);
+                        String roomId = mData.get(pos).getRoomId();
+                        String roomName = mData.get(pos).getRoomName();
+
+                        Intent intent = new Intent(context, UserChattingActivity.class);
+                        intent.putExtra("roomId", roomId);
+                        intent.putExtra("roomName", roomName);
+                        context.startActivity(intent);
                     }
                 }
             });

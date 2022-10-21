@@ -1,6 +1,9 @@
 package com.kj.random_chatting.util;
 
+import android.content.Context;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListDTO;
 import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListFragment;
@@ -32,15 +35,6 @@ public class UtilClass {
         }
     }
 
-    public void chatRecyclerViewAddItem(ArrayList<RecyclerItem> mList, String roomId, String roomName) {
-        RecyclerItem item = new RecyclerItem();
-
-        item.setRoomId(roomId);
-        item.setRoomName(roomName);
-
-        mList.add(item);
-    }
-
     /**
      * 해당 자리수 까지 랜덤 처리
      * @param digit : 자릿수
@@ -53,19 +47,5 @@ public class UtilClass {
         Integer randNumber = random.nextInt(maxNumber);
 
         return randNumber;
-    }
-
-    //ChatList부분 RecycleViewList 구조 생성해주는 함수
-    public void chatRecyclerViewCreateList(FragmentUserChattingRoomListBinding binding, List<UserChattingRoomListDTO.outputDTO> roomList, ChatListRecyclerAdapter adapter){
-        utilClass = new UtilClass();
-
-        for(UserChattingRoomListDTO.outputDTO target : roomList){
-            utilClass.chatRecyclerViewAddItem(UserChattingRoomListFragment.staticRoomList, target.getRoomId(), target.getRoomName());
-        }
-
-        ChatListRecyclerAdapter mAdapter = new ChatListRecyclerAdapter(UserChattingRoomListFragment.staticRoomList) ;
-
-        binding.fragmentUserChattingRoomListRecyclerviewList.setAdapter(adapter) ;
-        mAdapter.notifyDataSetChanged() ;
     }
 }
