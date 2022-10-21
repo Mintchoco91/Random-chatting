@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -18,6 +19,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
@@ -53,6 +58,17 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
     private List<UserLocationDTO.OutputDTO> userLocations = new ArrayList<UserLocationDTO.OutputDTO>();
 
     @Override
+    public void onDestroy() {
+        // 앱 종료 시 DB에 저장된 내 위치 정보를 지운다.
+        SharedPreferences prefs = getActivity().getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
+        String userId = prefs.getString("userId", null);
+        if (userId != null) {
+            mDatabase.child("userLocation").child(userId).removeValue();
+        }
+        super.onDestroy();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentUserLocationBinding.inflate(inflater, container, false);
@@ -79,48 +95,79 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
         // 리스너
     }
 
-    @SuppressLint("MissingPermission")
     public void initializeView() {
-
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = getContext();
         fragmentActivity = getActivity();
 
         mapView = new MapView(context);
-
-        // 먼저 GPS가 켜져있는지 확인한다.
-        if (!checkLocationServiceStatus()) {
-            showDialogForLocationServiceSetting();
-        } else {
-            checkRuntimePermission();
-        }
-
-        LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-        Location currentLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-
-        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(currentLocation.getLatitude(), currentLocation.getLongitude()), true);
-        mapView.setCurrentLocationEventListener(this);
-
-//        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
         ViewGroup mapViewContainer = binding.mapView;
         mapViewContainer.addView(mapView);
 
+        ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(),
+                new ActivityResultCallback<Boolean>() {
+                    @Override
+                    public void onActivityResult(Boolean result) {
+                        if (result) {
+                            // PERMISSION GRANTED
+                            Toast.makeText(context, "권한이 허용됨", Toast.LENGTH_LONG).show();
+                            Log.d(TAG, "권한이 허용됨");
 
-        // 내 현재 위치를 디비에 저장한다.
+                            // 지도에 내 위치와 다른 사람들의 위치를 표시한다.
+                            displayUserLocationsOnMap();
+
+                        } else {
+                            // PERMISSION NOT GRANTED
+                            Toast.makeText(context, "권한이 허용되지 않음", Toast.LENGTH_LONG).show();
+                            Log.d(TAG, "권한이 허용되지 않음");
+                        }
+                    }
+                }
+        );
+
+        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+    }
+
+    @SuppressLint("MissingPermission")
+    private void displayUserLocationsOnMap() {
+        // 내 현재 위치를 지도에 표시한다.
+        LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        List<String> providers = locationManager.getProviders(true);
+        Location myLocation = null;
+        for (String provider : providers) {
+            Location location = locationManager.getLastKnownLocation(provider);
+            if (location == null) {
+                continue;
+            }
+            if (myLocation == null || location.getAccuracy() < myLocation.getAccuracy()) {
+                myLocation = location;
+            }
+        }
+
+        if (myLocation == null) {
+            Toast.makeText(context, "현재 내 위치를 파악할 수 없습니다.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(myLocation.getLatitude(), myLocation.getLongitude()), true);
+        mapView.setCurrentLocationEventListener(this);
+        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+
+        // 현재 내 위치를 DB에 저장한다.
         SharedPreferences prefs = getActivity().getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
         String userId = prefs.getString("userId", null);
         String userName = prefs.getString("userName", null);
 
-        UserLocationDTO.InputDTO myLocation = UserLocationDTO.InputDTO.builder()
+        UserLocationDTO.InputDTO dto = UserLocationDTO.InputDTO.builder()
                 .userId(Integer.parseInt(userId))
                 .userName(userName)
-                .latitude(currentLocation.getLatitude())
-                .longitude(currentLocation.getLongitude())
+                .latitude(myLocation.getLatitude())
+                .longitude(myLocation.getLongitude())
                 .build();
-        mDatabase.child("userLocation").child(userId).setValue(myLocation);
+        mDatabase.child("userLocation").child(userId).setValue(dto);
 
-        // 다른 사람들의 위치를 가져온다.
+        // 접속중인 다른 사람들의 위치를 지도에 표시한다.
         mDatabase.child("userLocation").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -151,9 +198,6 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
 
             }
         });
-
-
-
     }
 
     @Override
@@ -174,39 +218,5 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
     @Override
     public void onCurrentLocationUpdateCancelled(MapView mapView) {
 
-    }
-
-    public boolean checkLocationServiceStatus(){
-        LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-    }
-
-    private void showDialogForLocationServiceSetting(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("위치 서비스 비활성화");
-        builder.setMessage("앱을 사용하기 위해 위치 서비스가 필요합니다.");
-        builder.setCancelable(true);
-        builder.setPositiveButton("설정", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent callGPSSettingIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivityForResult(callGPSSettingIntent,GPS_ENABLE_REQUEST_CODE);
-            }
-        });
-        builder.create().show();
-    }
-
-    public void checkRuntimePermission() {
-        int hasFineLocationPermission = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION);
-        if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED){
-            mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving);
-        } else {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),REQUIRED_PERMISSIONS[0])){
-                Toast.makeText(context,"이 앱을 실행하려면 위치 접근 권한이 필요합니다.",Toast.LENGTH_LONG).show();
-                ActivityCompat.requestPermissions(getActivity(),REQUIRED_PERMISSIONS,PERMISSIONS_REQUEST_CODE);
-            } else {
-                ActivityCompat.requestPermissions(getActivity(),REQUIRED_PERMISSIONS,PERMISSIONS_REQUEST_CODE);
-            }
-        }
     }
 }
