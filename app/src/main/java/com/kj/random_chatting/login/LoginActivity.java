@@ -78,6 +78,8 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = prefs.edit();
                         String token = result.getToken();
                         editor.putString("token", token);
+                        editor.putString("userId", result.getUserId());
+                        editor.putString("userName", result.getUserName());
                         editor.commit();
 
                         Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_LONG).show();

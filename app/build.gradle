@@ -75,4 +75,7 @@ dependencies {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
     }
+
+    //daumMap
+    implementation files('libs/libDaumMapAndroid.jar')
 }
