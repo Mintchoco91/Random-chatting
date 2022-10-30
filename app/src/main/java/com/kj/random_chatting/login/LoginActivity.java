@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.ForecdTerminationService;
 import com.kj.random_chatting.common.MainActivity;
 import com.kj.random_chatting.common.SplashActivity;
 import com.kj.random_chatting.databinding.LoginActivityBinding;
@@ -28,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startService(new Intent(this, ForecdTerminationService.class));
         binding = LoginActivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);

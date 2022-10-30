@@ -12,9 +12,12 @@ import android.view.View;
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.FragmentUserChattingBinding;
 import com.kj.random_chatting.databinding.UserListActivityBinding;
+import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListDTO;
 import com.kj.random_chatting.userList.FindUserInformationTaskRxJava;
 import com.kj.random_chatting.userList.UserListService;
 import com.kj.random_chatting.userRegist.UserRegistDTO;
+
+import java.util.List;
 
 public class UserChattingActivity extends Activity {
     private static final String TAG = "UserChattingActivity";
@@ -33,6 +36,15 @@ public class UserChattingActivity extends Activity {
         setListener();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
+        //채팅창 종료 시 이벤트 기재
+        userChattingService.leaveRoom();
+
+    }
+
     private void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = this;
@@ -47,7 +59,8 @@ public class UserChattingActivity extends Activity {
 
         binding.fragmentUserChattingTvChatScreen.setTextColor(Color.BLACK);
         binding.fragmentUserChattingTvChatScreen.setMovementMethod(new ScrollingMovementMethod());
-        userChattingService = new UserChattingService(context, binding, roomInfo);
+        userChattingService = new UserChattingService();
+        userChattingService.createRoom(context, binding, roomInfo);
     }
 
     private void setListener() {
