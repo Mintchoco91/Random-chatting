@@ -1,5 +1,6 @@
 package com.kj.random_chatting.common;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "Log : " + TAG + " -> onCreate");
         super.onCreate(savedInstanceState);
+        startService(new Intent(this, ForecdTerminationService.class));
+
         binding = MainActivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
