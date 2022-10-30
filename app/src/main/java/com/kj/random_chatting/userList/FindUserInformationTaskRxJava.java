@@ -91,7 +91,7 @@ public class FindUserInformationTaskRxJava {
                         String fileName = "";
                         for (int num = 0; num < 6; num++) {
                             fileName = loopJsonObject.getString("fileName" + num);
-                            if (fileName.equals("")) {
+                            if (fileName == null || fileName.equals("null") || fileName.equals("")) {
                                 break;
                             } else {
                                 fileNameList.add(fileName);
