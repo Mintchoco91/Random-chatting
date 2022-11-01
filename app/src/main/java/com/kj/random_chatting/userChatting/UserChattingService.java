@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
+import com.kj.random_chatting.common.MainActivity;
+import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomCreateTaskRxJava;
+import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomDetailDeleteRxJava;
 import com.kj.random_chatting.util.UtilClass;
 import com.kj.random_chatting.databinding.FragmentUserChattingBinding;
 
@@ -19,17 +22,18 @@ public class UserChattingService extends Activity {
     private static final String TAG = "UserChattingService";
     private static Socket socket;
     // 종료를 위해서 static 처리
-    private static String mRoomId;
+    private String roomId;
+    private String roomName;
     private FragmentUserChattingBinding binding;
     private Context context;
     private String userNickName = "";
-
-    private String roomName;
     private UtilClass utilClass;
 
 
     public UserChattingService() {
         Log.d(TAG, "Log : " + TAG + " -> UserChattingService");
+        //임시
+        userNickName = MainActivity.userNickName;
 
         try {
             if(socket == null) {
@@ -49,20 +53,20 @@ public class UserChattingService extends Activity {
         utilClass = new UtilClass();
         context = mContext;
         binding = mBinding;
-        mRoomId = mRoomInfo.getRoomId();
+        roomId = mRoomInfo.getRoomId();
         roomName = mRoomInfo.getRoomName();
 
-        //임시방편 으로 랜덤 닉네임
-        userNickName = "임시계정" + utilClass.createRandomNumber(6).toString();
         //방생성
-        socket.emit("joinRoom", mRoomId, userNickName);
+        socket.emit("joinRoom", roomId, userNickName);
 
-        String firstMsg = "* ["+ roomName + "] 방에 접속하였습니다. - 방 ID : " + mRoomId;
+        String firstMsg = "* ["+ roomName + "] 방에 접속하였습니다. - 방 ID : " + roomId;
         binding.fragmentUserChattingTvChatScreen.setText(firstMsg);
     }
 
-    public void leaveRoom(){
+    public void leaveRoom(Context mContext, UserChattingDTO.RoomInfo mRoomInfo){
         // 한명도 없을시 방 폭파
+        //UserChattingRoomDetailDeleteRxJava userChattingRoomDetailDeleteRxJava = new UserChattingRoomDetailDeleteRxJava(mContext);
+        //userChattingRoomDetailDeleteRxJava.deleteChattingRoomDetailRunFunc();
     }
 
     private Emitter.Listener onMessage = new Emitter.Listener() {
@@ -99,7 +103,7 @@ public class UserChattingService extends Activity {
         //공백 입력일 경우 서버 전송 안함.
         if(!chatMessage.equals("")) {
             // param -> 방제, 메세지
-            socket.emit("clientToServerMsg", mRoomId, userNickName + " : " + chatMessage);
+            socket.emit("clientToServerMsg", roomId, userNickName + " : " + chatMessage);
         }
     }
 

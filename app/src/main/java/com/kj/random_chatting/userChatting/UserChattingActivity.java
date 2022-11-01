@@ -24,6 +24,8 @@ public class UserChattingActivity extends Activity {
     private FragmentUserChattingBinding binding;
     private Context context;
     private UserChattingService userChattingService;
+    // 종료를 위해서 static 처리
+    private static UserChattingDTO.RoomInfo roomInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class UserChattingActivity extends Activity {
         super.onDestroy();
         Log.d(TAG, "onDestroy: ");
         //채팅창 종료 시 이벤트 기재
-        userChattingService.leaveRoom();
+        userChattingService.leaveRoom(context, roomInfo);
 
     }
 
@@ -53,7 +55,7 @@ public class UserChattingActivity extends Activity {
         String roomId = intentMain.getStringExtra("roomId");
         String roomName = intentMain.getStringExtra("roomName");
 
-        UserChattingDTO.RoomInfo roomInfo = new UserChattingDTO.RoomInfo();
+        roomInfo = new UserChattingDTO.RoomInfo();
         roomInfo.setRoomId(roomId);
         roomInfo.setRoomName(roomName);
 
