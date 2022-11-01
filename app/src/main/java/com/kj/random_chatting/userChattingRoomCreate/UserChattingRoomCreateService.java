@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.kj.random_chatting.databinding.ActivityUserChattingRoomCreateBinding;
 import com.kj.random_chatting.userChatting.UserChattingActivity;
+import com.kj.random_chatting.util.UtilClass;
 
 public class UserChattingRoomCreateService {
     private static final String TAG = "UserChattingRoomCreateService";
@@ -25,9 +26,18 @@ public class UserChattingRoomCreateService {
     public void btnRoomCreateClick() {
         Log.d(TAG, "Log : " + TAG + "btnMakeRoomClick");
 
-        //DB 방 저장
+        UtilClass utilClass = new UtilClass();
+
+        String roomId = utilClass.createRandomNumber(6).toString();
+        String roomName = binding.activityUserChattingRoomCreateEtRoomName.getText().toString();
+
+        //DB Room 저장
         UserChattingRoomCreateTaskRxJava userChattingRoomCreateTaskRxJava = new UserChattingRoomCreateTaskRxJava(context, binding);
-        userChattingRoomCreateTaskRxJava.createChattingRoomRunFunc();
+        userChattingRoomCreateTaskRxJava.createChattingRoomRunFunc(roomId,roomName);
+
+        //DB User 정보 저장 (방 join)
+        UserChattingRoomDetailCreateRxJava userChattingRoomDetailCreateRxJava = new UserChattingRoomDetailCreateRxJava(context);
+        userChattingRoomDetailCreateRxJava.createChattingRoomDetailRunFunc(roomId,roomName);
     }
 
     /**************************************************************

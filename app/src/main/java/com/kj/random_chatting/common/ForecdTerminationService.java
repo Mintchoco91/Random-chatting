@@ -17,11 +17,12 @@ public class ForecdTerminationService extends Service {
         return null;
     }
 
+    //어플 강제 종료시 실행할 내용 작성
     @Override
     public void onTaskRemoved(Intent rootIntent){
         Log.e("Error","onTaskRemoved - 강제 종료 " + rootIntent);
-        UserChattingService userChattingService = new UserChattingService();
-        userChattingService.leaveRoom();
+
+
         stopSelf();
     }
 
