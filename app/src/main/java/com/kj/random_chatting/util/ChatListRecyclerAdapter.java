@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
 import com.kj.random_chatting.userChatting.UserChattingActivity;
+import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomDetailCreateRxJava;
 
 import java.util.ArrayList;
 
@@ -61,10 +62,9 @@ public class ChatListRecyclerAdapter extends RecyclerView.Adapter<ChatListRecycl
                         String roomId = mData.get(pos).getRoomId();
                         String roomName = mData.get(pos).getRoomName();
 
-                        Intent intent = new Intent(context, UserChattingActivity.class);
-                        intent.putExtra("roomId", roomId);
-                        intent.putExtra("roomName", roomName);
-                        context.startActivity(intent);
+                        //DB User 정보 저장 (방 join)
+                        UserChattingRoomDetailCreateRxJava userChattingRoomDetailCreateRxJava = new UserChattingRoomDetailCreateRxJava(context);
+                        userChattingRoomDetailCreateRxJava.createChattingRoomDetailRunFunc(roomId,roomName);
                     }
                 }
             });

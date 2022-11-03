@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
+import com.kj.random_chatting.common.MainActivity;
+import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomCreateTaskRxJava;
+import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomDetailDeleteRxJava;
 import com.kj.random_chatting.util.UtilClass;
 import com.kj.random_chatting.databinding.FragmentUserChattingBinding;
 
@@ -15,52 +18,55 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 public class UserChattingService extends Activity {
-    private UtilClass utilClass;
-
-    private Socket socket;
+    private final String socketBaseURL = "https://random-chatting-chat-server.herokuapp.com/";
     private static final String TAG = "UserChattingService";
+    private static Socket socket;
+    // 종료를 위해서 static 처리
+    private String roomId;
+    private String roomName;
     private FragmentUserChattingBinding binding;
     private Context context;
-    private final String socketBaseURL = "https://random-chatting-chat-server.herokuapp.com/";
     private String userNickName = "";
-    String roomId;
-    String roomName;
+    private UtilClass utilClass;
 
 
-    public UserChattingService(Context mContext, FragmentUserChattingBinding mBinding, UserChattingDTO.RoomInfo mRoomInfo) {
+    public UserChattingService() {
         Log.d(TAG, "Log : " + TAG + " -> UserChattingService");
+        //임시
+        userNickName = MainActivity.userNickName;
+
+        try {
+            if(socket == null) {
+                socket = IO.socket(socketBaseURL);
+                socket.connect();
+            }
+
+            //메세지 Listener
+            socket.on("ServerToClientMsg", onMessage);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createRoom(Context mContext, FragmentUserChattingBinding mBinding, UserChattingDTO.RoomInfo mRoomInfo){
+        Log.d(TAG, "Log : " + TAG + " -> createRoom");
         utilClass = new UtilClass();
         context = mContext;
         binding = mBinding;
         roomId = mRoomInfo.getRoomId();
         roomName = mRoomInfo.getRoomName();
 
-        //임시방편 으로 랜덤 닉네임
-        userNickName = "임시계정" + utilClass.createRandomNumber(6).toString();;
+        //방생성
+        socket.emit("joinRoom", roomId, userNickName);
 
-        try {
-            socket = IO.socket(socketBaseURL);
-            socket.connect();
-
-            //방생성
-            socket.emit("joinRoom", roomId, userNickName);
-
-            //메세지 Listener
-            socket.on("ServerToClientMsg", onMessage);
-
-            String firstMsg = "* ["+ roomName + "] 방에 접속하였습니다. - 방 ID : " + roomId;
-            binding.fragmentUserChattingTvChatScreen.setText(firstMsg);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        String firstMsg = "* ["+ roomName + "] 방에 접속하였습니다. - 방 ID : " + roomId;
+        binding.fragmentUserChattingTvChatScreen.setText(firstMsg);
     }
 
-    public void btnSendClick(String chatMessage){
-        //공백 입력일 경우 서버 전송 안함.
-        if(!chatMessage.equals("")) {
-            // param -> 방제, 메세지
-            socket.emit("clientToServerMsg", roomId, userNickName + " : " + chatMessage);
-        }
+    public void leaveRoom(Context mContext, UserChattingDTO.RoomInfo mRoomInfo){
+        // 한명도 없을시 방 폭파
+        //UserChattingRoomDetailDeleteRxJava userChattingRoomDetailDeleteRxJava = new UserChattingRoomDetailDeleteRxJava(mContext);
+        //userChattingRoomDetailDeleteRxJava.deleteChattingRoomDetailRunFunc();
     }
 
     private Emitter.Listener onMessage = new Emitter.Listener() {
@@ -88,4 +94,20 @@ public class UserChattingService extends Activity {
         binding.fragmentUserChattingEtMessage.setText("");
         utilClass.scrollBottom(binding.fragmentUserChattingTvChatScreen);
     }
+
+    /**************************************************************
+     *  버튼 클릭 이벤트 시작
+     **************************************************************/
+
+    public void btnSendClick(String chatMessage){
+        //공백 입력일 경우 서버 전송 안함.
+        if(!chatMessage.equals("")) {
+            // param -> 방제, 메세지
+            socket.emit("clientToServerMsg", roomId, userNickName + " : " + chatMessage);
+        }
+    }
+
+    /**************************************************************
+     *  버튼 클릭 이벤트 끝
+     **************************************************************/
 }

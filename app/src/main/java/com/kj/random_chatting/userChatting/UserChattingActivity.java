@@ -12,15 +12,20 @@ import android.view.View;
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.FragmentUserChattingBinding;
 import com.kj.random_chatting.databinding.UserListActivityBinding;
+import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListDTO;
 import com.kj.random_chatting.userList.FindUserInformationTaskRxJava;
 import com.kj.random_chatting.userList.UserListService;
 import com.kj.random_chatting.userRegist.UserRegistDTO;
+
+import java.util.List;
 
 public class UserChattingActivity extends Activity {
     private static final String TAG = "UserChattingActivity";
     private FragmentUserChattingBinding binding;
     private Context context;
     private UserChattingService userChattingService;
+    // 종료를 위해서 static 처리
+    private static UserChattingDTO.RoomInfo roomInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,15 @@ public class UserChattingActivity extends Activity {
         setListener();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
+        //채팅창 종료 시 이벤트 기재
+        userChattingService.leaveRoom(context, roomInfo);
+
+    }
+
     private void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = this;
@@ -41,13 +55,14 @@ public class UserChattingActivity extends Activity {
         String roomId = intentMain.getStringExtra("roomId");
         String roomName = intentMain.getStringExtra("roomName");
 
-        UserChattingDTO.RoomInfo roomInfo = new UserChattingDTO.RoomInfo();
+        roomInfo = new UserChattingDTO.RoomInfo();
         roomInfo.setRoomId(roomId);
         roomInfo.setRoomName(roomName);
 
         binding.fragmentUserChattingTvChatScreen.setTextColor(Color.BLACK);
         binding.fragmentUserChattingTvChatScreen.setMovementMethod(new ScrollingMovementMethod());
-        userChattingService = new UserChattingService(context, binding, roomInfo);
+        userChattingService = new UserChattingService();
+        userChattingService.createRoom(context, binding, roomInfo);
     }
 
     private void setListener() {

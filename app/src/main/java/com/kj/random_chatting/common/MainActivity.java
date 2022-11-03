@@ -1,5 +1,6 @@
 package com.kj.random_chatting.common;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import com.kj.random_chatting.databinding.MainActivityBinding;
 import com.kj.random_chatting.userList.UserListFragment;
 import com.kj.random_chatting.userInfo.UserInfoFragment;
 import com.kj.random_chatting.userLocation.UserLocationFragment;
+import com.kj.random_chatting.util.UtilClass;
 
 public class MainActivity extends AppCompatActivity {
     private MainActivityBinding binding;
@@ -25,14 +27,23 @@ public class MainActivity extends AppCompatActivity {
     private Fragment matchingFragment, chattingListFragment, locationFragment, infoFragment, messengerFragment;
     private static final String TAG = "MainActivity";
 
+    //임시방편 으로 랜덤 닉네임
+    public static String userNickName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "Log : " + TAG + " -> onCreate");
         super.onCreate(savedInstanceState);
+        startService(new Intent(this, ForecdTerminationService.class));
+
         binding = MainActivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
         fragmentManager = getSupportFragmentManager();
+
+        UtilClass utilClass = new UtilClass();
+        //임시방편 으로 랜덤 닉네임
+        userNickName = "임시계정" + utilClass.createRandomNumber(6).toString();
 
         /**
          * 하단 네비게이션 기본 설정 시작
