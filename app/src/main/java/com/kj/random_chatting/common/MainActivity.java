@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.messenger.MessengerFragment;
 import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListFragment;
 import com.kj.random_chatting.databinding.MainActivityBinding;
 import com.kj.random_chatting.userList.UserListFragment;
@@ -21,7 +22,7 @@ import com.kj.random_chatting.userLocation.UserLocationFragment;
 public class MainActivity extends AppCompatActivity {
     private MainActivityBinding binding;
     private FragmentManager fragmentManager;
-    private Fragment matchingFragment, chattingListFragment, locationFragment, infoFragment;
+    private Fragment matchingFragment, chattingListFragment, locationFragment, infoFragment, messengerFragment;
     private static final String TAG = "MainActivity";
 
     @Override
@@ -54,15 +55,18 @@ public class MainActivity extends AppCompatActivity {
                                     //fragment가 매번 생성될 필요가 없으므로 이미 존재할경우 add로 처리한다.(replace -> add로 변경)
                                     fragmentManager.beginTransaction().add(R.id.frameLayout, matchingFragment).commit();
                                 }
+                                fragmentManager.beginTransaction().show(matchingFragment).commit();
 
-                                if (matchingFragment != null)
-                                    fragmentManager.beginTransaction().show(matchingFragment).commit();
+                                // 다른 프래그먼트들은 가려준다.
                                 if (chattingListFragment != null)
                                     fragmentManager.beginTransaction().hide(chattingListFragment).commit();
                                 if (locationFragment != null)
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
                                 if (infoFragment != null)
                                     fragmentManager.beginTransaction().hide(infoFragment).commit();
+                                if (messengerFragment != null) {
+                                    fragmentManager.beginTransaction().hide(messengerFragment).commit();
+                                }
                                 return true;
 
                             case R.id.navigation_chatting:
@@ -80,6 +84,34 @@ public class MainActivity extends AppCompatActivity {
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
                                 if (infoFragment != null)
                                     fragmentManager.beginTransaction().hide(infoFragment).commit();
+                                if (messengerFragment != null) {
+                                    fragmentManager.beginTransaction().hide(messengerFragment).commit();
+                                }
+                                return true;
+
+                            case R.id.navigation_messenger:
+                                if (messengerFragment == null) {
+                                    messengerFragment = new MessengerFragment();
+                                    fragmentManager.beginTransaction().add(R.id.frameLayout, messengerFragment).commit();
+                                }
+
+
+                                // 다른 프래그먼트들은 숨긴다.
+                                if (matchingFragment != null) {
+                                    fragmentManager.beginTransaction().hide(matchingFragment).commit();
+                                }
+                                if (chattingListFragment != null) {
+                                    fragmentManager.beginTransaction().hide(chattingListFragment).commit();
+                                }
+                                if (locationFragment != null) {
+                                    fragmentManager.beginTransaction().hide(locationFragment).commit();
+                                }
+                                if (infoFragment != null) {
+                                    fragmentManager.beginTransaction().hide(infoFragment).commit();
+                                }
+                                if (messengerFragment != null) {
+                                    fragmentManager.beginTransaction().show(messengerFragment).commit();
+                                }
                                 return true;
 
                             case R.id.navigation_location:
@@ -96,6 +128,9 @@ public class MainActivity extends AppCompatActivity {
                                     fragmentManager.beginTransaction().show(locationFragment).commit();
                                 if (infoFragment != null)
                                     fragmentManager.beginTransaction().hide(infoFragment).commit();
+                                if (messengerFragment != null) {
+                                    fragmentManager.beginTransaction().hide(messengerFragment).commit();
+                                }
                                 return true;
 
                             case R.id.navigation_info:
@@ -112,6 +147,9 @@ public class MainActivity extends AppCompatActivity {
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
                                 if (infoFragment != null)
                                     fragmentManager.beginTransaction().show(infoFragment).commit();
+                                if (messengerFragment != null) {
+                                    fragmentManager.beginTransaction().hide(messengerFragment).commit();
+                                }
                                 return true;
                         }
                         return false;

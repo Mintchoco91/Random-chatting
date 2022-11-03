@@ -65,8 +65,7 @@ public class FindUserInformationTaskRxJava {
     //유저 정보 조회
     private Integer findUserInformation() throws IOException {
         Integer resultCode = 0;
-        Call<String> call = Retrofit_client.getApiService().findUserInformation(
-                "select");
+        Call<String> call = Retrofit_client.getApiService().findUserInformation("select");
         //동기화 해야 해서 excute() 처리함.
         String jsonResponse = call.execute().body();
 
@@ -91,7 +90,7 @@ public class FindUserInformationTaskRxJava {
                         String fileName = "";
                         for (int num = 0; num < 6; num++) {
                             fileName = loopJsonObject.getString("fileName" + num);
-                            if (fileName.equals("")) {
+                            if (fileName == null || fileName.equals("null") ||fileName.equals("")) {
                                 break;
                             } else {
                                 fileNameList.add(fileName);
