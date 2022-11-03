@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Sourcetree/random_chatting_android/app/src/main/res/layout/fragment_chatting.xml" value="0.1125" />
+        <entry key="..\:/Sourcetree/random_chatting_android/app/src/main/res/layout/fragment_dashboard.xml" value="0.1125" />
+        <entry key="..\:/Sourcetree/random_chatting_android/app/src/main/res/layout/fragment_messenger.xml" value="0.1" />
+        <entry key="..\:/Sourcetree/random_chatting_android/app/src/main/res/layout/main_activity.xml" value="0.16" />
+        <entry key="..\:/Sourcetree/random_chatting_android/app/src/main/res/layout/user_regist_activity.xml" value="0.1125" />
+        <entry key="..\:/Sourcetree/random_chatting_android/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1125" />
         <entry key="..\:/random-chatting/app/src/main/res/drawable-v24/bg_fading_edge.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/drawable/bg_indicator_active.xml" value="0.1" />
         <entry key="..\:/random-chatting/app/src/main/res/drawable/btn_blue.xml" value="0.103" />

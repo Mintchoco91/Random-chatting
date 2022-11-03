@@ -49,6 +49,7 @@ dependencies {
     //FireBase 추가
     implementation 'com.google.firebase:firebase-firestore:24.2.0'
     implementation 'com.google.firebase:firebase-storage:20.0.0'
+    implementation 'com.google.firebase:firebase-messaging:21.1.0'
 
     //glide 추가
     implementation 'com.github.bumptech.glide:glide:4.11.0'
@@ -82,3 +83,5 @@ dependencies {
     //slide refresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -12,6 +12,11 @@
         android:title="" />
 
     <item
+        android:id="@+id/navigation_messenger"
+        android:icon="@drawable/ic_messenger_24dp"
+        android:title="" />
+
+    <item
         android:id="@+id/navigation_location"
         android:icon="@drawable/ic_location_24dp"
         android:title="" />
