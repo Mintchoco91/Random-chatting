@@ -25,7 +25,7 @@ public class UserChattingActivity extends Activity {
     private Context context;
     private UserChattingService userChattingService;
     // 종료를 위해서 static 처리
-    private static UserChattingDTO.RoomInfo roomInfo;
+    public static UserChattingDTO.RoomInfo roomInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +43,7 @@ public class UserChattingActivity extends Activity {
         super.onDestroy();
         Log.d(TAG, "onDestroy: ");
         //채팅창 종료 시 이벤트 기재
-        userChattingService.leaveRoom(context, roomInfo);
-
+        userChattingService.leaveRoom(roomInfo);
     }
 
     private void initializeView() {

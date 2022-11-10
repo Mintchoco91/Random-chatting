@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.kj.random_chatting.userChatting.UserChattingActivity;
+import com.kj.random_chatting.userChatting.UserChattingDTO;
 import com.kj.random_chatting.userChatting.UserChattingService;
 
 import javax.annotation.Nullable;
@@ -22,8 +24,14 @@ public class ForecdTerminationService extends Service {
     public void onTaskRemoved(Intent rootIntent){
         Log.e("Error","onTaskRemoved - 강제 종료 " + rootIntent);
 
-
+        try {
+            //채팅창 종료 시 이벤트 기재
+            UserChattingService userChattingService = new UserChattingService();
+            userChattingService.leaveRoom(UserChattingActivity.roomInfo);
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         stopSelf();
     }
-
 }

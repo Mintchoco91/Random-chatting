@@ -1,7 +1,7 @@
 package com.kj.random_chatting.userChattingRoomCreate;
 
 public class UserChattingRoomDetailDTO {
-    public static class inputDTO {
+    public static class ChattingRoomDetailinputDTO {
         private String userId;
         private String roomId;
 
