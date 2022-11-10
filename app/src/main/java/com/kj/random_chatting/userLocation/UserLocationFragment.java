@@ -4,15 +4,11 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,24 +17,22 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import com.google.android.gms.common.util.Strings;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.RemoteMessage;
 import com.kj.random_chatting.databinding.FragmentUserLocationBinding;
+import com.kj.random_chatting.messenger.FcmClient;
+import com.kj.random_chatting.messenger.FcmInterface;
+import com.kj.random_chatting.messenger.NotificationData;
+import com.kj.random_chatting.messenger.NotificationRequest;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -46,6 +40,11 @@ import net.daum.mf.map.api.MapView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class UserLocationFragment extends Fragment implements MapView.CurrentLocationEventListener, MapView.POIItemEventListener {
@@ -59,6 +58,7 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
     private DatabaseReference mDatabase;
     private List<UserLocationDTO.OutputDTO> userLocations = new ArrayList<UserLocationDTO.OutputDTO>();
+    private String myUserId, myUserName, fcmToken;
 
     private final LocationListener locationListener = new LocationListener() {
         @Override
@@ -82,6 +82,31 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     // 상대방에게 대화를 요청하는 푸시 메시지 발송
+                    NotificationData data = new NotificationData();
+                    data.setTitle("대화 요청");
+                    data.setMessage(myUserName + "님이 대화를 요청하셨습니다.");
+                    data.setUserName(myUserName);
+
+                    NotificationRequest request = new NotificationRequest();
+                    String token = (String) mapPOIItem.getUserObject();
+                    request.setToken(token);
+                    request.setData(data);
+
+                    FcmInterface apiService = FcmClient.getClient().create(FcmInterface.class);
+                    Call<ResponseBody> response = apiService.sendNotification(request);
+
+                    response.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            Toast.makeText(context, "상대방에게 푸시 메시지를 성공적으로 전송하였습니다.", Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                        }
+                    });
+
                 }
             });
             builder.setNegativeButton("아니오", null);
@@ -141,6 +166,11 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = getContext();
         fragmentActivity = getActivity();
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
+        myUserId = prefs.getString("userId", null);
+        myUserName = prefs.getString("userName", null);
+        fcmToken = prefs.getString("fcmToken", null);
 
         mapView = new MapView(context);
         mapView.setPOIItemEventListener(poiItemEventListener);
@@ -210,18 +240,16 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
         mapView.setCurrentLocationEventListener(this);
         mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving);
 
-        // 현재 내 위치를 DB에 저장한다.
-        SharedPreferences prefs = getActivity().getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
-        String userId = prefs.getString("userId", null);
-        String userName = prefs.getString("userName", null);
 
+        // 현재 내 위치를 DB에 저장한다.
         UserLocationDTO.InputDTO dto = UserLocationDTO.InputDTO.builder()
-                .userId(Integer.parseInt(userId))
-                .userName(userName)
+                .userId(Integer.parseInt(myUserId))
+                .userName(myUserName)
                 .latitude(myLocation.getLatitude())
                 .longitude(myLocation.getLongitude())
+                .fcmToken(fcmToken)
                 .build();
-        mDatabase.child("userLocation").child(userId).setValue(dto);
+        mDatabase.child("userLocation").child(myUserId).setValue(dto);
 
         // 접속중인 다른 사람들의 위치를 지도에 표시한다.
         mDatabase.child("userLocation").addValueEventListener(new ValueEventListener() {
@@ -229,7 +257,7 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userLocations.clear();
                 for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                    if (childSnapshot.getKey().equals(userId)) {
+                    if (childSnapshot.getKey().equals(myUserId)) {
                         continue;
                     }
                     userLocations.add(childSnapshot.getValue(UserLocationDTO.OutputDTO.class));
@@ -239,6 +267,7 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
                     for (UserLocationDTO.OutputDTO userLocation : userLocations) {
                         MapPoint point = MapPoint.mapPointWithGeoCoord(userLocation.getLatitude(), userLocation.getLongitude());
                         MapPOIItem marker = new MapPOIItem();
+                        marker.setUserObject(userLocation.getFcmToken());
                         marker.setItemName(userLocation.getUserName());
                         marker.setTag(0);
                         marker.setMapPoint(point);

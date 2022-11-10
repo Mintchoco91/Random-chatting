@@ -3,6 +3,8 @@ package com.kj.random_chatting.messenger;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
 
@@ -33,7 +35,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 notificationManager.createNotificationChannel(channel);
             }
             builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
-        }else {
+        } else {
             builder = new NotificationCompat.Builder(getApplicationContext());
         }
 
@@ -52,6 +54,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(@NonNull String s) {
         super.onNewToken(s);
 
-        Log.d(TAG, "토큰: " + s);
+        // 토큰이 새로 생성되면 환경변수에 값을 저장한다.
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("fcmToken", s);
+        editor.commit();
     }
 }
