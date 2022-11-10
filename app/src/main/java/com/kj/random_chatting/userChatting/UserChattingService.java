@@ -6,7 +6,9 @@ import android.util.Log;
 
 import com.kj.random_chatting.common.MainActivity;
 import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomCreateTaskRxJava;
+import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomDetailCreateRxJava;
 import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomDetailDeleteRxJava;
+import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomDetailSelectAndDeleteRxJava;
 import com.kj.random_chatting.util.UtilClass;
 import com.kj.random_chatting.databinding.FragmentUserChattingBinding;
 
@@ -63,10 +65,13 @@ public class UserChattingService extends Activity {
         binding.fragmentUserChattingTvChatScreen.setText(firstMsg);
     }
 
-    public void leaveRoom(Context mContext, UserChattingDTO.RoomInfo mRoomInfo){
-        // 한명도 없을시 방 폭파
-        //UserChattingRoomDetailDeleteRxJava userChattingRoomDetailDeleteRxJava = new UserChattingRoomDetailDeleteRxJava(mContext);
-        //userChattingRoomDetailDeleteRxJava.deleteChattingRoomDetailRunFunc();
+    public void leaveRoom(UserChattingDTO.RoomInfo mRoomInfo){
+        // 1. 나간 인원 chatting_room_info_detail 테이블 삭제
+        UserChattingRoomDetailDeleteRxJava userChattingRoomDetailDeleteRxJava = new UserChattingRoomDetailDeleteRxJava();
+        userChattingRoomDetailDeleteRxJava.deleteChattingRoomDetailRunFunc(mRoomInfo.getRoomId(), mRoomInfo.getRoomName());
+        // 2. 해당 방에 남은 인원 있는지 체크 후 인원 없는 방들 삭제
+        UserChattingRoomDetailSelectAndDeleteRxJava userChattingRoomDetailSelectAndDeleteRxJava = new UserChattingRoomDetailSelectAndDeleteRxJava();
+        userChattingRoomDetailSelectAndDeleteRxJava.selectAndDeleteChattingRoomDetailRunFunc(mRoomInfo.getRoomId(), mRoomInfo.getRoomName());
     }
 
     private Emitter.Listener onMessage = new Emitter.Listener() {

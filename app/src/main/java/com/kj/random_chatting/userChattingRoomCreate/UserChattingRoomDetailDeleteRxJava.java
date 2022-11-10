@@ -27,21 +27,17 @@ public class UserChattingRoomDetailDeleteRxJava {
     private String roomName;
     Disposable backgroundTask;
 
-    public UserChattingRoomDetailDeleteRxJava(Context mContext) {
+    public UserChattingRoomDetailDeleteRxJava() {
         Log.d(TAG, "Log : " + TAG + " -> UserChattingRoomDetailDeleteRxJava");
-        context = mContext;
     }
 
     //결과 처리
     private void resultPost(Integer code) {
         Log.d(TAG, "Log : " + TAG + " -> resultPost : " + code);
         if (code == 0) {
-            Intent intentRoomCreate = new Intent(context, UserChattingActivity.class);
-            intentRoomCreate.putExtra("roomId", roomId);
-            intentRoomCreate.putExtra("roomName", roomName);
-            context.startActivity(intentRoomCreate);
+            Log.d(TAG, "Log : " + TAG + " -> DB처리 성공");
         } else {
-            Toast.makeText(context, "등록 실패 ! ErrorCode : " + code, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "방 나가기 실패 ! ErrorCode : " + code, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -58,12 +54,12 @@ public class UserChattingRoomDetailDeleteRxJava {
             roomId = mRoomId;
             roomName = mRoomName;
 
-            //Insert
-            UserChattingRoomDetailDTO.inputDTO detailDto = new UserChattingRoomDetailDTO.inputDTO();
+            //delete
+            UserChattingRoomDetailDTO.ChattingRoomDetailinputDTO detailDto = new UserChattingRoomDetailDTO.ChattingRoomDetailinputDTO();
             detailDto.setUserId(MainActivity.userNickName);
             detailDto.setRoomId(roomId);
 
-            Call<String> call = Retrofit_client.getApiService().createChattingRoomDetail(detailDto);
+            Call<String> call = Retrofit_client.getApiService().deleteChattingRoomDetail(detailDto);
             String jsonResponse = call.execute().body();
 
             try {

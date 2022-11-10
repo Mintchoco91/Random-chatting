@@ -49,5 +49,11 @@ public interface Retrofit_interface {
     Call<String> createChattingRoom(@Body UserChattingRoomCreateDTO.inputDTO inputDTO);
 
     @POST("/createChattingRoomDetail.php")
-    Call<String> createChattingRoomDetail(@Body UserChattingRoomDetailDTO.inputDTO inputDTO);
+    Call<String> createChattingRoomDetail(@Body UserChattingRoomDetailDTO.ChattingRoomDetailinputDTO inputDTO);
+
+    @POST("/deleteChattingRoomDetail.php")
+    Call<String> deleteChattingRoomDetail(@Body UserChattingRoomDetailDTO.ChattingRoomDetailinputDTO inputDTO);
+
+    @POST("/selectAndDeleteChattingRoomDetail.php")
+    Call<String> selectAndDeleteChattingRoomDetail(@Body UserChattingRoomDetailDTO.ChattingRoomDetailinputDTO inputDTO);
 }
