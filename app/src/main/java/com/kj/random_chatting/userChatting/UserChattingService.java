@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
+import com.kj.random_chatting.common.Constants;
 import com.kj.random_chatting.common.MainActivity;
 import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomCreateTaskRxJava;
 import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomDetailCreateRxJava;
@@ -20,7 +21,7 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 public class UserChattingService extends Activity {
-    private final String socketBaseURL = "http://18.183.45.13:3000/";
+    private final String socketBaseURL = Constants.AWS_IP_ADDRESS + ":" + Constants.AWS_PORT;
     private static final String TAG = "UserChattingService";
     private static Socket socket;
     // 종료를 위해서 static 처리
