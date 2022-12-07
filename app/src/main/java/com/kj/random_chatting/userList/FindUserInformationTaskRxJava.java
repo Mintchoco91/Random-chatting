@@ -66,6 +66,7 @@ public class FindUserInformationTaskRxJava {
     private Integer findUserInformation() throws IOException {
         Integer resultCode = 0;
         Call<String> call = Retrofit_client.getApiService().searchUserList();
+
         //동기화 해야 해서 excute() 처리함.
         String jsonResponse = call.execute().body();
 
