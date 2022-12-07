@@ -48,6 +48,13 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="14559e5e5e2d7a6c6bbc8df6c1cb8b83" />
+
+        <service android:name="com.kj.random_chatting.messenger.MyFirebaseMessagingService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
