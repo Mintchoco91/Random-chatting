@@ -14,27 +14,18 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 public interface Retrofit_interface {
-    @POST("/accountQuery.php/")
-    @FormUrlEncoded
-    Call<String> registDB(
-            @Field("mode") String mode,
-            @Field("userName") String userName,
-            @Field("gender") String gender,
-            @Field("age") String age,
-            @Field("phoneNumber") String phoneNumber,
-            @Field("fileName0") String fileName0,
-            @Field("fileName1") String fileName1,
-            @Field("fileName2") String fileName2,
-            @Field("fileName3") String fileName3,
-            @Field("fileName4") String fileName4,
-            @Field("fileName5") String fileName5
-    );
+    @POST("/searchUserList.php/")
+    Call<String> searchUserList();
 
-    @POST("/accountQuery.php/")
-    @FormUrlEncoded
-    Call<String> findUserInformation(
-            @Field("mode") String mode
-    );
+    /* 나중에 필요할 때 주석 해제 할것(회원정보 수정)
+    @POST("/modifyUserDetail.php/")
+    Call<String> searchUserList();
+    */
+
+    /* 나중에 필요할 때 주석 해제 할것(회원정보 삭제)
+    @POST("/deleteUserDetail.php/")
+    Call<String> searchUserList();
+    */
 
     @POST("/userLogin.php")
     Call<LoginResponse> getLoginResponse(@Body LoginRequest loginRequest);
