@@ -84,6 +84,7 @@ public class UserRegistInformationTaskRxJava {
             dto.setPassword(password);
             dto.setUserName(userName);
             dto.setGender(gender);
+            dto.setAge(age);
             dto.setPhoneNumber(phoneNumber);
             dto.setFileName0(insertFileNames[0]);
             dto.setFileName1(insertFileNames[1]);
