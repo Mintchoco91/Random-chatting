@@ -12,14 +12,14 @@ random-chatting-prototype
 
  - Rest API Server
  
-   - Hosting : Heroku
+   - Hosting : AWS
    - DEV language : PHP 5.3
    - Database : JawsDB Maria
    - Repository : https://github.com/Mintchoco91/random-chatting-server
 
  - Socket Server 
  
-   - Hosting : Heroku
+   - Hosting : AWS
    - DEV language : Nodejs 16
    - Socket.IO Server Version : 4.5.2
    - Socket.IO Client Version : 2.1.0
