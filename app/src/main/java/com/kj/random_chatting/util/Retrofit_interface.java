@@ -14,7 +14,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 public interface Retrofit_interface {
-    @POST("/searchUserList.php/")
+    @POST("searchUserList.php")
     Call<String> searchUserList();
 
     /* 나중에 필요할 때 주석 해제 할것(회원정보 수정)
@@ -27,24 +27,24 @@ public interface Retrofit_interface {
     Call<String> searchUserList();
     */
 
-    @POST("/userLogin.php")
+    @POST("userLogin.php")
     Call<LoginResponse> getLoginResponse(@Body LoginRequest loginRequest);
 
-    @POST("/searchChattingRoomList.php")
+    @POST("searchChattingRoomList.php")
     Call<String> searchChattingRoomList(@Body UserChattingRoomListDTO.inputDTO inputParam);
 
-    @POST("/createUser.php")
+    @POST("createUser.php")
     Call<String> createUser(@Body UserRegistDTO.inputDTO userRegistDTO);
 
-    @POST("/createChattingRoom.php")
+    @POST("createChattingRoom.php")
     Call<String> createChattingRoom(@Body UserChattingRoomCreateDTO.inputDTO inputDTO);
 
-    @POST("/createChattingRoomDetail.php")
+    @POST("createChattingRoomDetail.php")
     Call<String> createChattingRoomDetail(@Body UserChattingRoomDetailDTO.ChattingRoomDetailinputDTO inputDTO);
 
-    @POST("/deleteChattingRoomDetail.php")
+    @POST("deleteChattingRoomDetail.php")
     Call<String> deleteChattingRoomDetail(@Body UserChattingRoomDetailDTO.ChattingRoomDetailinputDTO inputDTO);
 
-    @POST("/selectAndDeleteChattingRoomDetail.php")
+    @POST("selectAndDeleteChattingRoomDetail.php")
     Call<String> selectAndDeleteChattingRoomDetail(@Body UserChattingRoomDetailDTO.ChattingRoomDetailinputDTO inputDTO);
 }
