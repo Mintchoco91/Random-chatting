@@ -65,7 +65,9 @@ public class LoginActivity extends AppCompatActivity {
         String email = binding.loginActivityEtEmail.getText().toString().trim();
         String password = binding.loginActivityEtPassword.getText().toString().trim();
 
-        LoginRequest loginRequest = new LoginRequest(email, password);
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail(email);
+        loginRequest.setPassword(password);
 
         Retrofit_client.getApiService().getLoginResponse(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
