@@ -14,7 +14,7 @@ public class Retrofit_client {
     private static Retrofit getInstance(){
         Gson gson = new GsonBuilder().setLenient().create();
         return new Retrofit.Builder()
-                .baseUrl(Constants.AWS_IP_ADDRESS)
+                .baseUrl(Constants.AWS_PHP_SERVER_IP_ADDRESS)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
