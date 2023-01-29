@@ -21,7 +21,7 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 public class UserChattingService extends Activity {
-    private final String socketBaseURL = Constants.AWS_IP_ADDRESS + ":" + Constants.AWS_PORT;
+    private final String socketBaseURL = Constants.AWS_NODE_SERVER_IP_ADDRESS + ":" + Constants.AWS_PORT;
     private static final String TAG = "UserChattingService";
     private static Socket socket;
     // 종료를 위해서 static 처리
