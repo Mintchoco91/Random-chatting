@@ -3,6 +3,7 @@ package com.kj.random_chatting.login;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,11 +20,15 @@ import com.kj.random_chatting.userList.UserListActivity;
 import com.kj.random_chatting.userRegist.UserRegistActivity;
 import com.kj.random_chatting.util.Retrofit_client;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
+    private static final String TAG = "LoginActivity";
     private LoginActivityBinding binding;
 
     @Override
@@ -35,20 +40,20 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(view);
 
         // 회원가입 버튼 관련 리스너 등록
-        binding.loginActivityBtnRegist.setOnClickListener( new View.OnClickListener() {
+        binding.loginActivityBtnRegist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( LoginActivity.this, UserRegistActivity.class );
-                startActivity( intent );
+                Intent intent = new Intent(LoginActivity.this, UserRegistActivity.class);
+                startActivity(intent);
             }
         });
 
         // 회원 목록 조회
-        binding.buttonUserList.setOnClickListener( new View.OnClickListener() {
+        binding.buttonUserList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( LoginActivity.this, MainActivity.class );
-                startActivity( intent );
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -92,18 +97,16 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "Log : " + TAG + " -> doLogin/ onFailure_1 : 조회 결과 없음");
                     }
-
-
                 }
             }
-
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-
+                Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "Log : " + TAG + " -> doLogin/ onFailure_2 : " + t.getMessage());
             }
         });
-
     }
 
 }
