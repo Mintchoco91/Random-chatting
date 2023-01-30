@@ -97,13 +97,14 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "Log : " + TAG + " -> doLogin/ onFailure_1 : 조회 결과 없음");
                     }
                 }
             }
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
                 Log.d(TAG, "Log : " + TAG + " -> doLogin/ onFailure_2 : " + t.getMessage());
-
             }
         });
     }

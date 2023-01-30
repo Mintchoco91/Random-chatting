@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {
     @SerializedName("status")
-    private int status;
+    private String status;
 
     @SerializedName("success")
     private boolean success;
@@ -21,11 +21,17 @@ public class LoginResponse {
     @SerializedName("userName")
     private String userName;
 
-    public int getStatus() {
+    @SerializedName("message")
+    private String message;
+
+    @SerializedName("query")
+    private String query;
+
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -67,5 +73,21 @@ public class LoginResponse {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
     }
 }
