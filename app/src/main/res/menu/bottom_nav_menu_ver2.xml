@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_bulb"
+        android:icon="@drawable/ic_nav_matching_bulb"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_chatting_list"
+        android:icon="@drawable/ic_nav_chatting_list"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_my_room_list"
+        android:icon="@drawable/ic_nav_my_room_list"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_map"
+        android:icon="@drawable/ic_nav_map"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_info"
+        android:icon="@drawable/ic_nav_info"
+        android:title="" />
+
+</menu>

@@ -24,7 +24,7 @@ import com.kj.random_chatting.util.UtilClass;
 public class MainActivity extends AppCompatActivity {
     private MainActivityBinding binding;
     private FragmentManager fragmentManager;
-    private Fragment matchingFragment, chattingListFragment, locationFragment, infoFragment, messengerFragment;
+    private Fragment matchingBulbFragment, chattingListFragment, myRoomListFragment, locationFragment, infoFragment;
     private static final String TAG = "MainActivity";
 
     //임시방편 으로 랜덤 닉네임
@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
          */
 
         //첫 실행 시 첫번째 fragment 무조건 실행
-        matchingFragment = new UserListFragment();
-        fragmentManager.beginTransaction().replace(R.id.frameLayout, matchingFragment).commit();
+        matchingBulbFragment = new UserListFragment();
+        fragmentManager.beginTransaction().replace(R.id.frameLayout, matchingBulbFragment).commit();
 
         binding.navView.setOnItemSelectedListener(
                 new NavigationBarView.OnItemSelectedListener() {
@@ -59,14 +59,14 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                         switch (item.getItemId()) {
-                            case R.id.navigation_matching:
-                                if (matchingFragment == null) {
+                            case R.id.navigation_bulb:
+                                if (matchingBulbFragment == null) {
                                     //List
-                                    matchingFragment = new UserListFragment();
+                                    matchingBulbFragment = new UserListFragment();
                                     //fragment가 매번 생성될 필요가 없으므로 이미 존재할경우 add로 처리한다.(replace -> add로 변경)
-                                    fragmentManager.beginTransaction().add(R.id.frameLayout, matchingFragment).commit();
+                                    fragmentManager.beginTransaction().add(R.id.frameLayout, matchingBulbFragment).commit();
                                 }
-                                fragmentManager.beginTransaction().show(matchingFragment).commit();
+                                fragmentManager.beginTransaction().show(matchingBulbFragment).commit();
 
                                 // 다른 프래그먼트들은 가려준다.
                                 if (chattingListFragment != null)
@@ -75,41 +75,41 @@ public class MainActivity extends AppCompatActivity {
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
                                 if (infoFragment != null)
                                     fragmentManager.beginTransaction().hide(infoFragment).commit();
-                                if (messengerFragment != null) {
-                                    fragmentManager.beginTransaction().hide(messengerFragment).commit();
+                                if (myRoomListFragment != null) {
+                                    fragmentManager.beginTransaction().hide(myRoomListFragment).commit();
                                 }
                                 return true;
 
-                            case R.id.navigation_chatting:
+                            case R.id.navigation_chatting_list:
                                 if (chattingListFragment == null) {
                                     //유저등록 (임시로 사용)
                                     chattingListFragment = new UserChattingRoomListFragment();
                                     fragmentManager.beginTransaction().add(R.id.frameLayout, chattingListFragment).commit();
                                 }
 
-                                if (matchingFragment != null)
-                                    fragmentManager.beginTransaction().hide(matchingFragment).commit();
+                                if (matchingBulbFragment != null)
+                                    fragmentManager.beginTransaction().hide(matchingBulbFragment).commit();
                                 if (chattingListFragment != null)
                                     fragmentManager.beginTransaction().show(chattingListFragment).commit();
                                 if (locationFragment != null)
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
                                 if (infoFragment != null)
                                     fragmentManager.beginTransaction().hide(infoFragment).commit();
-                                if (messengerFragment != null) {
-                                    fragmentManager.beginTransaction().hide(messengerFragment).commit();
+                                if (myRoomListFragment != null) {
+                                    fragmentManager.beginTransaction().hide(myRoomListFragment).commit();
                                 }
                                 return true;
 
-                            case R.id.navigation_messenger:
-                                if (messengerFragment == null) {
-                                    messengerFragment = new MessengerFragment();
-                                    fragmentManager.beginTransaction().add(R.id.frameLayout, messengerFragment).commit();
+                            case R.id.navigation_my_room_list:
+                                if (myRoomListFragment == null) {
+                                    myRoomListFragment = new MessengerFragment();
+                                    fragmentManager.beginTransaction().add(R.id.frameLayout, myRoomListFragment).commit();
                                 }
 
 
                                 // 다른 프래그먼트들은 숨긴다.
-                                if (matchingFragment != null) {
-                                    fragmentManager.beginTransaction().hide(matchingFragment).commit();
+                                if (matchingBulbFragment != null) {
+                                    fragmentManager.beginTransaction().hide(matchingBulbFragment).commit();
                                 }
                                 if (chattingListFragment != null) {
                                     fragmentManager.beginTransaction().hide(chattingListFragment).commit();
@@ -120,27 +120,27 @@ public class MainActivity extends AppCompatActivity {
                                 if (infoFragment != null) {
                                     fragmentManager.beginTransaction().hide(infoFragment).commit();
                                 }
-                                if (messengerFragment != null) {
-                                    fragmentManager.beginTransaction().show(messengerFragment).commit();
+                                if (myRoomListFragment != null) {
+                                    fragmentManager.beginTransaction().show(myRoomListFragment).commit();
                                 }
                                 return true;
 
-                            case R.id.navigation_location:
+                            case R.id.navigation_map:
                                 if (locationFragment == null) {
                                     locationFragment = new UserLocationFragment();
                                     fragmentManager.beginTransaction().add(R.id.frameLayout, locationFragment).commit();
                                 }
 
-                                if (matchingFragment != null)
-                                    fragmentManager.beginTransaction().hide(matchingFragment).commit();
+                                if (matchingBulbFragment != null)
+                                    fragmentManager.beginTransaction().hide(matchingBulbFragment).commit();
                                 if (chattingListFragment != null)
                                     fragmentManager.beginTransaction().hide(chattingListFragment).commit();
                                 if (locationFragment != null)
                                     fragmentManager.beginTransaction().show(locationFragment).commit();
                                 if (infoFragment != null)
                                     fragmentManager.beginTransaction().hide(infoFragment).commit();
-                                if (messengerFragment != null) {
-                                    fragmentManager.beginTransaction().hide(messengerFragment).commit();
+                                if (myRoomListFragment != null) {
+                                    fragmentManager.beginTransaction().hide(myRoomListFragment).commit();
                                 }
                                 return true;
 
@@ -150,16 +150,16 @@ public class MainActivity extends AppCompatActivity {
                                     fragmentManager.beginTransaction().add(R.id.frameLayout, infoFragment).commit();
                                 }
 
-                                if (matchingFragment != null)
-                                    fragmentManager.beginTransaction().hide(matchingFragment).commit();
+                                if (matchingBulbFragment != null)
+                                    fragmentManager.beginTransaction().hide(matchingBulbFragment).commit();
                                 if (chattingListFragment != null)
                                     fragmentManager.beginTransaction().hide(chattingListFragment).commit();
                                 if (locationFragment != null)
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
                                 if (infoFragment != null)
                                     fragmentManager.beginTransaction().show(infoFragment).commit();
-                                if (messengerFragment != null) {
-                                    fragmentManager.beginTransaction().hide(messengerFragment).commit();
+                                if (myRoomListFragment != null) {
+                                    fragmentManager.beginTransaction().hide(myRoomListFragment).commit();
                                 }
                                 return true;
                         }
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        binding.navView.setSelectedItemId(R.id.navigation_matching);
+        binding.navView.setSelectedItemId(R.id.navigation_bulb);
 
         /**
          * 하단 네비게이션 기본 설정 끝
