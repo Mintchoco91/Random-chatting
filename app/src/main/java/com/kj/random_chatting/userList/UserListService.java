@@ -36,10 +36,8 @@ public class UserListService {
 
     public void showInformation(UserListDTO.outputDTO info) {
         Log.d(TAG, "Log : " + TAG + " -> showInformation");
-        userListActivityBinding.userListActivityTvName.setText(info.getUserName());
-        userListActivityBinding.userListActivityTvGender.setText(info.getGender());
-        userListActivityBinding.userListActivityTvAge.setText(info.getAge());
-        userListActivityBinding.userListActivityTvPhoneNumber.setText(info.getPhoneNumber());
+        userListActivityBinding.userListActivityTvNameAge.setText(info.getUserName() + ", " + info.getAge());
+        userListActivityBinding.userListActivityTvJob.setText("Job contents");
 
         if (info.getFileNameList().size() > 0) {
             String[] fileNameArray = info.getFileNameList().toArray(new String[info.getFileNameList().size()]);

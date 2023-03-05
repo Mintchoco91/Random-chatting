@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Randomchatting" parent="Theme.AppCompat">
+        <item name="windowNoTitle">true</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/ic_launcher_background</item>
         <item name="colorPrimaryVariant">@color/ic_launcher_background</item>
