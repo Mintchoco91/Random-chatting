@@ -16,11 +16,21 @@
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="138dp" >
-    </androidx.viewpager2.widget.ViewPager2>
+        android:layout_marginTop="138dp" />
+
+    <LinearLayout
+        android:id="@+id/layoutIndicators"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_centerInParent="true"
+        android:paddingBottom="10dp"
+        android:paddingTop="200dp"/>
+
 
     <TextView
-        android:id="@+id/user_list_tv_lable_name"
+        android:id="@+id/user_list_activity_tv_name_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -30,66 +40,33 @@
         android:layout_alignRight="@+id/sliderViewPager"
         android:layout_alignTop="@+id/sliderViewPager"
 
-        android:paddingTop="200dp"
+        android:paddingTop="230dp"
         android:paddingLeft="20dp"
-        android:text="이   름 : "
+        android:text="Kim kiwon, 27"
         android:textColor="@color/black" />
 
 
     <TextView
-        android:id="@+id/user_list_activity_tv_name"
-        android:layout_width="200dp"
+        android:id="@+id/user_list_activity_tv_job"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:textColor="@color/black" />
+        android:layout_centerInParent="true"
 
+         android:layout_alignBottom="@+id/sliderViewPager"
+        android:layout_alignLeft="@+id/sliderViewPager"
+        android:layout_alignRight="@+id/sliderViewPager"
+        android:layout_alignTop="@+id/sliderViewPager"
 
-    <TextView
-        android:id="@+id/user_list_activity_tv_label_gender"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="성   별 : "
-        android:textColor="@color/black" />
-
-    <TextView
-        android:id="@+id/user_list_activity_tv_gender"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:textColor="@color/black" />
-
-    <TextView
-        android:id="@+id/user_list_activity_tv_lable_age"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="나   이 : "
-        android:textColor="@color/black"/>
-
-    <TextView
-        android:id="@+id/user_list_activity_tv_age"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:textColor="@color/black"/>
-
-    <TextView
-        android:id="@+id/user_list_activity_tv_label_phone_number"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="핸드폰 번호 : "
-        android:textColor="@color/black" />
-
-    <TextView
-        android:id="@+id/user_list_activity_tv_phone_number"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:paddingTop="250dp"
+        android:paddingLeft="20dp"
+        android:text="Job contents"
         android:textColor="@color/black" />
 
     <Button
         android:id="@+id/user_list_activity_btn_next_user"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
+        android:paddingTop="300dp"
         android:text="다  음"/>
 
 </RelativeLayout>
