@@ -15,9 +15,6 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.UserListActivityBinding;
-import com.kj.random_chatting.databinding.UserRegistActivityBinding;
-
-import java.util.List;
 
 public class UserListFragment extends Fragment {
     private UserListActivityBinding binding;

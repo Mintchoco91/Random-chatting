@@ -6,9 +6,28 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:clipToOutline="true"
-    android:background="@drawable/user_list_activity_ver2"
     tools:context="com.kj.random_chatting.userRegist.UserRegistActivity">
 
+    <Button
+        android:id="@+id/user_list_activity_btn_filter"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_filter" />
+
+    <Button
+        android:id="@+id/user_list_activity_btn_green_right_logo"
+        android:layout_width="161dp"
+        android:layout_height="34dp"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/green_right_logo" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/sliderViewPager"
@@ -16,18 +35,7 @@
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="138dp" />
-
-    <LinearLayout
-        android:id="@+id/layoutIndicators"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_centerInParent="true"
-        android:paddingBottom="10dp"
-        android:paddingTop="200dp"/>
-
+        android:layout_marginTop="140dp" />
 
     <TextView
         android:id="@+id/user_list_activity_tv_name_age"
@@ -40,10 +48,11 @@
         android:layout_alignRight="@+id/sliderViewPager"
         android:layout_alignTop="@+id/sliderViewPager"
 
-        android:paddingTop="230dp"
-        android:paddingLeft="20dp"
+        android:paddingTop="220dp"
+        android:paddingLeft="15dp"
         android:text="Kim kiwon, 27"
-        android:textColor="@color/black" />
+        android:textSize="25dp"
+        android:textColor="@color/white" />
 
 
     <TextView
@@ -52,21 +61,60 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
 
-         android:layout_alignBottom="@+id/sliderViewPager"
+        android:layout_alignBottom="@+id/sliderViewPager"
         android:layout_alignLeft="@+id/sliderViewPager"
         android:layout_alignRight="@+id/sliderViewPager"
         android:layout_alignTop="@+id/sliderViewPager"
 
         android:paddingTop="250dp"
-        android:paddingLeft="20dp"
+        android:paddingLeft="15dp"
         android:text="Job contents"
-        android:textColor="@color/black" />
+        android:textSize="20dp"
+        android:textColor="@color/white" />
+
+    <LinearLayout
+        android:id="@+id/layoutIndicators"
+        android:layout_width="193dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+
+        android:layout_alignBottom="@+id/sliderViewPager"
+        android:layout_alignLeft="@+id/sliderViewPager"
+        android:layout_alignRight="@+id/sliderViewPager"
+        android:layout_alignTop="@+id/sliderViewPager"
+
+        android:gravity="center"
+        android:paddingTop="270dp"
+        android:orientation="horizontal" />
+
+    <Button
+        android:id="@+id/user_list_activity_btn_dislike"
+        android:layout_width="99dp"
+        android:layout_height="99dp"
+
+        android:layout_below="@+id/layoutIndicators"
+        android:layout_toLeftOf="@+id/user_list_activity_btn_next_user"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/btn_dislike" />
 
     <Button
         android:id="@+id/user_list_activity_btn_next_user"
-        android:layout_width="200dp"
-        android:layout_height="20dp"
-        android:paddingTop="300dp"
-        android:text="다  음"/>
+        android:layout_width="99dp"
+        android:layout_height="99dp"
+
+        android:layout_below="@+id/layoutIndicators"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/btn_like" />
+
+    <Button
+        android:id="@+id/user_list_activity_btn_star"
+        android:layout_width="99dp"
+        android:layout_height="99dp"
+
+        android:layout_below="@+id/layoutIndicators"
+        android:layout_toRightOf="@+id/user_list_activity_btn_next_user"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/btn_star" />
 
 </RelativeLayout>
