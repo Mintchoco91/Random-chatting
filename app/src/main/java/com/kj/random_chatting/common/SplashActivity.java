@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.login.LoginActivity;
+import com.kj.random_chatting.onboarding.OnboardingActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -24,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
                 SharedPreferences prefs = getSharedPreferences("token_prefs", MODE_PRIVATE);
                 String token = prefs.getString("token", null );
                 if (token == null) {
-                    intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    intent = new Intent(SplashActivity.this, OnboardingActivity.class);
                 } else {
                     intent = new Intent(SplashActivity.this, MainActivity.class);
                 }

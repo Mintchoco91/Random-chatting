@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.kj.random_chatting">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -42,6 +41,8 @@
         <activity android:name="com.kj.random_chatting.login.LoginActivity" />
         <activity android:name="com.kj.random_chatting.userChatting.UserChattingActivity" />
         <activity android:name="com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomCreateActivity" />
+        <activity android:name="com.kj.random_chatting.onboarding.OnboardingActivity" />
+
 
         <service android:name=".common.ForecdTerminationService" android:stopWithTask="false" />
 
