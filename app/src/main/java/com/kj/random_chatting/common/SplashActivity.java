@@ -1,5 +1,6 @@
 package com.kj.random_chatting.common;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,7 +12,7 @@ import com.kj.random_chatting.R;
 import com.kj.random_chatting.login.LoginActivity;
 import com.kj.random_chatting.onboarding.OnboardingActivity;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,6 @@
 package com.kj.random_chatting.common;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationBarView;
@@ -21,7 +23,7 @@ import com.kj.random_chatting.userInfo.UserInfoFragment;
 import com.kj.random_chatting.userLocation.UserLocationFragment;
 import com.kj.random_chatting.util.UtilClass;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity {
     private MainActivityBinding binding;
     private FragmentManager fragmentManager;
     private Fragment matchingBulbFragment, chattingListFragment, myRoomListFragment, locationFragment, infoFragment;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         binding = MainActivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
         fragmentManager = getSupportFragmentManager();
 
         UtilClass utilClass = new UtilClass();

@@ -10,6 +10,7 @@
     <color name="basic_font_color">#FFFFFF</color>
     <color name="basic_btn_color">#44B17F</color>
     <color name="main_color_green">#44B17F</color>
+    <color name="hint_color">#99A3B0</color>
 
     <color name="btn_color_state_pressed_false">@color/white</color>
     <color name="btn_stroke_color_state_pressed_false">#E8E6EA</color>
