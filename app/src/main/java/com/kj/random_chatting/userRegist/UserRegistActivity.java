@@ -1,5 +1,6 @@
 package com.kj.random_chatting.userRegist;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatRadioButton;
 
-public class UserRegistActivity extends AppCompatActivity {
+public class UserRegistActivity extends Activity {
     private UserRegistActivityBinding binding;
 
     UserRegistService userRegistService;

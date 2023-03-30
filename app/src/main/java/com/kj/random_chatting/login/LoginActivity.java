@@ -1,5 +1,6 @@
 package com.kj.random_chatting.login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends Activity {
     private static final String TAG = "LoginActivity";
     private LoginActivityBinding binding;
 
@@ -49,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // 회원 목록 조회
-        binding.buttonUserList.setOnClickListener(new View.OnClickListener() {
+        binding.loginActivityBtnFindInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);

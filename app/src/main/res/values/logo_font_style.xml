@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name = "logo_font_style">
+        <item name = "android:font">@font/noto_sans_kr_regular</item>
+        <item name = "android:textSize">30dp</item>
+        <item name = "android:fontWeight">1000</item>
+        <item name = "android:textStyle">bold</item>
+        <item name = "android:textColor">@color/main_color_green</item>
+    </style>
+</resources>
