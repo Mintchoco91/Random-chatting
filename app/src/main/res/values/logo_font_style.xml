@@ -7,4 +7,12 @@
         <item name = "android:textStyle">bold</item>
         <item name = "android:textColor">@color/main_color_green</item>
     </style>
+
+    <style name = "logo_sub_font_style">
+        <item name = "android:font">@font/noto_sans_kr_regular</item>
+        <item name = "android:textSize">13dp</item>
+        <item name = "android:fontWeight">1000</item>
+        <item name = "android:textStyle">bold</item>
+        <item name = "android:textColor">@color/sub_main_color_black</item>
+    </style>
 </resources>
