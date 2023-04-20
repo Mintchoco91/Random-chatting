@@ -8,17 +8,18 @@ import android.view.View;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
+import com.kj.random_chatting.databinding.RegistPhoneNumberActivityBinding;
 
 public class RegistPhoneNumberActivity extends Activity {
     private static final String TAG = "RegistPhoneNumberActivity";
-    private ActivityOnboardingBinding binding;
+    private RegistPhoneNumberActivityBinding binding;
     private Context context;
     private RegistPhoneNumberService registPhoneNumberService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityOnboardingBinding.inflate(getLayoutInflater());
+        binding = RegistPhoneNumberActivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
@@ -44,17 +45,13 @@ public class RegistPhoneNumberActivity extends Activity {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.activity_onboarding_tv_login_click_description:
-                        registPhoneNumberService.btnLoginClick();
-                        break;
-                    case R.id.activity_onboarding_btn_regist:
-                        registPhoneNumberService.btnRegistClick();
+                    case R.id.regist_phone_number_activity_btn_continue:
+                        registPhoneNumberService.btnContinueClick();
                         break;
                 }
             }
         };
 
-        binding.activityOnboardingTvLoginClickDescription.setOnClickListener(Listener);
-        binding.activityOnboardingBtnRegist.setOnClickListener(Listener);
+        binding.registPhoneNumberActivityBtnContinue.setOnClickListener(Listener);
     }
 }

@@ -42,7 +42,13 @@
         <activity android:name="com.kj.random_chatting.userChatting.UserChattingActivity" />
         <activity android:name="com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomCreateActivity" />
         <activity android:name="com.kj.random_chatting.onboarding.OnboardingActivity" />
-
+        <activity android:name="com.kj.random_chatting.registInputBirthday.RegistInputBirthdayActivity"/>
+        <activity android:name="com.kj.random_chatting.registInputEmailPw.RegistInputEmailPwActivity"/>
+        <activity android:name="com.kj.random_chatting.registInputGender.RegistInputGenderActivity"/>
+        <activity android:name="com.kj.random_chatting.registInputInformation.RegistInputInformationActivity"/>
+        <activity android:name="com.kj.random_chatting.registInputInterest.RegistInputInterestActivity"/>
+        <activity android:name="com.kj.random_chatting.registPhoneNumber.RegistPhoneNumberActivity"/>
+        <activity android:name="com.kj.random_chatting.registPhoneTextCode.RegistPhoneTextCodeActivity"/>
 
         <service android:name=".common.ForecdTerminationService" android:stopWithTask="false" />
 

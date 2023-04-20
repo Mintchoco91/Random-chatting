@@ -8,17 +8,18 @@ import android.view.View;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
+import com.kj.random_chatting.databinding.RegistPhoneTextCodeActivityBinding;
 
 public class RegistPhoneTextCodeActivity extends Activity {
     private static final String TAG = "RegistPhoneNumberActivity";
-    private ActivityOnboardingBinding binding;
+    private RegistPhoneTextCodeActivityBinding binding;
     private Context context;
     private RegistPhoneTextCodeService registPhoneTextCodeService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityOnboardingBinding.inflate(getLayoutInflater());
+        binding = RegistPhoneTextCodeActivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
@@ -54,7 +55,7 @@ public class RegistPhoneTextCodeActivity extends Activity {
             }
         };
 
-        binding.activityOnboardingTvLoginClickDescription.setOnClickListener(Listener);
-        binding.activityOnboardingBtnRegist.setOnClickListener(Listener);
+        //binding.activityOnboardingTvLoginClickDescription.setOnClickListener(Listener);
+        //binding.activityOnboardingBtnRegist.setOnClickListener(Listener);
     }
 }
