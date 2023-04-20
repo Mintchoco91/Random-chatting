@@ -10,11 +10,16 @@ import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.databinding.RegistPhoneTextCodeActivityBinding;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class RegistPhoneTextCodeActivity extends Activity {
     private static final String TAG = "RegistPhoneNumberActivity";
     private RegistPhoneTextCodeActivityBinding binding;
     private Context context;
     private RegistPhoneTextCodeService registPhoneTextCodeService;
+    TimerTask timerTask;
+    Timer timer = new Timer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,7 @@ public class RegistPhoneTextCodeActivity extends Activity {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = this;
         registPhoneTextCodeService = new RegistPhoneTextCodeService(context, binding);
+        startTimer();
     }
 
     private void setListener() {
@@ -57,5 +63,38 @@ public class RegistPhoneTextCodeActivity extends Activity {
 
         //binding.activityOnboardingTvLoginClickDescription.setOnClickListener(Listener);
         //binding.activityOnboardingBtnRegist.setOnClickListener(Listener);
+    }
+    private void startTimer()
+    {
+        timerTask = new TimerTask()
+        {
+            int timeTick = 180;  // second 단위 60 * 3
+
+            Integer second = 0;
+            Integer minute = 0;
+            String showTimer ="00 : 00";
+            @Override
+            public void run()
+            {
+                timeTick--;
+
+                second = timeTick % 60;
+                minute = timeTick / 60;
+
+                showTimer = String.format("%02d", minute) + " : " + String.format("%02d", second);
+
+                if(timeTick == 0){
+                    timerTask.cancel();
+                }
+
+                binding.registPhoneTextCodeActivityTvTimer.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.registPhoneTextCodeActivityTvTimer.setText(showTimer);
+                    }
+                });
+            }
+        };
+        timer.schedule(timerTask,0 ,1000);
     }
 }
