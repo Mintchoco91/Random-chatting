@@ -37,6 +37,7 @@
         android:layout_marginTop="400dp"
         android:text="방 만들기"
         android:textColor="@color/black"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/fragment_user_chatting_room_list_recyclerview_list" />
