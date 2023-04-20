@@ -11,6 +11,7 @@ import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.databinding.FragmentUserChattingBinding;
 import com.kj.random_chatting.databinding.UserRegistActivityBinding;
 import com.kj.random_chatting.login.LoginActivity;
+import com.kj.random_chatting.registPhoneNumber.RegistPhoneNumberActivity;
 import com.kj.random_chatting.userChatting.UserChattingDTO;
 import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomDetailDeleteRxJava;
 import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomDetailSelectAndDeleteRxJava;
@@ -49,7 +50,7 @@ public class OnboardingService extends Activity {
 
     public void btnRegistClick() {
         Log.d(TAG, "Log : " + TAG + "btnRegistClick");
-        Intent intentUploadList = new Intent(context, UserRegistActivity.class);
+        Intent intentUploadList = new Intent(context, RegistPhoneNumberActivity.class);
         context.startActivity(intentUploadList);
     }
 
