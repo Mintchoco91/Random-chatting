@@ -1,5 +1,6 @@
 # random-chatting
 random-chatting-prototype
+- Native Android application
 
 [Spec]
 
