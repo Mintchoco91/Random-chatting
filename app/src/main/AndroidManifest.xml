@@ -48,7 +48,7 @@
         <activity android:name="com.kj.random_chatting.registInputInformation.RegistInputInformationActivity"/>
         <activity android:name="com.kj.random_chatting.registInputInterest.RegistInputInterestActivity"/>
         <activity android:name="com.kj.random_chatting.registPhoneNumber.RegistPhoneNumberActivity"/>
-        <activity android:name="com.kj.random_chatting.registPhoneTextCode.RegistPhoneTextCodeActivity"/>
+        <activity android:name="com.kj.random_chatting.registPhoneTextCode.RegistPhoneAuthCodeActivity"/>
 
         <service android:name=".common.ForecdTerminationService" android:stopWithTask="false" />
 

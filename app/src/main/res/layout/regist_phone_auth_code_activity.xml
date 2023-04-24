@@ -7,7 +7,7 @@
     android:background="@color/white">
 
     <TextView
-        android:id="@+id/regist_phone_text_code_activity_tv_timer"
+        android:id="@+id/regist_phone_auth_code_activity_tv_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="00 : 00"
@@ -15,37 +15,37 @@
         style="@style/normal_font_style"
         android:textSize="40dp"
         android:textColor="@color/black"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
 
     <TextView
-        android:id="@+id/regist_phone_text_code_activity_tv_sub_title"
+        android:id="@+id/regist_phone_auth_code_activity_tv_sub_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
+        android:paddingTop="5dp"
         android:text="인증번호를 넣어주세요!"
         style="@style/normal_font_style"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regist_phone_text_code_activity_tv_timer"/>
+        app:layout_constraintTop_toBottomOf="@id/regist_phone_auth_code_activity_tv_timer"/>
 
     <LinearLayout
-        android:id="@+id/regist_phone_text_code_activity_input_code_linearlayout"
+        android:id="@+id/regist_phone_auth_code_activity_input_code_linearlayout"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regist_phone_text_code_activity_tv_sub_title"
+        app:layout_constraintTop_toBottomOf="@id/regist_phone_auth_code_activity_tv_sub_title"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/regist_phone_text_code_activity_tv_code1"
+            android:id="@+id/regist_phone_auth_code_activity_tv_code1"
             android:layout_width="60dp"
             android:layout_height="65dp"
             style="@style/normal_font_style"
@@ -57,7 +57,7 @@
             android:background="@drawable/image_phone_text_rectangle"
             />
         <TextView
-            android:id="@+id/regist_phone_text_code_activity_tv_code2"
+            android:id="@+id/regist_phone_auth_code_activity_tv_code2"
             android:layout_width="60dp"
             android:layout_height="65dp"
             style="@style/normal_font_style"
@@ -70,7 +70,7 @@
             android:background="@drawable/image_phone_text_rectangle"
             />
         <TextView
-            android:id="@+id/regist_phone_text_code_activity_tv_code3"
+            android:id="@+id/regist_phone_auth_code_activity_tv_code3"
             android:layout_width="60dp"
             android:layout_height="65dp"
             style="@style/normal_font_style"
@@ -84,7 +84,7 @@
             />
 
         <TextView
-            android:id="@+id/regist_phone_text_code_activity_tv_code4"
+            android:id="@+id/regist_phone_auth_code_activity_tv_code4"
             android:layout_width="60dp"
             android:layout_height="65dp"
             style="@style/normal_font_style"
@@ -99,138 +99,155 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/regist_phone_text_code_activity_keypad_line_1_linearlayout"
+        android:id="@+id/regist_phone_auth_code_activity_keypad_line_1_linearlayout"
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_marginTop="40dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regist_phone_text_code_activity_input_code_linearlayout"
+        app:layout_constraintTop_toBottomOf="@id/regist_phone_auth_code_activity_input_code_linearlayout"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/keypad_1"
+            android:id="@+id/regist_phone_auth_code_activity_btn_keypad_1"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            style="@style/normal_font_style"
+            style="@style/keypad_font_style"
             android:text="1"
-            android:textSize="20dp"
-            android:textColor="@color/black"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="@drawable/selector_keypad"
             />
         <Button
-            android:id="@+id/keypad_2"
+            android:id="@+id/regist_phone_auth_code_activity_btn_keypad_2"
             android:layout_width="50dp"
             android:layout_height="50dp"
             style="@style/keypad_font_style"
             android:text="2"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="@drawable/selector_keypad"
             />
 
         <Button
-            android:id="@+id/keypad_3"
+            android:id="@+id/regist_phone_auth_code_activity_btn_keypad_3"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            style="@style/normal_font_style"
+            style="@style/keypad_font_style"
             android:text="3"
-            android:textSize="20dp"
-            android:textColor="@color/black"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="@drawable/selector_keypad"
             />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/regist_phone_text_code_activity_keypad_line_2_linearlayout"
+        android:id="@+id/regist_phone_auth_code_activity_keypad_line_2_linearlayout"
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regist_phone_text_code_activity_keypad_line_1_linearlayout"
+        app:layout_constraintTop_toBottomOf="@id/regist_phone_auth_code_activity_keypad_line_1_linearlayout"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/keypad_4"
+            android:id="@+id/regist_phone_auth_code_activity_btn_keypad_4"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            style="@style/normal_font_style"
+            style="@style/keypad_font_style"
             android:text="4"
-            android:textSize="20dp"
-            android:textColor="@color/black"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="@drawable/selector_keypad"
             />
         <Button
-            android:id="@+id/keypad_5"
+            android:id="@+id/regist_phone_auth_code_activity_btn_keypad_5"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            style="@style/normal_font_style"
+            style="@style/keypad_font_style"
             android:text="5"
-            android:textSize="20dp"
-            android:textColor="@color/black"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="@drawable/selector_keypad"
             />
 
         <Button
-            android:id="@+id/keypad_6"
+            android:id="@+id/regist_phone_auth_code_activity_btn_keypad_6"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            style="@style/normal_font_style"
+            style="@style/keypad_font_style"
             android:text="6"
-            android:textSize="20dp"
-            android:textColor="@color/black"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="@drawable/selector_keypad"
             />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/regist_phone_text_code_activity_keypad_line_3_linearlayout"
+        android:id="@+id/regist_phone_auth_code_activity_keypad_line_3_linearlayout"
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regist_phone_text_code_activity_keypad_line_2_linearlayout"
+        app:layout_constraintTop_toBottomOf="@id/regist_phone_auth_code_activity_keypad_line_2_linearlayout"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/keypad_7"
+            android:id="@+id/regist_phone_auth_code_activity_btn_keypad_7"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            style="@style/normal_font_style"
+            style="@style/keypad_font_style"
             android:text="7"
-            android:textSize="20dp"
-            android:textColor="@color/black"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="@drawable/selector_keypad"
             />
         <Button
-            android:id="@+id/keypad_8"
+            android:id="@+id/regist_phone_auth_code_activity_btn_keypad_8"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            style="@style/normal_font_style"
+            style="@style/keypad_font_style"
             android:text="8"
-            android:textSize="20dp"
-            android:textColor="@color/black"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="@drawable/selector_keypad"
             />
 
         <Button
-            android:id="@+id/keypad_9"
+            android:id="@+id/regist_phone_auth_code_activity_btn_keypad_9"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            style="@style/normal_font_style"
+            style="@style/keypad_font_style"
             android:text="9"
-            android:textSize="20dp"
-            android:textColor="@color/black"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="@drawable/selector_keypad"
             />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/regist_phone_auth_code_activity_keypad_line_4_linearlayout"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/regist_phone_auth_code_activity_keypad_line_3_linearlayout"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/selector_keypad"
+            />
+        <Button
+            android:id="@+id/regist_phone_auth_code_activity_btn_keypad_0"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            style="@style/keypad_font_style"
+            android:text="0"
+            android:background="@drawable/selector_keypad"
+            />
+
+        <ImageView
+            android:id="@+id/regist_phone_auth_code_activity_iv_keypad_del"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/selector_keypad_del" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

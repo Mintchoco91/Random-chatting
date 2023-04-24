@@ -53,5 +53,6 @@ public class RegistPhoneNumberActivity extends Activity {
         };
 
         binding.registPhoneNumberActivityBtnContinue.setOnClickListener(Listener);
+
     }
 }
