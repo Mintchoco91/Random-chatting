@@ -22,6 +22,14 @@
         <item name = "android:textStyle">bold</item>
     </style>
 
+    <style name = "keypad_auth_font_style">
+        <item name = "android:font">@font/noto_sans_kr_regular</item>
+        <item name = "android:textColor">@color/sub_main_color_black</item>
+        <item name = "android:textStyle">bold</item>
+        <item name = "android:textSize">45dp</item>
+        <item name = "android:includeFontPadding">false</item>
+    </style>
+
     <style name = "keypad_font_style">
         <item name = "android:font">@font/noto_sans_kr_regular</item>
         <item name = "android:textColor">@color/black</item>
