@@ -48,4 +48,16 @@ public class UtilClass {
 
         return randNumber;
     }
+
+    public String generateRandomNumber(Integer digit){
+        Random random = new Random();
+        Integer maxNumber = 10; // 한자리당 9까지 나오도록
+        String randomValue = "";
+        Integer generateNumber;
+        for(int i = 0; i < digit ; i++){
+            generateNumber = random.nextInt(maxNumber);
+            randomValue = randomValue + generateNumber.toString();
+        }
+        return randomValue.toString();
+    }
 }

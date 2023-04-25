@@ -17,6 +17,7 @@ import com.kj.random_chatting.util.UtilClass;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,7 +38,10 @@ public class RegistPhoneAuthCodeService extends Activity {
     private String authCode; // 인증번호
     private List<String> inputAuthCodeList; // 입력 받은 인증번호
     TimerTask timerTask;
-    Timer timer = new Timer();
+
+    int currntTimeTick;
+
+
     public RegistPhoneAuthCodeService(Context mContext, RegistPhoneAuthCodeActivityBinding mBinding) {
         Log.d(TAG, "Log : " + TAG + " -> RegistPhoneAuthCodeService");
         //test data
@@ -53,6 +57,7 @@ public class RegistPhoneAuthCodeService extends Activity {
     private void initializeService() {
         Log.d(TAG, "Log : " + TAG + " -> initializeService");
 
+        utilClass = new UtilClass();
         inputAuthCodeList = new ArrayList<>();
         startTimer();
         drawableFocus = context.getDrawable(R.drawable.shape_focus_auth);
@@ -103,11 +108,16 @@ public class RegistPhoneAuthCodeService extends Activity {
             inputAuthCodeList.add(binding.registPhoneAuthCodeActivityTvCode3.getText().toString());
             inputAuthCodeList.add(binding.registPhoneAuthCodeActivityTvCode4.getText().toString());
 
-            if(authCode.equals(inputAuthCodeList.get(0).toString() + inputAuthCodeList.get(1).toString() + inputAuthCodeList.get(2).toString() + inputAuthCodeList.get(3).toString())){
-                //go next page
-                Toast.makeText(context, "인증번호가 일치합니다!", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(context, "인증번호가 틀립니다.", Toast.LENGTH_SHORT).show();
+            // timeout
+            if(currntTimeTick == 0){
+                Toast.makeText(context, "인증 시간이 만료 되었습니다.\n인증번호를 다시 받아주세요.", Toast.LENGTH_SHORT).show();
+            } else {
+                if (authCode.equals(inputAuthCodeList.get(0).toString() + inputAuthCodeList.get(1).toString() + inputAuthCodeList.get(2).toString() + inputAuthCodeList.get(3).toString())) {
+                    //go next page
+                    Toast.makeText(context, "인증번호가 일치 합니다!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "인증번호가 틀립니다.", Toast.LENGTH_SHORT).show();
+                }
             }
 
             initializeAllAuthTextView();
@@ -187,7 +197,11 @@ public class RegistPhoneAuthCodeService extends Activity {
 
     public void tvResendClick() {
         Log.d(TAG, "Log : " + TAG + "tvResendClick");
-        Toast.makeText(context, "인증번호는 0000입니다.", Toast.LENGTH_SHORT).show();
+
+        //인증번호 재전송 로직
+        authCode = utilClass.generateRandomNumber(4);
+        startTimer();
+        Toast.makeText(context, "인증번호는 " + authCode + "입니다.", Toast.LENGTH_SHORT).show();
     }
     /**************************************************************
      *  버튼 클릭 이벤트 끝
@@ -195,6 +209,12 @@ public class RegistPhoneAuthCodeService extends Activity {
 
     private void startTimer()
     {
+        if(timerTask != null){
+            timerTask.cancel();
+        }
+
+        Timer timer = new Timer();
+
         timerTask = new TimerTask()
         {
             int timeTick = 180;  // second 단위 60 * 3
@@ -202,10 +222,12 @@ public class RegistPhoneAuthCodeService extends Activity {
             Integer second = 0;
             Integer minute = 0;
             String showTimer ="00 : 00";
+
             @Override
             public void run()
             {
                 timeTick--;
+                currntTimeTick = timeTick;
 
                 second = timeTick % 60;
                 minute = timeTick / 60;
