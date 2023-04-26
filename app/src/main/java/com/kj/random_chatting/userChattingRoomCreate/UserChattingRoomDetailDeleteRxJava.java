@@ -37,7 +37,7 @@ public class UserChattingRoomDetailDeleteRxJava {
         if (code == 0) {
             Log.d(TAG, "Log : " + TAG + " -> DB처리 성공");
         } else {
-            Toast.makeText(context, "방 나가기 실패 ! ErrorCode : " + code, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "방 나가기 실패 ! ErrorCode : " + code, Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -2,6 +2,7 @@ package com.kj.random_chatting.registPhoneTextCode;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.View;
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.RegistPhoneAuthCodeActivityBinding;
 
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,6 +23,7 @@ public class RegistPhoneAuthCodeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ");
         binding = RegistPhoneAuthCodeActivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -38,7 +41,11 @@ public class RegistPhoneAuthCodeActivity extends Activity {
     private void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = this;
-        registPhoneAuthCodeService = new RegistPhoneAuthCodeService(context, binding);
+        HashMap<String, String> shareData = new HashMap<>();
+
+        Intent intent = getIntent();
+        shareData = (HashMap<String, String>) intent.getSerializableExtra("shareData");
+        registPhoneAuthCodeService = new RegistPhoneAuthCodeService(context, binding, shareData);
     }
 
     private void setListener() {

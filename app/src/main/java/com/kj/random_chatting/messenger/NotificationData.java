@@ -9,4 +9,5 @@ public class NotificationData {
     private String title;
     private String message;
     private String userName;
+
 }

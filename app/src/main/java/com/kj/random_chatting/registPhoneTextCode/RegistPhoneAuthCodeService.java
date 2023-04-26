@@ -1,23 +1,25 @@
 package com.kj.random_chatting.registPhoneTextCode;
 
+import static com.kj.random_chatting.common.Constants.AUTH_CODE_DIGIT;
+import static com.kj.random_chatting.common.Constants.AUTH_CODE_LIMIT_SECOND;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.content.ContextCompat;
-
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.Constants;
 import com.kj.random_chatting.databinding.RegistPhoneAuthCodeActivityBinding;
-import com.kj.random_chatting.login.LoginActivity;
+import com.kj.random_chatting.registInputInformation.RegistInputInformationActivity;
 import com.kj.random_chatting.util.UtilClass;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,8 +43,10 @@ public class RegistPhoneAuthCodeService extends Activity {
 
     int currntTimeTick;
 
+    private HashMap<String, String> shareData = new HashMap<>();
 
-    public RegistPhoneAuthCodeService(Context mContext, RegistPhoneAuthCodeActivityBinding mBinding) {
+
+    public RegistPhoneAuthCodeService(Context mContext, RegistPhoneAuthCodeActivityBinding mBinding, HashMap<String, String> mShareData) {
         Log.d(TAG, "Log : " + TAG + " -> RegistPhoneAuthCodeService");
         //test data
         authCode = "0000";
@@ -50,6 +54,7 @@ public class RegistPhoneAuthCodeService extends Activity {
         authIndex = 1;
         context = mContext;
         binding = mBinding;
+        shareData = mShareData;
 
         initializeService();
     }
@@ -71,14 +76,11 @@ public class RegistPhoneAuthCodeService extends Activity {
     }
 
 
-    /**************************************************************
-     *  버튼 클릭 이벤트 시작
-     **************************************************************/
 
     private void inputKeypad(String inputNumber){
         TextView tvInputCurrentFocus = null;
         TextView tvInputNextFocus = null;
-        
+
         switch(authIndex){
             case 1:
                 tvInputCurrentFocus = binding.registPhoneAuthCodeActivityTvCode1;
@@ -102,7 +104,7 @@ public class RegistPhoneAuthCodeService extends Activity {
         tvInputCurrentFocus.setTextColor(colorWhite);
 
         // 인증번호 검증
-        if(authIndex == 4){
+        if(authIndex == AUTH_CODE_DIGIT){
             inputAuthCodeList.add(binding.registPhoneAuthCodeActivityTvCode1.getText().toString());
             inputAuthCodeList.add(binding.registPhoneAuthCodeActivityTvCode2.getText().toString());
             inputAuthCodeList.add(binding.registPhoneAuthCodeActivityTvCode3.getText().toString());
@@ -114,7 +116,11 @@ public class RegistPhoneAuthCodeService extends Activity {
             } else {
                 if (authCode.equals(inputAuthCodeList.get(0).toString() + inputAuthCodeList.get(1).toString() + inputAuthCodeList.get(2).toString() + inputAuthCodeList.get(3).toString())) {
                     //go next page
-                    Toast.makeText(context, "인증번호가 일치 합니다!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "인증번호가 일치 합니다!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, RegistInputInformationActivity.class);
+                    intent.putExtra("shareData", shareData);
+                    context.startActivity(intent);
+
                 } else {
                     Toast.makeText(context, "인증번호가 틀립니다.", Toast.LENGTH_SHORT).show();
                 }
@@ -185,28 +191,6 @@ public class RegistPhoneAuthCodeService extends Activity {
         inputAuthCodeList = new ArrayList<>();
     }
 
-    public void btnKeypadClick(String inputNumber) {
-        Log.d(TAG, "Log : " + TAG + "btnKeypadClick");
-        inputKeypad(inputNumber);
-    }
-
-    public void btnDeleteClick() {
-        Log.d(TAG, "Log : " + TAG + "btnDeleteClick");
-        deleteKeypad();
-    }
-
-    public void tvResendClick() {
-        Log.d(TAG, "Log : " + TAG + "tvResendClick");
-
-        //인증번호 재전송 로직
-        authCode = utilClass.generateRandomNumber(4);
-        startTimer();
-        Toast.makeText(context, "인증번호는 " + authCode + "입니다.", Toast.LENGTH_SHORT).show();
-    }
-    /**************************************************************
-     *  버튼 클릭 이벤트 끝
-     **************************************************************/
-
     private void startTimer()
     {
         if(timerTask != null){
@@ -217,7 +201,7 @@ public class RegistPhoneAuthCodeService extends Activity {
 
         timerTask = new TimerTask()
         {
-            int timeTick = 180;  // second 단위 60 * 3
+            int timeTick = AUTH_CODE_LIMIT_SECOND;  // second 단위 60 * 3
 
             Integer second = 0;
             Integer minute = 0;
@@ -248,4 +232,29 @@ public class RegistPhoneAuthCodeService extends Activity {
         };
         timer.schedule(timerTask,0 ,1000);
     }
+    /**************************************************************
+     *  버튼 클릭 이벤트 시작
+     **************************************************************/
+
+    public void btnKeypadClick(String inputNumber) {
+        Log.d(TAG, "Log : " + TAG + "btnKeypadClick");
+        inputKeypad(inputNumber);
+    }
+
+    public void btnDeleteClick() {
+        Log.d(TAG, "Log : " + TAG + "btnDeleteClick");
+        deleteKeypad();
+    }
+
+    public void tvResendClick() {
+        Log.d(TAG, "Log : " + TAG + "tvResendClick");
+
+        //인증번호 재전송 로직
+        authCode = utilClass.generateRandomNumber(4);
+        startTimer();
+        Toast.makeText(context, "인증번호는 " + authCode + "입니다.", Toast.LENGTH_SHORT).show();
+    }
+    /**************************************************************
+     *  버튼 클릭 이벤트 끝
+     **************************************************************/
 }

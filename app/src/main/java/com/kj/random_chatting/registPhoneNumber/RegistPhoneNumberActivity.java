@@ -19,6 +19,7 @@ public class RegistPhoneNumberActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ");
         binding = RegistPhoneNumberActivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);

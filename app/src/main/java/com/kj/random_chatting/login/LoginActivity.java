@@ -92,19 +92,19 @@ public class LoginActivity extends Activity {
                         editor.putString("userName", result.getUserName());
                         editor.commit();
 
-                        Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "Log : " + TAG + " -> doLogin/ onFailure_1 : 조회 결과 없음");
                     }
                 }
             }
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Log : " + TAG + " -> doLogin/ onFailure_2 : " + t.getMessage());
             }
         });

@@ -18,6 +18,7 @@ public class RegistInputInterestActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ");
         binding = ActivityOnboardingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);

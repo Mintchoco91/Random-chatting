@@ -2,7 +2,10 @@ package com.kj.random_chatting.userList;
 
 import java.util.List;
 
+import lombok.Data;
+
 public class UserListDTO {
+    @Data
     public static class outputDTO {
         private String id;
         private String userName;
@@ -10,53 +13,5 @@ public class UserListDTO {
         private String age;
         private String phoneNumber;
         private List<String> fileNameList;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getUserName() {
-            return userName;
-        }
-
-        public void setUserName(String userName) {
-            this.userName = userName;
-        }
-
-        public String getGender() {
-            return gender;
-        }
-
-        public void setGender(String gender) {
-            this.gender = gender;
-        }
-
-        public String getAge() {
-            return age;
-        }
-
-        public void setAge(String age) {
-            this.age = age;
-        }
-
-        public String getPhoneNumber() {
-            return phoneNumber;
-        }
-
-        public void setPhoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
-        }
-
-        public List<String> getFileNameList() {
-            return fileNameList;
-        }
-
-        public void setFileNameList(List<String> fileNameList) {
-            this.fileNameList = fileNameList;
-        }
     }
 }

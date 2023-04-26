@@ -44,7 +44,7 @@ public class UserChattingRoomDetailCreateRxJava {
             context.startActivity(intentRoomCreate);
             Log.d(TAG, "Log : " + TAG + " -> DB처리 성공");
         } else {
-            Toast.makeText(context, "등록 실패 ! ErrorCode : " + code, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "등록 실패 ! ErrorCode : " + code, Toast.LENGTH_SHORT).show();
         }
     }
 
