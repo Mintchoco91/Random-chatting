@@ -47,9 +47,9 @@ public class UserRegistInformationTaskRxJava {
         if (code == 0) {
             fileUploadActivityBinding.fileUploadActivityBtnRegist.setEnabled(false);
             fileUploadActivityBinding.fileUploadActivityBtnBack.setEnabled(false);
-            Toast.makeText(fileUploadActivityContext, "등록 성공", Toast.LENGTH_LONG).show();
+            Toast.makeText(fileUploadActivityContext, "등록 성공", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(fileUploadActivityContext, "등록 실패 ! ErrorCode : " + code, Toast.LENGTH_LONG).show();
+            Toast.makeText(fileUploadActivityContext, "등록 실패 ! ErrorCode : " + code, Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -2,23 +2,28 @@ package com.kj.random_chatting.registInputInformation;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
+import com.kj.random_chatting.databinding.RegistInputInformationActivityBinding;
+
+import java.util.HashMap;
 
 public class RegistInputInformationActivity extends Activity {
-    private static final String TAG = "RegistPhoneNumberActivity";
-    private ActivityOnboardingBinding binding;
+    private static final String TAG = "RegistInputInformationActivity";
+    private RegistInputInformationActivityBinding binding;
     private Context context;
     private RegistInputInformationService registInputInformationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityOnboardingBinding.inflate(getLayoutInflater());
+        Log.d(TAG, "onCreate: ");
+        binding = RegistInputInformationActivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
@@ -35,7 +40,13 @@ public class RegistInputInformationActivity extends Activity {
     private void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = this;
-        registInputInformationService = new RegistInputInformationService(context, binding);
+        HashMap<String, String> shareData = new HashMap<String, String>();
+        Intent intent = getIntent();
+        shareData = (HashMap<String, String>) intent.getSerializableExtra("shareData");
+
+
+
+        registInputInformationService = new RegistInputInformationService(context, binding, shareData);
     }
 
     private void setListener() {
@@ -44,17 +55,13 @@ public class RegistInputInformationActivity extends Activity {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.activity_onboarding_tv_login_click_description:
-                        registInputInformationService.btnLoginClick();
-                        break;
-                    case R.id.activity_onboarding_btn_regist:
-                        registInputInformationService.btnRegistClick();
+                    case R.id.regist_input_information_activity_btn_continue:
+                        registInputInformationService.btnContinueClick();
                         break;
                 }
             }
         };
 
-        binding.activityOnboardingTvLoginClickDescription.setOnClickListener(Listener);
-        binding.activityOnboardingBtnRegist.setOnClickListener(Listener);
+        binding.registInputInformationActivityBtnContinue.setOnClickListener(Listener);
     }
 }

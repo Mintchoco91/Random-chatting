@@ -59,7 +59,7 @@ public class UserChattingRoomListTaskRxJava {
             recyclerRoomList = chatRecyclerViewCreateList(context, binding, UserChattingRoomListService.mainUserChattingRoomList);
             recyclerInit(recyclerRoomList);
         }else{
-            Toast.makeText(context, "조회 실패", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "조회 실패", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -150,7 +150,7 @@ public class UserChattingRoomListTaskRxJava {
         // 리사이클러뷰에 LinearLayoutManager 지정. (vertical)
         binding.fragmentUserChattingRoomListRecyclerviewList.setLayoutManager(new LinearLayoutManager(context));
         adapter.notifyDataSetChanged() ;
-        Toast.makeText(context, "리스트 새로고침 완료", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "리스트 새로고침 완료", Toast.LENGTH_SHORT).show();
     }
 
 }

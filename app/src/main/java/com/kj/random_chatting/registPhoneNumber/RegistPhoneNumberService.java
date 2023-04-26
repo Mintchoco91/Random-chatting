@@ -9,6 +9,8 @@ import com.kj.random_chatting.databinding.RegistPhoneNumberActivityBinding;
 import com.kj.random_chatting.registPhoneTextCode.RegistPhoneAuthCodeActivity;
 import com.kj.random_chatting.util.UtilClass;
 
+import java.util.HashMap;
+
 public class RegistPhoneNumberService extends Activity {
     private static final String TAG = "RegistPhoneNumberService";
     private RegistPhoneNumberActivityBinding binding;
@@ -28,9 +30,12 @@ public class RegistPhoneNumberService extends Activity {
 
     public void btnContinueClick() {
         Log.d(TAG, "Log : " + TAG + "btnContinueClick");
+        HashMap<String, String> shareData = new HashMap<>();
+        shareData.put("countryCode",binding.registPhoneNumberActivityCcpCountryPicker.getSelectedCountryCode());
+        shareData.put("phoneNumber",binding.registPhoneNumberActivityEtPhoneNumber.getText().toString());
+
         Intent intentUploadList = new Intent(context, RegistPhoneAuthCodeActivity.class);
-        intentUploadList.putExtra("countryCode", binding.registPhoneNumberActivityCcpCountryPicker.getSelectedCountryCode());
-        intentUploadList.putExtra("phoneNumber", binding.registPhoneNumberActivityEtPhoneNumber.getText());
+        intentUploadList.putExtra("shareData", shareData);
         context.startActivity(intentUploadList);
     }
 

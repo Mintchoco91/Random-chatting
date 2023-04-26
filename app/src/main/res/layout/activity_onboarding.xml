@@ -45,7 +45,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:text="가입하기"
-        android:background="@drawable/basic_btn"
+        android:background="@drawable/btn_fill_green"
         android:textColor="@color/basic_font_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

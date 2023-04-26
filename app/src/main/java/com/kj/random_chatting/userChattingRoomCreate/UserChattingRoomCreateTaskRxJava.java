@@ -55,7 +55,7 @@ public class UserChattingRoomCreateTaskRxJava {
     private void resultPost(Integer code) {
         Log.d(TAG, "Log : " + TAG + " -> UserChattingRoomCreateTaskRxJava" + " : resultCode : " + code);
         if (code != 0) {
-            Toast.makeText(context, "등록 실패 ! ErrorCode : " + code, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "등록 실패 ! ErrorCode : " + code, Toast.LENGTH_SHORT).show();
         }
     }
 

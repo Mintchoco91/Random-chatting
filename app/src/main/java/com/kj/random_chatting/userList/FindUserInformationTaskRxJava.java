@@ -50,7 +50,7 @@ public class FindUserInformationTaskRxJava {
             UserListService userListService = new UserListService(userListActivityContext, userListActivityBinding);
             userListService.showInformation(localUserList.get(0));
         } else {
-            Toast.makeText(userListActivityContext, "조회 실패", Toast.LENGTH_LONG).show();
+            Toast.makeText(userListActivityContext, "조회 실패", Toast.LENGTH_SHORT).show();
         }
     }
 
