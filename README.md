@@ -14,7 +14,7 @@ random-chatting-prototype
  - Rest API Server
  
    - Hosting : AWS
-   - DEV language : PHP 5.3
+   - DEV language : PHP 7.4.3
    - Database : JawsDB Maria
    - Repository : https://github.com/Mintchoco91/random-chatting-server
 
@@ -28,5 +28,7 @@ random-chatting-prototype
    - Repository : https://github.com/Mintchoco91/random-chatting-chat-server
 
 [Docker]
-Apache2 + PHP : https://hub.docker.com/repository/docker/boy0221/apache_php/general
-Socket Server : https://hub.docker.com/repository/docker/boy0221/random-chatting-chat-server/general
+- Apache2 + PHP 
+  - https://hub.docker.com/repository/docker/boy0221/apache_php/general
+- Socket Server 
+  - https://hub.docker.com/repository/docker/boy0221/random-chatting-chat-server/general
