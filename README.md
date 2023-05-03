@@ -27,6 +27,8 @@ Random-chatting-prototype
    - Socket.IO Compatibility Info : https://socketio.github.io/socket.io-client-java/installation.html
    - Repository : https://github.com/Mintchoco91/random-chatting-chat-server
 
+====================================================
+
 [Docker]
 - Apache2 + PHP 
   - https://hub.docker.com/repository/docker/boy0221/apache_php/general
@@ -36,3 +38,5 @@ Random-chatting-prototype
   
 - Socket Server 
   - https://hub.docker.com/repository/docker/boy0221/random-chatting-chat-server/general
+ 
+ PHP 코드 및 android 코드는 git으로 관리. 
