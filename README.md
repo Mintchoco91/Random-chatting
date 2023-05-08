@@ -39,21 +39,22 @@ Random-chatting-prototype
 - Socket Server 
   - https://hub.docker.com/repository/docker/boy0221/random-chatting-chat-server/general
  
- PHP API Server 코드 및 Android 코드는 git으로 관리. 
+- PHP API Server 코드 및 Android 코드는 git으로 관리. 
 
 
 # Run (Directory /home 기준)
 
-$ cd /home
+    $ cd /home
 
-$ docker build -t boy0221/apache_php:0.1 .
-$ docker run -d -p 80:80 -v /home:/var/www/html boy0221/apache_php:0.1
+    $ docker build -t boy0221/apache_php:0.1 .
+    $ docker run -d -p 80:80 -v /home:/var/www/html boy0221/apache_php:0.1
 
 * http://52.197.9.121/ 접속 확인
-
-$ docker build -t random-chatting-chat-server:0.1 .
-$ docker run -d -p 3000:3000 random-chatting-chat-server:0.1
+#
+    $ docker build -t random-chatting-chat-server:0.1 .
+    $ docker run -d -p 3000:3000 random-chatting-chat-server:0.1
 * http://52.197.9.121:3000/ 접속 확인
 
-$ git pull https://github.com/Mintchoco91/random-chatting-server.git
+#
+    $ git pull https://github.com/Mintchoco91/random-chatting-server.git
 
