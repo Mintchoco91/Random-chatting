@@ -33,7 +33,7 @@ Random-chatting-prototype
 - Apache2 + PHP 
   - https://hub.docker.com/repository/docker/boy0221/apache_php/general
   
-- mariaDb
+- MariaDb
   - https://hub.docker.com/repository/docker/boy0221/mariadb/general
   
 - Socket Server 
