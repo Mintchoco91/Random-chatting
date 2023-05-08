@@ -10,7 +10,7 @@ Random-chatting-prototype
    - DEV language : Android Java
    - SDK Version: 32
    - Image Save Storage : Firebase Cloud Storage
-   - Repository : https://github.com/Mintchoco91/random-chatting (현재 Repository)
+   - Repository : https://github.com/Mintchoco91/Random_Chatting (현재 Repository)
 
  - Rest API Server
  
