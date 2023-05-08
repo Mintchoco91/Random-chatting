@@ -56,5 +56,5 @@ Random-chatting-prototype
 * http://52.197.9.121:3000/ 접속 확인
 
 #
-    $ git pull https://github.com/Mintchoco91/random-chatting-server.git
+    $ git clone https://github.com/Mintchoco91/random-chatting-server.git
 
