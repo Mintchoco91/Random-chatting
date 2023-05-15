@@ -117,6 +117,20 @@ public class FindUserInformationTaskRxJava {
                     }
                 }
 
+                //데이터가 하나도 없을경우 dummy data
+                if(jsonArray.length() == 0){
+                    UserListDTO.outputDTO userListOutput = new UserListDTO.outputDTO();
+                    List<String> fileNameList = new ArrayList<>();
+                    userListOutput.setId("99999999");
+                    userListOutput.setUserName("홍길동");
+                    userListOutput.setGender("남");
+                    userListOutput.setAge("19");
+                    userListOutput.setPhoneNumber("010-1111-2222");
+                    userListOutput.setFileNameList(fileNameList);
+
+                    userList.add(userListOutput);
+                }
+
                 //random 처리
                 Collections.shuffle(userList);
 

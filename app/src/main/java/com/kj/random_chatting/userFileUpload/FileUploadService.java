@@ -106,7 +106,7 @@ public class FileUploadService extends Activity {
                         fileUploadActivitybinding.fileUploadActivityIvUserPicture4.setImageBitmap(bitmap);
                         break;
                     case 5:
-                        fileUploadActivitybinding.fileUploadActivityIvUserPicture0.setImageBitmap(bitmap);
+                        fileUploadActivitybinding.fileUploadActivityIvUserPicture5.setImageBitmap(bitmap);
                         break;
                 }
 
@@ -173,7 +173,6 @@ public class FileUploadService extends Activity {
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            @SuppressWarnings("VisibleForTests") //이걸 넣어 줘야 아랫줄에 에러가 사라진다. 넌 누구냐?
                             double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
                             //dialog에 진행률을 퍼센트로 출력해 준다
                             progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
