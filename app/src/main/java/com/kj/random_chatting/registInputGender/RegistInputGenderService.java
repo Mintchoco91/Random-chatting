@@ -13,8 +13,11 @@ import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.databinding.RegistInputGenderActivityBinding;
 import com.kj.random_chatting.login.LoginActivity;
+import com.kj.random_chatting.registInputPhoto.RegistInputPhotoActivity;
 import com.kj.random_chatting.userRegist.UserRegistActivity;
 import com.kj.random_chatting.util.UtilClass;
+
+import java.util.HashMap;
 
 public class RegistInputGenderService extends Activity {
     private static final String TAG = "RegistInputGenderService";
@@ -26,12 +29,14 @@ public class RegistInputGenderService extends Activity {
     private Integer colorWhite;
     private Integer colorBlack;
     private String inputGender;
+    private HashMap<String, String> shareData = new HashMap<>();
 
-    public RegistInputGenderService(Context mContext, RegistInputGenderActivityBinding mBinding) {
+    public RegistInputGenderService(Context mContext, RegistInputGenderActivityBinding mBinding, HashMap<String, String> mShareData) {
         Log.d(TAG, "Log : " + TAG + " -> OnboardingService");
 
         context = mContext;
         binding = mBinding;
+        shareData = mShareData;
 
         initializeService();
     }
@@ -92,7 +97,8 @@ public class RegistInputGenderService extends Activity {
     public void btnContinueClick() {
         Log.d(TAG, "Log : " + TAG + "btnContinueClick");
         if(validation(inputGender)){
-            Intent intentUploadList = new Intent(context, UserRegistActivity.class);
+            Intent intentUploadList = new Intent(context, RegistInputPhotoActivity.class);
+            shareData.put("inputGender",inputGender);
             context.startActivity(intentUploadList);
         }
     }
