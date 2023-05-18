@@ -6,17 +6,26 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <LinearLayout
+        android:id="@+id/activity_title_linearlayout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="110dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+
     <TextView
         android:id="@+id/regist_input_information_activity_tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="나의 정보"
         style="@style/logo_font_style"
-        android:layout_marginTop="130dp"
-        android:layout_marginRight="150dp"
+        android:includeFontPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"/>
+    </LinearLayout>
 
     <EditText
         android:id="@+id/regist_input_information_activity_et_nickname"
@@ -28,7 +37,7 @@
         style="@style/editor_font_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regist_input_information_activity_tv_title"
+        app:layout_constraintTop_toBottomOf="@id/activity_title_linearlayout"
         android:hint="닉네임을 입력하세요."
         android:background="@drawable/img_regist_nickname"
         />

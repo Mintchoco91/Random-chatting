@@ -97,9 +97,10 @@ public class RegistInputGenderService extends Activity {
     public void btnContinueClick() {
         Log.d(TAG, "Log : " + TAG + "btnContinueClick");
         if(validation(inputGender)){
-            Intent intentUploadList = new Intent(context, RegistInputPhotoActivity.class);
+            Intent intent = new Intent(context, RegistInputPhotoActivity.class);
             shareData.put("inputGender",inputGender);
-            context.startActivity(intentUploadList);
+            intent.putExtra("shareData", shareData);
+            context.startActivity(intent);
         }
     }
 

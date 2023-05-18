@@ -34,9 +34,9 @@ public class RegistPhoneNumberService extends Activity {
         shareData.put("countryCode",binding.registPhoneNumberActivityCcpCountryPicker.getSelectedCountryCode());
         shareData.put("phoneNumber",binding.registPhoneNumberActivityEtPhoneNumber.getText().toString());
 
-        Intent intentUploadList = new Intent(context, RegistPhoneAuthCodeActivity.class);
-        intentUploadList.putExtra("shareData", shareData);
-        context.startActivity(intentUploadList);
+        Intent intent = new Intent(context, RegistPhoneAuthCodeActivity.class);
+        intent.putExtra("shareData", shareData);
+        context.startActivity(intent);
     }
 
     /**************************************************************

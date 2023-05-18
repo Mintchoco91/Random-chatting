@@ -9,4 +9,6 @@ public final class Constants {
     public static final Integer	AUTH_CODE_DIGIT = 4;
     // 가입 시 인증 코드 제한시간(second 단위)
     public static final Integer	AUTH_CODE_LIMIT_SECOND = 180;
+    // 사진 업로드 개수
+    public static final Integer	MAX_UPLOAD_PICTURE_COUNT = 5;
 }
