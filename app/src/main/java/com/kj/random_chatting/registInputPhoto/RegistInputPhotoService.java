@@ -97,6 +97,9 @@ public class RegistInputPhotoService extends Activity {
                 //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriImgPaths[imgNo]);
                 switch (imgNo) {
+                    case 0:
+                        binding.registInputPhotoActivityBtnPicture0.setImageBitmap(bitmap);
+                        break;
                     case 1:
                         binding.registInputPhotoActivityBtnPicture1.setImageBitmap(bitmap);
                         break;
@@ -105,9 +108,6 @@ public class RegistInputPhotoService extends Activity {
                         break;
                     case 3:
                         binding.registInputPhotoActivityBtnPicture3.setImageBitmap(bitmap);
-                        break;
-                    case 4:
-                        binding.registInputPhotoActivityBtnPicture4.setImageBitmap(bitmap);
                         break;
                 }
 
