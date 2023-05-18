@@ -6,18 +6,25 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <LinearLayout
+        android:id="@+id/activity_title_linearlayout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="110dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+
     <TextView
         android:id="@+id/regist_input_photo_activity_tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="나의 사진"
         style="@style/logo_font_style"
-        android:layout_marginTop="130dp"
-        android:layout_marginRight="150dp"
         android:includeFontPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/regist_input_photo_activity_tv_sub_title"
@@ -25,10 +32,10 @@
         android:layout_height="wrap_content"
         android:text="당신을 표현할 수 있는 사진을 올려보세요.\n나중에 추가하거나 변경할 수 있습니다."
         style="@style/logo_sub_font_style"
-        android:layout_marginRight="110dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/regist_input_photo_activity_tv_title"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/regist_input_photo_activity_linearlayout1"
@@ -38,37 +45,32 @@
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regist_input_photo_activity_tv_sub_title"
+        app:layout_constraintTop_toBottomOf="@id/activity_title_linearlayout"
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/regist_input_photo_activity_btn_picture1"
-            android:layout_width="110dp"
-            android:layout_height="150dp"
-            android:paddingTop="10dp"
+            android:id="@+id/regist_input_photo_activity_btn_picture0"
+            android:layout_width="140dp"
+            android:layout_height="186dp"
             style="@style/editor_font_style"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/regist_input_photo_activity_tv_sub_title"
-            android:hint="No Image"
             android:background="@drawable/layerlist_upload_photo"
-            android:tag="1"
+            android:tag="0"
             />
 
         <ImageView
-            android:id="@+id/regist_input_photo_activity_btn_picture2"
-            android:layout_width="110dp"
-            android:layout_height="150dp"
+            android:id="@+id/regist_input_photo_activity_btn_picture1"
+            android:layout_width="140dp"
+            android:layout_height="186dp"
             android:layout_marginLeft="10dp"
             android:paddingTop="10dp"
             style="@style/editor_font_style"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/regist_input_photo_activity_tv_sub_title"
-            android:hint="No Image"
             android:background="@drawable/layerlist_upload_photo"
-            android:tag="2"
+            android:tag="1"
             />
 
     </LinearLayout>
@@ -85,32 +87,28 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/regist_input_photo_activity_btn_picture3"
-            android:layout_width="110dp"
-            android:layout_height="150dp"
-            android:paddingTop="10dp"
+            android:id="@+id/regist_input_photo_activity_btn_picture2"
+            android:layout_width="140dp"
+            android:layout_height="186dp"
             style="@style/editor_font_style"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/regist_input_photo_activity_tv_sub_title"
-            android:hint="No Image"
             android:background="@drawable/layerlist_upload_photo"
-            android:tag="3"
+            android:tag="2"
             />
 
         <ImageView
-            android:id="@+id/regist_input_photo_activity_btn_picture4"
-            android:layout_width="110dp"
-            android:layout_height="150dp"
+            android:id="@+id/regist_input_photo_activity_btn_picture3"
+            android:layout_width="140dp"
+            android:layout_height="186dp"
             android:layout_marginLeft="10dp"
             android:paddingTop="10dp"
             style="@style/editor_font_style"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/regist_input_photo_activity_tv_sub_title"
-            android:hint="No Image"
             android:background="@drawable/layerlist_upload_photo"
-            android:tag="4"
+            android:tag="3"
             />
 
     </LinearLayout>

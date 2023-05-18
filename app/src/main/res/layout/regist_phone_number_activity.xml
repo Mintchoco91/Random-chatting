@@ -6,18 +6,25 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <LinearLayout
+        android:id="@+id/activity_title_linearlayout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="110dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+
     <TextView
         android:id="@+id/regist_phone_number_activity_tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="전화번호"
         style="@style/logo_font_style"
-        android:layout_marginTop="130dp"
-        android:layout_marginRight="150dp"
         android:includeFontPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/regist_phone_number_activity_tv_sub_title"
@@ -25,14 +32,11 @@
         android:layout_height="wrap_content"
         android:text="휴대폰 번호를 인증해 주세요."
         style="@style/logo_sub_font_style"
-        android:layout_marginRight="110dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/regist_phone_number_activity_tv_title"/>
 
-
-
-
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/regist_phone_number_activity_linearlayout"
@@ -43,7 +47,7 @@
         android:background="@drawable/btn_empty_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/regist_phone_number_activity_tv_sub_title">
+        app:layout_constraintTop_toBottomOf="@id/activity_title_linearlayout">
 
 
         <com.hbb20.CountryCodePicker

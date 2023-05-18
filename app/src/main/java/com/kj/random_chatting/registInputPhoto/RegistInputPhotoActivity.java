@@ -55,22 +55,26 @@ public class RegistInputPhotoActivity extends Activity {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
+                    case R.id.regist_input_photo_activity_btn_picture0:
                     case R.id.regist_input_photo_activity_btn_picture1:
                     case R.id.regist_input_photo_activity_btn_picture2:
-                    case R.id.regist_input_photo_activity_btn_picture3:
-                    case R.id.regist_input_photo_activity_btn_picture4:                        Intent intent = new Intent();
+                    case R.id.regist_input_photo_activity_btn_picture3:                        Intent intent = new Intent();
                         intent.setType("image/*");
                         intent.setAction(Intent.ACTION_GET_CONTENT);
                         startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), Integer.valueOf(v.getTag().toString()));
+                        break;
+                    case R.id.regist_input_photo_activity_btn_continue:
+                        registInputPhotoService.btnContinueClick();
                         break;
                 }
             }
         };
 
+        binding.registInputPhotoActivityBtnPicture0.setOnClickListener(Listener);
         binding.registInputPhotoActivityBtnPicture1.setOnClickListener(Listener);
         binding.registInputPhotoActivityBtnPicture2.setOnClickListener(Listener);
         binding.registInputPhotoActivityBtnPicture3.setOnClickListener(Listener);
-        binding.registInputPhotoActivityBtnPicture4.setOnClickListener(Listener);
+        binding.registInputPhotoActivityBtnContinue.setOnClickListener(Listener);
     }
 
 

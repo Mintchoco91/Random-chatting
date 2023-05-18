@@ -1,5 +1,7 @@
 package com.kj.random_chatting.registInputPhoto;
 
+import static com.kj.random_chatting.common.Constants.MAX_UPLOAD_PICTURE_COUNT;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -21,20 +23,26 @@ import com.google.firebase.storage.UploadTask;
 import com.kj.random_chatting.databinding.RegistInputInformationActivityBinding;
 import com.kj.random_chatting.databinding.RegistInputPhotoActivityBinding;
 import com.kj.random_chatting.registInputGender.RegistInputGenderActivity;
+import com.kj.random_chatting.userRegist.UserRegistDTO;
+import com.kj.random_chatting.userRegist.UserRegistInformationTaskRxJava;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class RegistInputPhotoService extends Activity {
     private static final String TAG = "RegistInputPhotoService";
     private RegistInputPhotoActivityBinding binding;
     private Context context;
     private HashMap<String, String> shareData = new HashMap<>();
-    private String[] strFileNames = new String[6];
-    private String[] strFileNameUri = new String[6];
-    private Uri[] uriImgPaths = new Uri[6];
+    private String[] strFileNames = new String[MAX_UPLOAD_PICTURE_COUNT];
+    private String[] strFileNameUri = new String[MAX_UPLOAD_PICTURE_COUNT];
+    private Uri[] uriImgPaths = new Uri[MAX_UPLOAD_PICTURE_COUNT];
 
     private StorageReference storageRef;
     private StorageReference storageDirRef;
@@ -54,6 +62,9 @@ public class RegistInputPhotoService extends Activity {
             //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uriImgPaths[imgNo]);
             switch (imgNo) {
+                case 0:
+                    binding.registInputPhotoActivityBtnPicture0.setImageBitmap(bitmap);
+                    break;
                 case 1:
                     binding.registInputPhotoActivityBtnPicture1.setImageBitmap(bitmap);
                     break;
@@ -62,9 +73,6 @@ public class RegistInputPhotoService extends Activity {
                     break;
                 case 3:
                     binding.registInputPhotoActivityBtnPicture3.setImageBitmap(bitmap);
-                    break;
-                case 4:
-                    binding.registInputPhotoActivityBtnPicture4.setImageBitmap(bitmap);
                     break;
             }
 
@@ -175,6 +183,20 @@ public class RegistInputPhotoService extends Activity {
             Toast.makeText(context, "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
         }
     }
+
+    //가운데 빈 사진 앞으로 정렬 및 데이터 저장
+    private void settingPicture(){
+        List<String> lstFileName = new ArrayList<>(Arrays.asList(strFileNameUri));
+        lstFileName.removeAll(Collections.singletonList(null));
+
+        for (int i = 0; i < MAX_UPLOAD_PICTURE_COUNT; i++) {
+            if (i < lstFileName.size()) {
+                shareData.put("fileName"+i, lstFileName.get(i));
+            } else {
+                shareData.put("fileName"+i, null);
+            }
+        }
+    }
     /**************************************************************
      *  버튼 클릭 이벤트 시작
      **************************************************************/
@@ -182,10 +204,8 @@ public class RegistInputPhotoService extends Activity {
     public void btnContinueClick() {
         Log.d(TAG, "Log : " + TAG + "btnContinueClick");
         //validation 필요
-
+        settingPicture();
         Intent intent = new Intent(context, RegistInputGenderActivity.class);
-        //shareData.put("nickName",binding.registInputInformationActivityEtNickname.getText().toString());
-        //shareData.put("birthday",binding.registInputInformationActivityEtBirthday.getText().toString());
         intent.putExtra("shareData", shareData);
         context.startActivity(intent);
     }
