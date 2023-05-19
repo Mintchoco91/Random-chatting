@@ -10,6 +10,7 @@ import android.view.View;
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.RegistInputInformationActivityBinding;
 import com.kj.random_chatting.databinding.RegistInputPhotoActivityBinding;
+import com.kj.random_chatting.registInputPhotoPopup.RegistInputPhotoPopupActivity;
 
 import java.util.HashMap;
 
@@ -58,10 +59,8 @@ public class RegistInputPhotoActivity extends Activity {
                     case R.id.regist_input_photo_activity_btn_picture0:
                     case R.id.regist_input_photo_activity_btn_picture1:
                     case R.id.regist_input_photo_activity_btn_picture2:
-                    case R.id.regist_input_photo_activity_btn_picture3:                        Intent intent = new Intent();
-                        intent.setType("image/*");
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), Integer.valueOf(v.getTag().toString()));
+                    case R.id.regist_input_photo_activity_btn_picture3:
+                        showChoiceModal(v.getTag().toString());
                         break;
                     case R.id.regist_input_photo_activity_btn_continue:
                         registInputPhotoService.btnContinueClick();
@@ -77,14 +76,48 @@ public class RegistInputPhotoActivity extends Activity {
         binding.registInputPhotoActivityBtnContinue.setOnClickListener(Listener);
     }
 
+    private void showChoiceModal(String choiceNumber){
+        Intent intent = new Intent(this, RegistInputPhotoPopupActivity.class);
+        intent.putExtra("choiceNumber", choiceNumber);
+        //99 = popup
+        startActivityForResult(intent, 99);
+    }
+
+    private void showChoiceImage(String choiceNumber){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), Integer.valueOf(choiceNumber));
+    }
 
     //파일 선택 후 결과 처리 (sub class 에서 호출이 안되서 main에 둠.)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK) {
-            registInputPhotoService.uploadResult(requestCode, resultCode, data);
+        // 선택 모달
+        if(requestCode == 99){
+            if (resultCode == RESULT_OK) {
+                String choiceMode = data.getStringExtra("choiceMode");
+                String choiceNumber = data.getStringExtra("choiceNumber");
+
+                switch(choiceMode){
+                    case "UPLOAD":
+                        showChoiceImage(choiceNumber);
+                        break;
+                    case "DELETE":
+                        //Delete process
+                        break;
+                    case "CANCLE":
+                        //nothing
+                        break;
+                }
+            }
+        }
+        if(requestCode < 6) {
+            if (resultCode == RESULT_OK) {
+                registInputPhotoService.prepareUpload(requestCode, resultCode, data);
+            }
         }
     }
 }

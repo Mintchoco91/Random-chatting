@@ -50,6 +50,7 @@
         <activity android:name="com.kj.random_chatting.registPhoneNumber.RegistPhoneNumberActivity"/>
         <activity android:name="com.kj.random_chatting.registPhoneTextCode.RegistPhoneAuthCodeActivity"/>
         <activity android:name="com.kj.random_chatting.registInputPhoto.RegistInputPhotoActivity"/>
+        <activity android:name="com.kj.random_chatting.registInputPhotoPopup.RegistInputPhotoPopupActivity"/>
 
         <service android:name=".common.ForecdTerminationService" android:stopWithTask="false" />
 

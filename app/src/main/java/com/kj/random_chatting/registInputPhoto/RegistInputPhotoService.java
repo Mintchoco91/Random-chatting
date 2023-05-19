@@ -10,6 +10,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -55,80 +57,21 @@ public class RegistInputPhotoService extends Activity {
         shareData = mShareData;
     }
 
-    public void uploadResult(int imgNo, int resultCode, Intent data) {
+    public void prepareUpload(int imgNo, int resultCode, Intent data) {
         uriImgPaths[imgNo] = data.getData();
         Log.d(TAG, "uri:" + String.valueOf(uriImgPaths[imgNo]));
         try {
-            //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uriImgPaths[imgNo]);
-            switch (imgNo) {
-                case 0:
-                    binding.registInputPhotoActivityBtnPicture0.setImageBitmap(bitmap);
-                    break;
-                case 1:
-                    binding.registInputPhotoActivityBtnPicture1.setImageBitmap(bitmap);
-                    break;
-                case 2:
-                    binding.registInputPhotoActivityBtnPicture2.setImageBitmap(bitmap);
-                    break;
-                case 3:
-                    binding.registInputPhotoActivityBtnPicture3.setImageBitmap(bitmap);
-                    break;
-            }
-
             //fireBase Upload
-            uploadFileAndRegistDB(uriImgPaths, imgNo);
-        } catch (IOException e) {
+            uploadToFirebase(uriImgPaths, imgNo);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    //파일 선택 후 결과 처리
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // requestCode 몇번째 이미지인지 확인용
-        int imgNo = requestCode;
-
-        if (resultCode == RESULT_OK) {
-            uriImgPaths[imgNo] = data.getData();
-            Log.d(TAG, "uri:" + String.valueOf(uriImgPaths[imgNo]));
-            try {
-                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriImgPaths[imgNo]);
-                switch (imgNo) {
-                    case 0:
-                        binding.registInputPhotoActivityBtnPicture0.setImageBitmap(bitmap);
-                        break;
-                    case 1:
-                        binding.registInputPhotoActivityBtnPicture1.setImageBitmap(bitmap);
-                        break;
-                    case 2:
-                        binding.registInputPhotoActivityBtnPicture2.setImageBitmap(bitmap);
-                        break;
-                    case 3:
-                        binding.registInputPhotoActivityBtnPicture3.setImageBitmap(bitmap);
-                        break;
-                }
-
-                //fireBase Upload
-                uploadFileAndRegistDB(uriImgPaths, imgNo);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     //upload the file
-    private void uploadFileAndRegistDB(Uri[] uriImgPaths, Integer imgNo) {
+    private void uploadToFirebase(Uri[] uriImgPaths, Integer imgNo) {
         //업로드할 파일이 있으면 수행
         if (uriImgPaths[imgNo] != null) {
-            //업로드 진행 Dialog 보이기
-            final ProgressDialog progressDialog = new ProgressDialog(context);
-            progressDialog.setTitle("업로드중...");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
-
             //Unique한 파일명을 만들자.
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmmss");
             Date now = new Date();
@@ -149,34 +92,56 @@ public class RegistInputPhotoService extends Activity {
                                     .addOnSuccessListener(new OnSuccessListener<Uri>() {
                                         @Override
                                         public void onSuccess(Uri uri) {
-                                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
+                                            try {
+                                                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
+                                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uriImgPaths[imgNo]);
+                                                switch (imgNo) {
+                                                    case 0:
+                                                        binding.registInputPhotoActivityBtnPicture0.setImageBitmap(bitmap);
+                                                        break;
+                                                    case 1:
+                                                        binding.registInputPhotoActivityBtnPicture1.setImageBitmap(bitmap);
+                                                        break;
+                                                    case 2:
+                                                        binding.registInputPhotoActivityBtnPicture2.setImageBitmap(bitmap);
+                                                        break;
+                                                    case 3:
+                                                        binding.registInputPhotoActivityBtnPicture3.setImageBitmap(bitmap);
+                                                        break;
+                                                }
+                                            }catch(Exception e){
+                                                Toast.makeText(context, "이미지 작업 실패 - Images.Media.getBitmap error", Toast.LENGTH_SHORT).show();
+                                                binding.registInputPhotoActivityBtnContinue.setEnabled(true);
+                                            }
+
                                             strFileNameUri[imgNo] = uri.toString();
+                                            binding.registInputPhotoActivityBtnContinue.setEnabled(true);
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception exception) {
-                                            //이미지 로드 실패시
-                                            Toast.makeText(context, "이미지 로드 실패", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context, "이미지 작업 실패 - child addOnSuccessListener", Toast.LENGTH_SHORT).show();
+                                            binding.registInputPhotoActivityBtnContinue.setEnabled(true);
                                         }
                                     });
-
                         }
                     })
-                    //실패시
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(context, "업로드 실패!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "이미지 작업 실패 - putFile addOnSuccessListener", Toast.LENGTH_SHORT).show();
+                            binding.registInputPhotoActivityBtnContinue.setEnabled(true);
                         }
                     })
                     //진행중
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                            //double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
                             //dialog에 진행률을 퍼센트로 출력해 준다
-                            progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
+                            //progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
+                            Toast.makeText(context, "이미지 업로드 중 입니다.", Toast.LENGTH_SHORT).show();
+                            binding.registInputPhotoActivityBtnContinue.setEnabled(false);
                         }
                     });
         } else {
@@ -189,7 +154,7 @@ public class RegistInputPhotoService extends Activity {
         List<String> lstFileName = new ArrayList<>(Arrays.asList(strFileNameUri));
         lstFileName.removeAll(Collections.singletonList(null));
 
-        for (int i = 0; i < MAX_UPLOAD_PICTURE_COUNT; i++) {
+        for (int i = 0; i < MAX_UPLOAD_PICTURE_COUNT-1; i++) {
             if (i < lstFileName.size()) {
                 shareData.put("fileName"+i, lstFileName.get(i));
             } else {
