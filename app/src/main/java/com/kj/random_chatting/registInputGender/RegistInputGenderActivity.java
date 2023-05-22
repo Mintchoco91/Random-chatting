@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.databinding.RegistInputGenderActivityBinding;
 
@@ -53,13 +54,13 @@ public class RegistInputGenderActivity extends Activity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.regist_input_information_activity_btn_man:
-                        registInputGenderService.btnGenderClick(RegistInputGenderDTO.Gender.MAN);
+                        registInputGenderService.btnGenderClick(Enum.Gender.MAN);
                         break;
                     case R.id.regist_input_information_activity_btn_woman:
-                        registInputGenderService.btnGenderClick(RegistInputGenderDTO.Gender.WOMAN);
+                        registInputGenderService.btnGenderClick(Enum.Gender.WOMAN);
                         break;
                     case R.id.regist_input_information_activity_btn_other:
-                        registInputGenderService.btnGenderClick(RegistInputGenderDTO.Gender.OTHER);
+                        registInputGenderService.btnGenderClick(Enum.Gender.OTHER);
                         break;
                     case R.id.regist_input_information_activity_btn_continue:
                         registInputGenderService.btnContinueClick();

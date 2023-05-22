@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -22,8 +23,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.RegistInputInformationActivityBinding;
 import com.kj.random_chatting.databinding.RegistInputPhotoActivityBinding;
+import com.kj.random_chatting.registInputEmailPw.RegistInputEmailPwActivity;
 import com.kj.random_chatting.registInputGender.RegistInputGenderActivity;
 import com.kj.random_chatting.userRegist.UserRegistDTO;
 import com.kj.random_chatting.userRegist.UserRegistInformationTaskRxJava;
@@ -68,6 +71,11 @@ public class RegistInputPhotoService extends Activity {
         }
     }
 
+    public void deleteImage(Integer choiceNumber) {
+        selectImageView(choiceNumber).setImageBitmap(null);
+        strFileNameUri[choiceNumber] = null;
+    }
+
     //upload the file
     private void uploadToFirebase(Uri[] uriImgPaths, Integer imgNo) {
         //업로드할 파일이 있으면 수행
@@ -95,20 +103,7 @@ public class RegistInputPhotoService extends Activity {
                                             try {
                                                 //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
                                                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uriImgPaths[imgNo]);
-                                                switch (imgNo) {
-                                                    case 0:
-                                                        binding.registInputPhotoActivityBtnPicture0.setImageBitmap(bitmap);
-                                                        break;
-                                                    case 1:
-                                                        binding.registInputPhotoActivityBtnPicture1.setImageBitmap(bitmap);
-                                                        break;
-                                                    case 2:
-                                                        binding.registInputPhotoActivityBtnPicture2.setImageBitmap(bitmap);
-                                                        break;
-                                                    case 3:
-                                                        binding.registInputPhotoActivityBtnPicture3.setImageBitmap(bitmap);
-                                                        break;
-                                                }
+                                                selectImageView(imgNo).setImageBitmap(bitmap);
                                             }catch(Exception e){
                                                 Toast.makeText(context, "이미지 작업 실패 - Images.Media.getBitmap error", Toast.LENGTH_SHORT).show();
                                                 binding.registInputPhotoActivityBtnContinue.setEnabled(true);
@@ -162,6 +157,26 @@ public class RegistInputPhotoService extends Activity {
             }
         }
     }
+
+    private ImageView selectImageView(Integer choiceNumber){
+        ImageView imageView = null;
+        switch (choiceNumber) {
+            case 0:
+                imageView = binding.registInputPhotoActivityBtnPicture0;
+                break;
+            case 1:
+                imageView = binding.registInputPhotoActivityBtnPicture1;
+                break;
+            case 2:
+                imageView = binding.registInputPhotoActivityBtnPicture2;
+                break;
+            case 3:
+                imageView = binding.registInputPhotoActivityBtnPicture3;
+                break;
+        }
+
+        return imageView;
+    }
     /**************************************************************
      *  버튼 클릭 이벤트 시작
      **************************************************************/
@@ -170,7 +185,7 @@ public class RegistInputPhotoService extends Activity {
         Log.d(TAG, "Log : " + TAG + "btnContinueClick");
         //validation 필요
         settingPicture();
-        Intent intent = new Intent(context, RegistInputGenderActivity.class);
+        Intent intent = new Intent(context, RegistInputEmailPwActivity.class);
         intent.putExtra("shareData", shareData);
         context.startActivity(intent);
     }

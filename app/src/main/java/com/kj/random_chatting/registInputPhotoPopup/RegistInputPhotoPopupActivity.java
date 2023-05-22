@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.RegistInputPhotoActivityBinding;
 import com.kj.random_chatting.databinding.RegistInputPhotoPopupActivityBinding;
 
@@ -55,13 +57,13 @@ public class RegistInputPhotoPopupActivity extends Activity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.regist_input_photo_popup_activity_btn_upload_Image:
-                        registInputPhotoPopupService.btnUploadClick();
+                        closeModal(Enum.PictureModalStatus.UPLOAD);
                         break;
                     case R.id.regist_input_photo_popup_activity_btn_delete_image:
-                        registInputPhotoPopupService.btnDeleteClick();
+                        closeModal(Enum.PictureModalStatus.DELETE);
                         break;
                     case R.id.regist_input_photo_popup_activity_btn_cancle:
-                        registInputPhotoPopupService.btnCancleClick();
+                        closeModal(Enum.PictureModalStatus.CLOSE);
                         break;
                 }
             }
@@ -70,5 +72,23 @@ public class RegistInputPhotoPopupActivity extends Activity {
         binding.registInputPhotoPopupActivityBtnUploadImage.setOnClickListener(Listener);
         binding.registInputPhotoPopupActivityBtnDeleteImage.setOnClickListener(Listener);
         binding.registInputPhotoPopupActivityBtnCancle.setOnClickListener(Listener);
+    }
+
+    public void closeModal(Enum.PictureModalStatus pictureModalStatus){
+        //데이터 전달하기
+        Intent intent = new Intent();
+        intent.putExtra("choiceMode", pictureModalStatus.toString());
+        intent.putExtra("choiceNumber", strChoiceNumber);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        //바깥레이어 클릭시 안닫히게
+        if(event.getAction()==MotionEvent.ACTION_OUTSIDE){
+            return false;
+        }
+        return true;
     }
 }

@@ -6,92 +6,88 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <TextView
-        android:id="@+id/login_activity_tv_title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/activity_title_linearlayout"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="어서 오세요!"
-        style="@style/logo_font_style"
-        android:layout_marginTop="130dp"
-        android:layout_marginRight="150dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/regist_input_email_pw_activity_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="어서 오세요!"
+           style="@style/logo_font_style"
+            android:includeFontPadding="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    </LinearLayout>
 
     <EditText
-        android:id="@+id/login_activity_et_email"
+        android:id="@+id/regist_input_email_pw_activity_et_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
         android:layout_marginTop="80dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        style="@style/editor_font_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_activity_tv_title"
+        app:layout_constraintTop_toBottomOf="@id/activity_title_linearlayout"
         android:hint="이메일을 입력하세요."
         android:textColorHint="@color/hint_color"
         android:background="@drawable/img_login_email"
         />
 
     <EditText
-        android:id="@+id/login_activity_et_password"
+        android:id="@+id/regist_input_email_pw_activity_et_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        style="@style/editor_font_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_activity_et_email"
+        app:layout_constraintTop_toBottomOf="@id/regist_input_email_pw_activity_et_email"
+        android:inputType="textPassword"
         android:hint="비밀번호를 입력하세요."
         android:textColorHint="@color/hint_color"
-        android:background="@drawable/img_login_email"
+        android:background="@drawable/img_login_password"
+        />
+
+    <EditText
+        android:id="@+id/regist_input_email_pw_activity_et_confirm_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        style="@style/editor_font_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/regist_input_email_pw_activity_et_password"
+        android:inputType="textPassword"
+        android:hint="비밀번호를 다시 입력하세요."
+        android:textColorHint="@color/hint_color"
+        android:background="@drawable/img_login_password"
         />
 
     <Button
-        android:id="@+id/login_activity_btn_login"
+        android:id="@+id/regist_input_photo_activity_btn_continue"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="100dp"
-        android:text="Login"
+        android:layout_marginBottom="50dp"
+        android:text="가입 완료"
         android:background="@drawable/btn_fill_green"
         android:textColor="@color/basic_font_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_activity_et_password"
+        app:layout_constraintBottom_toBottomOf="parent"
         />
-
-    <LinearLayout
-        android:id="@+id/activity_onboarding_linearlayout_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/login_activity_btn_login">
-
-
-        <Button
-            android:id="@+id/login_activity_btn_regist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="회원가입"
-            android:background="#00ff0000"
-            android:textColor="@color/main_color_green"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="|"
-            android:textColor="@color/black"/>
-
-
-        <Button
-            android:id="@+id/login_activity_btn_find_information"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00ff0000"
-            android:paddingLeft="15dp"
-            android:text="아이디/비밀번호 찾기"
-            android:textColor="@color/main_color_green"/>
-    </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

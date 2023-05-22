@@ -83,11 +83,11 @@ public class RegistInputPhotoActivity extends Activity {
         startActivityForResult(intent, 99);
     }
 
-    private void showChoiceImage(String choiceNumber){
+    private void showChoiceImage(Integer choiceNumber){
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), Integer.valueOf(choiceNumber));
+        startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), choiceNumber);
     }
 
     //파일 선택 후 결과 처리 (sub class 에서 호출이 안되서 main에 둠.)
@@ -103,10 +103,10 @@ public class RegistInputPhotoActivity extends Activity {
 
                 switch(choiceMode){
                     case "UPLOAD":
-                        showChoiceImage(choiceNumber);
+                        showChoiceImage(Integer.valueOf(choiceNumber));
                         break;
                     case "DELETE":
-                        //Delete process
+                        registInputPhotoService.deleteImage(Integer.valueOf(choiceNumber));
                         break;
                     case "CANCLE":
                         //nothing
@@ -114,7 +114,7 @@ public class RegistInputPhotoActivity extends Activity {
                 }
             }
         }
-        if(requestCode < 6) {
+        else if(requestCode < 6) {
             if (resultCode == RESULT_OK) {
                 registInputPhotoService.prepareUpload(requestCode, resultCode, data);
             }
