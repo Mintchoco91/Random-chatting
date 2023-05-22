@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.databinding.RegistInputGenderActivityBinding;
 import com.kj.random_chatting.login.LoginActivity;
@@ -53,7 +54,7 @@ public class RegistInputGenderService extends Activity {
      *  버튼 클릭 이벤트 시작
      **************************************************************/
 
-    public void btnGenderClick(RegistInputGenderDTO.Gender gender) {
+    public void btnGenderClick(Enum.Gender gender) {
         Log.d(TAG, "Log : " + TAG + "btnGenderClick");
 
         switch(gender){

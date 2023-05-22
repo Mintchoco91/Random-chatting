@@ -11,4 +11,9 @@
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
     </style>
 
+    <style name="RoundedCornersDialog" parent="@style/Theme.MaterialComponents.Dialog">
+        <item name="dialogCornerRadius">16dp</item>
+    </style>
+
+
 </resources>

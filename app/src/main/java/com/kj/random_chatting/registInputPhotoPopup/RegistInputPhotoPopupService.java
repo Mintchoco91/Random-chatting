@@ -45,32 +45,10 @@ public class RegistInputPhotoPopupService extends Activity {
         choiceNumber = mChoiceNumber;
     }
 
-    //확인 버튼 클릭
-    public void closeModal(String choiceMode){
-        //데이터 전달하기
-        Intent intent = new Intent();
-        intent.putExtra("choiceMode", choiceMode);
-        intent.putExtra("choiceNumber", choiceNumber);
-        setResult(RESULT_OK, intent);
-
-        //액티비티(팝업) 닫기
-        finish();
-    }
     /**************************************************************
      *  버튼 클릭 이벤트 시작
      **************************************************************/
-
-    public void btnUploadClick() {
-        closeModal("UPLOAD");
-    }
-
-    public void btnDeleteClick() {
-        closeModal("DELETE");
-    }
-
-    public void btnCancleClick() {
-        closeModal("CANCLE");
-    }
+    //Intent 관련 작업이라 Activity 단에서 처리 했음.
 
     /**************************************************************
      *  버튼 클릭 이벤트 끝
