@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.databinding.RegistInputInformationActivityBinding;
 
@@ -40,13 +41,9 @@ public class RegistInputInformationActivity extends Activity {
     private void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = this;
-        HashMap<String, String> shareData = new HashMap<String, String>();
         Intent intent = getIntent();
-        shareData = (HashMap<String, String>) intent.getSerializableExtra("shareData");
-
-
-
-        registInputInformationService = new RegistInputInformationService(context, binding, shareData);
+        SignUpRegistDTO intentData = (SignUpRegistDTO) intent.getSerializableExtra("intentData");
+        registInputInformationService = new RegistInputInformationService(context, binding, intentData);
     }
 
     private void setListener() {

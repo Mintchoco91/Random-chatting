@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.databinding.RegistInputInformationActivityBinding;
 import com.kj.random_chatting.login.LoginActivity;
@@ -19,14 +20,14 @@ public class RegistInputInformationService extends Activity {
     private static final String TAG = "RegistInputInformationService";
     private RegistInputInformationActivityBinding binding;
     private Context context;
-    private HashMap<String, String> shareData = new HashMap<>();
+    private SignUpRegistDTO intentData = new SignUpRegistDTO();
 
-    public RegistInputInformationService(Context mContext, RegistInputInformationActivityBinding mBinding, HashMap<String, String> mShareData) {
+    public RegistInputInformationService(Context mContext, RegistInputInformationActivityBinding mBinding, SignUpRegistDTO mIntentData) {
         Log.d(TAG, "Log : " + TAG + " -> RegistInputInformationService");
 
         context = mContext;
         binding = mBinding;
-        shareData = mShareData;
+        intentData = mIntentData;
     }
 
     /**************************************************************
@@ -37,10 +38,11 @@ public class RegistInputInformationService extends Activity {
         Log.d(TAG, "Log : " + TAG + "btnContinueClick");
         //validation 필요
 
+        intentData.setNickName(binding.registInputInformationActivityEtNickname.getText().toString());
+        intentData.setBirthday(binding.registInputInformationActivityEtBirthday.getText().toString());
+
         Intent intent = new Intent(context, RegistInputGenderActivity.class);
-        shareData.put("nickName",binding.registInputInformationActivityEtNickname.getText().toString());
-        shareData.put("birthday",binding.registInputInformationActivityEtBirthday.getText().toString());
-        intent.putExtra("shareData", shareData);
+        intent.putExtra("intentData", intentData);
         context.startActivity(intent);
     }
 

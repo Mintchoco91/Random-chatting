@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.databinding.RegistInputEmailPwActivityBinding;
 
@@ -40,11 +41,10 @@ public class RegistInputEmailPwActivity extends Activity {
     private void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = this;
-        HashMap<String, String> shareData = new HashMap<String, String>();
         Intent intent = getIntent();
-        shareData = (HashMap<String, String>) intent.getSerializableExtra("shareData");
+        SignUpRegistDTO intentData = (SignUpRegistDTO) intent.getSerializableExtra("intentData");
 
-        registInputEmailPwService = new RegistInputEmailPwService(context, binding, shareData);
+        registInputEmailPwService = new RegistInputEmailPwService(context, binding, intentData);
     }
 
     private void setListener() {
@@ -53,13 +53,16 @@ public class RegistInputEmailPwActivity extends Activity {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.regist_input_photo_activity_btn_continue:
-                        registInputEmailPwService.btnContinueClick();
+                    case R.id.regist_input_email_pw_activity_btn_regist:
+                        registInputEmailPwService.btnRegistClick();
                         break;
                 }
             }
         };
 
-        binding.registInputPhotoActivityBtnContinue.setOnClickListener(Listener);
+        binding.registInputEmailPwActivityEtEmail.setOnClickListener(Listener);
+        binding.registInputEmailPwActivityEtPassword.setOnClickListener(Listener);
+        binding.registInputEmailPwActivityEtConfirmPassword.setOnClickListener(Listener);
+        binding.registInputEmailPwActivityBtnRegist.setOnClickListener(Listener);
     }
 }

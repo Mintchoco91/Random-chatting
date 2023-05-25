@@ -24,6 +24,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.RegistInputInformationActivityBinding;
 import com.kj.random_chatting.databinding.RegistInputPhotoActivityBinding;
 import com.kj.random_chatting.registInputEmailPw.RegistInputEmailPwActivity;
@@ -44,7 +45,6 @@ public class RegistInputPhotoService extends Activity {
     private static final String TAG = "RegistInputPhotoService";
     private RegistInputPhotoActivityBinding binding;
     private Context context;
-    private HashMap<String, String> shareData = new HashMap<>();
     private String[] strFileNames = new String[MAX_UPLOAD_PICTURE_COUNT];
     private String[] strFileNameUri = new String[MAX_UPLOAD_PICTURE_COUNT];
     private Uri[] uriImgPaths = new Uri[MAX_UPLOAD_PICTURE_COUNT];
@@ -52,12 +52,14 @@ public class RegistInputPhotoService extends Activity {
     private StorageReference storageRef;
     private StorageReference storageDirRef;
 
-    public RegistInputPhotoService(Context mContext, RegistInputPhotoActivityBinding mBinding, HashMap<String, String> mShareData) {
+    private SignUpRegistDTO intentData = new SignUpRegistDTO();
+
+    public RegistInputPhotoService(Context mContext, RegistInputPhotoActivityBinding mBinding, SignUpRegistDTO mIntentData) {
         Log.d(TAG, "Log : " + TAG + " -> RegistInputPhotoService");
 
         context = mContext;
         binding = mBinding;
-        shareData = mShareData;
+        intentData = mIntentData;
     }
 
     public void prepareUpload(int imgNo, int resultCode, Intent data) {
@@ -149,13 +151,7 @@ public class RegistInputPhotoService extends Activity {
         List<String> lstFileName = new ArrayList<>(Arrays.asList(strFileNameUri));
         lstFileName.removeAll(Collections.singletonList(null));
 
-        for (int i = 0; i < MAX_UPLOAD_PICTURE_COUNT-1; i++) {
-            if (i < lstFileName.size()) {
-                shareData.put("fileName"+i, lstFileName.get(i));
-            } else {
-                shareData.put("fileName"+i, null);
-            }
-        }
+        intentData.setUploadFileList(lstFileName);
     }
 
     private ImageView selectImageView(Integer choiceNumber){
@@ -186,7 +182,7 @@ public class RegistInputPhotoService extends Activity {
         //validation 필요
         settingPicture();
         Intent intent = new Intent(context, RegistInputEmailPwActivity.class);
-        intent.putExtra("shareData", shareData);
+        intent.putExtra("intentData", intentData);
         context.startActivity(intent);
     }
 

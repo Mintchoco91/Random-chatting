@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.common.Enum;
+import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.databinding.RegistInputGenderActivityBinding;
 import com.kj.random_chatting.login.LoginActivity;
@@ -29,26 +30,34 @@ public class RegistInputGenderService extends Activity {
     private Drawable btnEmptygray;
     private Integer colorWhite;
     private Integer colorBlack;
-    private String inputGender;
-    private HashMap<String, String> shareData = new HashMap<>();
+    private Enum.Gender inputGender;
+    private SignUpRegistDTO intentData = new SignUpRegistDTO();
 
-    public RegistInputGenderService(Context mContext, RegistInputGenderActivityBinding mBinding, HashMap<String, String> mShareData) {
+    public RegistInputGenderService(Context mContext, RegistInputGenderActivityBinding mBinding, SignUpRegistDTO mIntentData) {
         Log.d(TAG, "Log : " + TAG + " -> OnboardingService");
 
         context = mContext;
         binding = mBinding;
-        shareData = mShareData;
+        intentData = mIntentData;
 
         initializeService();
     }
 
     private void initializeService() {
         Log.d(TAG, "Log : " + TAG + " -> initializeService");
-        inputGender = "";
         btnFillGreen = context.getDrawable(R.drawable.btn_fill_green);
         btnEmptygray = context.getDrawable(R.drawable.btn_empty_gray);
         colorWhite = context.getColor(R.color.white);
         colorBlack = context.getColor(R.color.black);
+    }
+
+    private boolean validation(Enum.Gender inputGender){
+        if(inputGender == null){
+            Toast.makeText(context, "성별을 선택하세요.", Toast.LENGTH_SHORT).show();
+            return false;
+        }else{
+            return true;
+        }
     }
     /**************************************************************
      *  버튼 클릭 이벤트 시작
@@ -67,7 +76,7 @@ public class RegistInputGenderService extends Activity {
                 binding.registInputInformationActivityBtnWoman.setTextColor(colorBlack);
                 binding.registInputInformationActivityBtnOther.setBackground(btnEmptygray);
                 binding.registInputInformationActivityBtnOther.setTextColor(colorBlack);
-                inputGender = "MAN";
+                inputGender = Enum.Gender.MAN;
                 break;
             case WOMAN:
                 binding.registInputInformationActivityBtnWoman.setBackground(btnFillGreen);
@@ -78,7 +87,7 @@ public class RegistInputGenderService extends Activity {
                 binding.registInputInformationActivityBtnMan.setTextColor(colorBlack);
                 binding.registInputInformationActivityBtnOther.setBackground(btnEmptygray);
                 binding.registInputInformationActivityBtnOther.setTextColor(colorBlack);
-                inputGender = "WOMAN";
+                inputGender = Enum.Gender.WOMAN;
                 break;
             case OTHER:
                 binding.registInputInformationActivityBtnOther.setBackground(btnFillGreen);
@@ -89,7 +98,7 @@ public class RegistInputGenderService extends Activity {
                 binding.registInputInformationActivityBtnWoman.setTextColor(colorBlack);
                 binding.registInputInformationActivityBtnMan.setBackground(btnEmptygray);
                 binding.registInputInformationActivityBtnMan.setTextColor(colorBlack);
-                inputGender = "OTHER";
+                inputGender = Enum.Gender.OTHER;
                 break;
         }
 
@@ -99,8 +108,8 @@ public class RegistInputGenderService extends Activity {
         Log.d(TAG, "Log : " + TAG + "btnContinueClick");
         if(validation(inputGender)){
             Intent intent = new Intent(context, RegistInputPhotoActivity.class);
-            shareData.put("inputGender",inputGender);
-            intent.putExtra("shareData", shareData);
+            intentData.setGender(inputGender);
+            intent.putExtra("intentData", intentData);
             context.startActivity(intent);
         }
     }
@@ -110,12 +119,4 @@ public class RegistInputGenderService extends Activity {
      *  버튼 클릭 이벤트 끝
      **************************************************************/
 
-    private boolean validation(String inputGender){
-        if(TextUtils.isEmpty(inputGender)){
-            Toast.makeText(context, "성별을 선택하세요.", Toast.LENGTH_SHORT).show();
-            return false;
-        }else{
-            return true;
-        }
-    }
 }

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.common.Constants;
+import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.RegistPhoneAuthCodeActivityBinding;
 import com.kj.random_chatting.registInputInformation.RegistInputInformationActivity;
 import com.kj.random_chatting.util.UtilClass;
@@ -40,13 +41,11 @@ public class RegistPhoneAuthCodeService extends Activity {
     private String authCode; // 인증번호
     private List<String> inputAuthCodeList; // 입력 받은 인증번호
     TimerTask timerTask;
-
     int currntTimeTick;
+    private SignUpRegistDTO intentData = new SignUpRegistDTO();
 
-    private HashMap<String, String> shareData = new HashMap<>();
 
-
-    public RegistPhoneAuthCodeService(Context mContext, RegistPhoneAuthCodeActivityBinding mBinding, HashMap<String, String> mShareData) {
+    public RegistPhoneAuthCodeService(Context mContext, RegistPhoneAuthCodeActivityBinding mBinding, SignUpRegistDTO mIntentData) {
         Log.d(TAG, "Log : " + TAG + " -> RegistPhoneAuthCodeService");
         //test data
         authCode = "0000";
@@ -54,7 +53,7 @@ public class RegistPhoneAuthCodeService extends Activity {
         authIndex = 1;
         context = mContext;
         binding = mBinding;
-        shareData = mShareData;
+        intentData = mIntentData;
 
         initializeService();
     }
@@ -118,7 +117,8 @@ public class RegistPhoneAuthCodeService extends Activity {
                     //go next page
                     //Toast.makeText(context, "인증번호가 일치 합니다!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, RegistInputInformationActivity.class);
-                    intent.putExtra("shareData", shareData);
+
+                    intent.putExtra("intentData", intentData);
                     context.startActivity(intent);
 
                 } else {
