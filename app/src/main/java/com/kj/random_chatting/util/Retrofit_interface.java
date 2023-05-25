@@ -1,5 +1,6 @@
 package com.kj.random_chatting.util;
 
+import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.login.LoginRequest;
 import com.kj.random_chatting.login.LoginResponse;
 import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomCreateDTO;
@@ -35,6 +36,9 @@ public interface Retrofit_interface {
 
     @POST("createUser.php")
     Call<String> createUser(@Body UserRegistDTO.inputDTO userRegistDTO);
+
+    @POST("signUpRegist.php")
+    Call<String> signUpRegist(@Body SignUpRegistDTO signUpRegistDTO);
 
     @POST("createChattingRoom.php")
     Call<String> createChattingRoom(@Body UserChattingRoomCreateDTO.inputDTO inputDTO);

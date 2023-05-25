@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.RegistInputInformationActivityBinding;
 import com.kj.random_chatting.databinding.RegistInputPhotoActivityBinding;
 import com.kj.random_chatting.registInputPhotoPopup.RegistInputPhotoPopupActivity;
@@ -41,13 +42,10 @@ public class RegistInputPhotoActivity extends Activity {
     private void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = this;
-        HashMap<String, String> shareData = new HashMap<String, String>();
         Intent intent = getIntent();
-        shareData = (HashMap<String, String>) intent.getSerializableExtra("shareData");
+        SignUpRegistDTO intentData = (SignUpRegistDTO) intent.getSerializableExtra("intentData");
 
-
-
-        registInputPhotoService = new RegistInputPhotoService(context, binding, shareData);
+        registInputPhotoService = new RegistInputPhotoService(context, binding, intentData);
     }
 
     private void setListener() {

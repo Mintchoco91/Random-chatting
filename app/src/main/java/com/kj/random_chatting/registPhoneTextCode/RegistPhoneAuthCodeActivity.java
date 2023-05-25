@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.RegistPhoneAuthCodeActivityBinding;
 
 import java.util.HashMap;
@@ -41,11 +42,11 @@ public class RegistPhoneAuthCodeActivity extends Activity {
     private void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = this;
-        HashMap<String, String> shareData = new HashMap<>();
 
         Intent intent = getIntent();
-        shareData = (HashMap<String, String>) intent.getSerializableExtra("shareData");
-        registPhoneAuthCodeService = new RegistPhoneAuthCodeService(context, binding, shareData);
+        SignUpRegistDTO intentData = (SignUpRegistDTO) intent.getSerializableExtra("intentData");
+
+        registPhoneAuthCodeService = new RegistPhoneAuthCodeService(context, binding, intentData);
     }
 
     private void setListener() {

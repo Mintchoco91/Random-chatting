@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.common.Enum;
+import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.databinding.RegistInputGenderActivityBinding;
 
@@ -41,10 +42,9 @@ public class RegistInputGenderActivity extends Activity {
     private void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = this;
-        HashMap<String, String> shareData = new HashMap<String, String>();
         Intent intent = getIntent();
-        shareData = (HashMap<String, String>) intent.getSerializableExtra("shareData");
-        registInputGenderService = new RegistInputGenderService(context, binding, shareData);
+        SignUpRegistDTO intentData = (SignUpRegistDTO) intent.getSerializableExtra("intentData");
+        registInputGenderService = new RegistInputGenderService(context, binding, intentData);
     }
 
     private void setListener() {
