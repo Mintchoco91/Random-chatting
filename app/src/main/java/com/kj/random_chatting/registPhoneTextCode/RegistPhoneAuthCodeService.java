@@ -42,10 +42,10 @@ public class RegistPhoneAuthCodeService extends Activity {
     private List<String> inputAuthCodeList; // 입력 받은 인증번호
     TimerTask timerTask;
     int currntTimeTick;
-    private SignUpRegistDTO intentData = new SignUpRegistDTO();
+    private SignUpRegistDTO.input intentData = new SignUpRegistDTO.input();
 
 
-    public RegistPhoneAuthCodeService(Context mContext, RegistPhoneAuthCodeActivityBinding mBinding, SignUpRegistDTO mIntentData) {
+    public RegistPhoneAuthCodeService(Context mContext, RegistPhoneAuthCodeActivityBinding mBinding, SignUpRegistDTO.input mIntentData) {
         Log.d(TAG, "Log : " + TAG + " -> RegistPhoneAuthCodeService");
         //test data
         authCode = "0000";

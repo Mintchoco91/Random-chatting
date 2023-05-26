@@ -44,7 +44,7 @@ public class RegistPhoneAuthCodeActivity extends Activity {
         context = this;
 
         Intent intent = getIntent();
-        SignUpRegistDTO intentData = (SignUpRegistDTO) intent.getSerializableExtra("intentData");
+        SignUpRegistDTO.input intentData = (SignUpRegistDTO.input) intent.getSerializableExtra("intentData");
 
         registPhoneAuthCodeService = new RegistPhoneAuthCodeService(context, binding, intentData);
     }

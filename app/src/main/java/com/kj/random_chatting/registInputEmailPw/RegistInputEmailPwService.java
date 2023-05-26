@@ -22,9 +22,9 @@ public class RegistInputEmailPwService extends Activity {
     private static final String TAG = "RegistInputEmailPwService";
     private RegistInputEmailPwActivityBinding binding;
     private Context context;
-    private SignUpRegistDTO intentData = new SignUpRegistDTO();
+    private SignUpRegistDTO.input intentData = new SignUpRegistDTO.input();
 
-    public RegistInputEmailPwService(Context mContext, RegistInputEmailPwActivityBinding mBinding, SignUpRegistDTO mIntentData) {
+    public RegistInputEmailPwService(Context mContext, RegistInputEmailPwActivityBinding mBinding, SignUpRegistDTO.input mIntentData) {
         Log.d(TAG, "Log : " + TAG + " -> RegistInputEmailPwService");
 
         context = mContext;
@@ -45,7 +45,7 @@ public class RegistInputEmailPwService extends Activity {
             Toast.makeText(context, "비밀번호를 입력 해 주세요.", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(inputPassword.equals(inputConfirmPassword)){
+        if(!inputPassword.equals(inputConfirmPassword)){
             Toast.makeText(context, "입력한 비밀번호과 다릅니다.", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -76,11 +76,11 @@ public class RegistInputEmailPwService extends Activity {
             if(!TextUtils.isEmpty(insertId.toString())){
                 //todo registPictureDB
             }
-        }
 
-        Intent intent = new Intent(context, RegistInputGenderActivity.class);
-        intent.putExtra("intentData", intentData);
-        context.startActivity(intent);
+            Intent intent = new Intent(context, RegistInputGenderActivity.class);
+            intent.putExtra("intentData", intentData);
+            context.startActivity(intent);
+        }
     }
 
 

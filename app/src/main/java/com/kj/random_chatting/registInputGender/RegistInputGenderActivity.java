@@ -43,7 +43,7 @@ public class RegistInputGenderActivity extends Activity {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = this;
         Intent intent = getIntent();
-        SignUpRegistDTO intentData = (SignUpRegistDTO) intent.getSerializableExtra("intentData");
+        SignUpRegistDTO.input intentData = (SignUpRegistDTO.input) intent.getSerializableExtra("intentData");
         registInputGenderService = new RegistInputGenderService(context, binding, intentData);
     }
 

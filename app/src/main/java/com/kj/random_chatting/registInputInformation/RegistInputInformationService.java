@@ -20,9 +20,9 @@ public class RegistInputInformationService extends Activity {
     private static final String TAG = "RegistInputInformationService";
     private RegistInputInformationActivityBinding binding;
     private Context context;
-    private SignUpRegistDTO intentData = new SignUpRegistDTO();
+    private SignUpRegistDTO.input intentData = new SignUpRegistDTO.input();
 
-    public RegistInputInformationService(Context mContext, RegistInputInformationActivityBinding mBinding, SignUpRegistDTO mIntentData) {
+    public RegistInputInformationService(Context mContext, RegistInputInformationActivityBinding mBinding, SignUpRegistDTO.input mIntentData) {
         Log.d(TAG, "Log : " + TAG + " -> RegistInputInformationService");
 
         context = mContext;
