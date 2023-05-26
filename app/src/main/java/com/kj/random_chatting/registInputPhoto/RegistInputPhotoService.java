@@ -52,9 +52,9 @@ public class RegistInputPhotoService extends Activity {
     private StorageReference storageRef;
     private StorageReference storageDirRef;
 
-    private SignUpRegistDTO intentData = new SignUpRegistDTO();
+    private SignUpRegistDTO.input intentData = new SignUpRegistDTO.input();
 
-    public RegistInputPhotoService(Context mContext, RegistInputPhotoActivityBinding mBinding, SignUpRegistDTO mIntentData) {
+    public RegistInputPhotoService(Context mContext, RegistInputPhotoActivityBinding mBinding, SignUpRegistDTO.input mIntentData) {
         Log.d(TAG, "Log : " + TAG + " -> RegistInputPhotoService");
 
         context = mContext;

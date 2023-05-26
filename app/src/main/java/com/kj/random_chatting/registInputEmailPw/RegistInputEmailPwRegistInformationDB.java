@@ -32,9 +32,9 @@ public class RegistInputEmailPwRegistInformationDB {
     Context context;
     Disposable backgroundTask;
 
-    private SignUpRegistDTO intentData = new SignUpRegistDTO();
+    private SignUpRegistDTO.input intentData = new SignUpRegistDTO.input();
 
-    public RegistInputEmailPwRegistInformationDB(Context mContext, RegistInputEmailPwActivityBinding mBinding, SignUpRegistDTO mIntentData) {
+    public RegistInputEmailPwRegistInformationDB(Context mContext, RegistInputEmailPwActivityBinding mBinding, SignUpRegistDTO.input mIntentData) {
         Log.d(TAG, "Log : " + TAG + " -> RegistInputEmailPwRegistInformationDB");
 
         context = mContext;
@@ -43,13 +43,13 @@ public class RegistInputEmailPwRegistInformationDB {
     }
 
     //결과 처리
-    private void resultPost(Integer code) {
-        if (code == 0) {
+    private void resultPost(SignUpRegistDTO.output result) {
+        if (result.getResultCode() == 0) {
             binding.registInputEmailPwActivityBtnRegist.setEnabled(false);
 
             Toast.makeText(context, "등록 성공", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "등록 실패 ! ErrorCode : " + code, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "등록 실패 ! ErrorCode : " + result.getResultCode(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -60,7 +60,8 @@ public class RegistInputEmailPwRegistInformationDB {
                 .subscribe(result -> resultPost(result));
     }
 
-    private Integer userRegistInformation() throws IOException {
+    private SignUpRegistDTO.output userRegistInformation() {
+        SignUpRegistDTO.output result = new SignUpRegistDTO.output();
         Integer resultCode = 0;
         try {
             Call<String> call = Retrofit_client.getApiService().signUpRegist(intentData);
@@ -69,6 +70,7 @@ public class RegistInputEmailPwRegistInformationDB {
             try {
                 JSONObject jsonObject = new JSONObject(jsonResponse);
                 if (jsonObject.optString("status").equals("true")) {
+                    result.setReturnId(jsonObject.optString("returnId"));
                     resultCode = 0;
                 } else {
                     resultCode = 1;
@@ -79,7 +81,9 @@ public class RegistInputEmailPwRegistInformationDB {
         } catch (Exception e) {
             resultCode = 3;
         }
-        return resultCode;
+
+        result.setResultCode(resultCode);
+        return result;
     }
 
 }

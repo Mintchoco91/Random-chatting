@@ -38,7 +38,7 @@ public interface Retrofit_interface {
     Call<String> createUser(@Body UserRegistDTO.inputDTO userRegistDTO);
 
     @POST("signUpRegist.php")
-    Call<String> signUpRegist(@Body SignUpRegistDTO signUpRegistDTO);
+    Call<String> signUpRegist(@Body SignUpRegistDTO.input intentData);
 
     @POST("createChattingRoom.php")
     Call<String> createChattingRoom(@Body UserChattingRoomCreateDTO.inputDTO inputDTO);

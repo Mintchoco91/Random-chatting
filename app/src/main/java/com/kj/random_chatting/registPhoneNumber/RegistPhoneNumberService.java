@@ -19,7 +19,7 @@ public class RegistPhoneNumberService extends Activity {
     private RegistPhoneNumberActivityBinding binding;
     private Context context;
     private UtilClass utilClass;
-    private SignUpRegistDTO intentData = new SignUpRegistDTO();
+    private SignUpRegistDTO.input intentData = new SignUpRegistDTO.input();
 
     public RegistPhoneNumberService(Context mContext, RegistPhoneNumberActivityBinding mBinding) {
         Log.d(TAG, "Log : " + TAG + " -> RegistPhoneNumberService");

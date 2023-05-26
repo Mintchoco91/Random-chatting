@@ -31,9 +31,9 @@ public class RegistInputGenderService extends Activity {
     private Integer colorWhite;
     private Integer colorBlack;
     private Enum.Gender inputGender;
-    private SignUpRegistDTO intentData = new SignUpRegistDTO();
+    private SignUpRegistDTO.input intentData = new SignUpRegistDTO.input();
 
-    public RegistInputGenderService(Context mContext, RegistInputGenderActivityBinding mBinding, SignUpRegistDTO mIntentData) {
+    public RegistInputGenderService(Context mContext, RegistInputGenderActivityBinding mBinding, SignUpRegistDTO.input mIntentData) {
         Log.d(TAG, "Log : " + TAG + " -> OnboardingService");
 
         context = mContext;
