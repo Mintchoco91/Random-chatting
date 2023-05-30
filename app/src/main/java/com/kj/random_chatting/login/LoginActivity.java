@@ -1,6 +1,7 @@
 package com.kj.random_chatting.login;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,8 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.common.ForecdTerminationService;
 import com.kj.random_chatting.common.MainActivity;
+import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.common.SplashActivity;
 import com.kj.random_chatting.databinding.LoginActivityBinding;
+import com.kj.random_chatting.databinding.RegistInputEmailPwActivityBinding;
+import com.kj.random_chatting.registInputEmailPw.RegistInputEmailPwService;
+import com.kj.random_chatting.registPhoneNumber.RegistPhoneNumberActivity;
 import com.kj.random_chatting.userList.UserListActivity;
 import com.kj.random_chatting.userRegist.UserRegistActivity;
 import com.kj.random_chatting.util.Retrofit_client;
@@ -29,42 +34,63 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends Activity {
+
     private static final String TAG = "LoginActivity";
     private LoginActivityBinding binding;
+    private Context context;
+    private LoginService loginService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ");
         startService(new Intent(this, ForecdTerminationService.class));
         binding = LoginActivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
-        // 회원가입 버튼 관련 리스너 등록
-        binding.loginActivityBtnRegist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, UserRegistActivity.class);
-                startActivity(intent);
-            }
-        });
+        initializeView();
+        setListener();
+    }
 
-        // 회원 목록 조회
-        binding.loginActivityBtnFindInformation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
+    }
 
-        // 로그인 버튼 관련
-        binding.loginActivityBtnLogin.setOnClickListener(new View.OnClickListener() {
+    private void initializeView() {
+        Log.d(TAG, "Log : " + TAG + " -> initializeView");
+        context = this;
+        //필요시 주석 풀것. 데이터는 나옴.
+        //Intent intent = getIntent();
+        //SignUpRegistDTO.input intentData = (SignUpRegistDTO.input) intent.getSerializableExtra("intentData");
+
+        loginService = new LoginService(context, binding);
+    }
+
+    private void setListener() {
+        Log.d(TAG, "Log : " + TAG + " -> setListener");
+        View.OnClickListener Listener = new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                doLogin();
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.login_activity_btn_regist:
+                        loginService.btnRegistClick();
+                        break;
+                    case R.id.login_activity_btn_find_information:
+                        loginService.btnFindInformationClick();
+                        break;
+                    case R.id.login_activity_btn_login:
+                        doLogin();
+                        break;
+                }
             }
-        });
+        };
+
+        binding.loginActivityBtnRegist.setOnClickListener(Listener);
+        binding.loginActivityBtnFindInformation.setOnClickListener(Listener);
+        binding.loginActivityBtnLogin.setOnClickListener(Listener);
     }
 
     public void doLogin() {

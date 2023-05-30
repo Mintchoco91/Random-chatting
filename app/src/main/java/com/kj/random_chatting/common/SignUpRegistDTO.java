@@ -16,7 +16,8 @@ public class SignUpRegistDTO  {
         private Enum.Gender gender;
         private String email;
         private String password;
-        private List<String> uploadFileList;
+        private List<String> uploadPhotoList;
+        private String userInfoId;
     }
 
     @Data
