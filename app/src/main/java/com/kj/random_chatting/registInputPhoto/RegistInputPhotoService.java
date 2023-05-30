@@ -151,7 +151,7 @@ public class RegistInputPhotoService extends Activity {
         List<String> lstFileName = new ArrayList<>(Arrays.asList(strFileNameUri));
         lstFileName.removeAll(Collections.singletonList(null));
 
-        intentData.setUploadFileList(lstFileName);
+        intentData.setUploadPhotoList(lstFileName);
     }
 
     private ImageView selectImageView(Integer choiceNumber){

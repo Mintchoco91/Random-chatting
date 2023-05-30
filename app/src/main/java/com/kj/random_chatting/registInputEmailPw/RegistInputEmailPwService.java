@@ -35,7 +35,7 @@ public class RegistInputEmailPwService extends Activity {
     private boolean validation(){
         String inputEmail = binding.registInputEmailPwActivityEtEmail.getText().toString();
         String inputPassword = binding.registInputEmailPwActivityEtPassword.getText().toString();
-        String inputConfirmPassword = binding.registInputEmailPwActivityEtPassword.getText().toString();
+        String inputConfirmPassword = binding.registInputEmailPwActivityEtConfirmPassword.getText().toString();
 
         if(TextUtils.isEmpty(inputEmail)){
             Toast.makeText(context, "이메일을 입력 해 주세요.", Toast.LENGTH_SHORT).show();
@@ -53,12 +53,11 @@ public class RegistInputEmailPwService extends Activity {
         return true;
     }
 
-    private Integer registInformation(){
+    private void registInformation(){
         RegistInputEmailPwRegistInformationDB registInputEmailPwRegistInformationDB
                 = new RegistInputEmailPwRegistInformationDB(context, binding, intentData);
 
         registInputEmailPwRegistInformationDB.runFunc();
-        return 1;
     }
 
     /**************************************************************
@@ -72,14 +71,7 @@ public class RegistInputEmailPwService extends Activity {
             intentData.setEmail(binding.registInputEmailPwActivityEtEmail.getText().toString());
             intentData.setPassword(binding.registInputEmailPwActivityEtPassword.getText().toString());
 
-            Integer insertId = registInformation();
-            if(!TextUtils.isEmpty(insertId.toString())){
-                //todo registPictureDB
-            }
-
-            Intent intent = new Intent(context, RegistInputGenderActivity.class);
-            intent.putExtra("intentData", intentData);
-            context.startActivity(intent);
+            registInformation();
         }
     }
 
