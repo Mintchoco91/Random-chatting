@@ -16,7 +16,7 @@ Random-chatting-prototype
  
    - Hosting : AWS
    - DEV language : PHP 7.4.3
-   - Database : JawsDB Maria
+   - Database : MariaDB
    - Repository : https://github.com/Mintchoco91/random-chatting-server
 
  - Socket Server 
