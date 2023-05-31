@@ -11,4 +11,8 @@ public final class Constants {
     public static final Integer	AUTH_CODE_LIMIT_SECOND = 180;
     // 사진 업로드 개수
     public static final Integer	MAX_UPLOAD_PICTURE_COUNT = 5;
+
+    public static final String EMPTY_IMAGE_PATH = "https://firebasestorage.googleapis.com/v0/b/random-chatting-b52bc.appspot.com/o/etc%2Fno_image.png?alt=media&token=b62b692a-6a40-49f7-a44f-3ff8c6cb41fa";
+
+
 }

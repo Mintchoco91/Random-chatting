@@ -7,27 +7,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.common.ForecdTerminationService;
 import com.kj.random_chatting.common.MainActivity;
-import com.kj.random_chatting.common.SignUpRegistDTO;
-import com.kj.random_chatting.common.SplashActivity;
 import com.kj.random_chatting.databinding.LoginActivityBinding;
-import com.kj.random_chatting.databinding.RegistInputEmailPwActivityBinding;
-import com.kj.random_chatting.registInputEmailPw.RegistInputEmailPwService;
-import com.kj.random_chatting.registPhoneNumber.RegistPhoneNumberActivity;
-import com.kj.random_chatting.userList.UserListActivity;
-import com.kj.random_chatting.userRegist.UserRegistActivity;
 import com.kj.random_chatting.util.Retrofit_client;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -118,9 +104,9 @@ public class LoginActivity extends Activity {
                         editor.putString("userName", result.getUserName());
                         editor.commit();
 
-                        Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent intent = new Intent(context, MainActivity.class);
                         startActivity(intent);
                     } else {
                         Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
@@ -130,7 +116,7 @@ public class LoginActivity extends Activity {
             }
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Log : " + TAG + " -> doLogin/ onFailure_2 : " + t.getMessage());
             }
         });

@@ -1,6 +1,7 @@
 package com.kj.random_chatting.userList;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.kj.random_chatting.R;
@@ -30,27 +31,28 @@ import retrofit2.Call;
  * 유저 정보 검색
  */
 public class FindUserInformationTaskRxJava {
-    private UserListActivityBinding userListActivityBinding;
-    Context userListActivityContext;
+    private UserListActivityBinding binding;
+    Context context;
     Disposable backgroundTask;
 
-    List<UserListDTO.outputDTO> localUserList = new ArrayList<>();
+    List<UserListDTO.outputDTO> userList = new ArrayList<>();
+    private UserListService userListService;
 
-    public FindUserInformationTaskRxJava(Context context, UserListActivityBinding binding) {
-        userListActivityContext = context;
-        userListActivityBinding = binding;
+    public FindUserInformationTaskRxJava(Context mContext, UserListActivityBinding mBinding, List<UserListDTO.outputDTO> mUserList, UserListService mUserListService) {
+        context = mContext;
+        binding = mBinding;
+        userList = mUserList;
+        userListService = mUserListService;
     }
 
     //결과 처리
     private void resultPost(Integer code) {
         if (code == 0) {
-            //전역 변수
-            UserListService.mainUserList = localUserList;
-
-            UserListService userListService = new UserListService(userListActivityContext, userListActivityBinding);
-            userListService.showInformation(localUserList.get(0));
+            //UserListService userListService = new UserListService(context, binding);
+            //userListService.showInformation(localUserList.get(0));
+            userListService.showInformation(userList.get(0));
         } else {
-            Toast.makeText(userListActivityContext, "조회 실패", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "조회 실패", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -74,42 +76,28 @@ public class FindUserInformationTaskRxJava {
             JSONObject jsonObject = new JSONObject(jsonResponse);
             if (jsonObject.optString("status").equals("true")) {
                 JSONArray jsonArray = jsonObject.getJSONArray("result");
-                List<UserListDTO.outputDTO> userList = new ArrayList<>();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     try {
-                        List<String> fileNameList = new ArrayList<>();
-
                         JSONObject loopJsonObject = jsonArray.getJSONObject(i);
                         // Pulling items from the array
                         UserListDTO.outputDTO userListOutput = new UserListDTO.outputDTO();
                         String id = loopJsonObject.getString("id");
-                        String userName = loopJsonObject.getString("userName");
+                        String nickName = loopJsonObject.getString("nickName");
+                        String birthday = loopJsonObject.getString("birthday");
                         String gender = loopJsonObject.getString("gender");
-                        String age = loopJsonObject.getString("age");
-                        String phoneNumber = loopJsonObject.getString("phoneNumber");
-
-                        String fileName = "";
-                        for (int num = 0; num < 6; num++) {
-                            fileName = loopJsonObject.getString("fileName" + num);
-                            if (fileName == null || fileName.equals("null") || fileName.equals("")) {
-                                break;
-                            } else {
-                                fileNameList.add(fileName);
-                            }
-                        }
+                        String photoName = loopJsonObject.getString("photoName");
 
                         //decode
-                        userName = URLDecoder.decode(userName, "utf-8");
+                        nickName = URLDecoder.decode(nickName, "utf-8");
                         gender = URLDecoder.decode(gender, "utf-8");
 
                         userListOutput.setId(id);
-                        userListOutput.setUserName(userName);
+                        userListOutput.setNickName(nickName);
+                        userListOutput.setBirthday(birthday);
                         userListOutput.setGender(gender);
-                        userListOutput.setAge(age);
-                        userListOutput.setPhoneNumber(phoneNumber);
-                        userListOutput.setFileNameList(fileNameList);
-
+                        userListOutput.setPhotoName(photoName);
                         userList.add(userListOutput);
+
                     } catch (JSONException e) {
                         // json catch
                     } catch (UnsupportedEncodingException e) {
@@ -122,19 +110,13 @@ public class FindUserInformationTaskRxJava {
                     UserListDTO.outputDTO userListOutput = new UserListDTO.outputDTO();
                     List<String> fileNameList = new ArrayList<>();
                     userListOutput.setId("99999999");
-                    userListOutput.setUserName("홍길동");
+                    userListOutput.setNickName("홍길동");
+                    userListOutput.setBirthday("19910101");
                     userListOutput.setGender("남");
-                    userListOutput.setAge("19");
-                    userListOutput.setPhoneNumber("010-1111-2222");
-                    userListOutput.setFileNameList(fileNameList);
-
                     userList.add(userListOutput);
                 }
-
                 //random 처리
                 Collections.shuffle(userList);
-
-                localUserList = userList;
             } else {
                 resultCode = 1;
             }

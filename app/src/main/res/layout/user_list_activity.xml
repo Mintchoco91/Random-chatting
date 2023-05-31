@@ -1,120 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:clipToOutline="true"
-    tools:context="com.kj.random_chatting.userRegist.UserRegistActivity">
-
-    <Button
-        android:id="@+id/user_list_activity_btn_filter"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/ic_filter" />
-
-    <Button
-        android:id="@+id/user_list_activity_btn_green_right_logo"
-        android:layout_width="161dp"
-        android:layout_height="34dp"
-
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/green_right_logo" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/sliderViewPager"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp" />
-
-    <TextView
-        android:id="@+id/user_list_activity_tv_name_age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-
-        android:layout_alignBottom="@+id/sliderViewPager"
-        android:layout_alignLeft="@+id/sliderViewPager"
-        android:layout_alignRight="@+id/sliderViewPager"
-        android:layout_alignTop="@+id/sliderViewPager"
-
-        android:paddingTop="220dp"
-        android:paddingLeft="15dp"
-        android:text="Kim kiwon, 27"
-        android:textSize="25dp"
-        android:textColor="@color/white" />
-
-
-    <TextView
-        android:id="@+id/user_list_activity_tv_job"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-
-        android:layout_alignBottom="@+id/sliderViewPager"
-        android:layout_alignLeft="@+id/sliderViewPager"
-        android:layout_alignRight="@+id/sliderViewPager"
-        android:layout_alignTop="@+id/sliderViewPager"
-
-        android:paddingTop="250dp"
-        android:paddingLeft="15dp"
-        android:text="Job contents"
-        android:textSize="20dp"
-        android:textColor="@color/white" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <LinearLayout
-        android:id="@+id/layoutIndicators"
-        android:layout_width="193dp"
+        android:id="@+id/user_list_activity_layout_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-
-        android:layout_alignBottom="@+id/sliderViewPager"
-        android:layout_alignLeft="@+id/sliderViewPager"
-        android:layout_alignRight="@+id/sliderViewPager"
-        android:layout_alignTop="@+id/sliderViewPager"
-
+        android:layout_marginTop="50dp"
         android:gravity="center"
-        android:paddingTop="270dp"
-        android:orientation="horizontal" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/user_list_activity_btn_dislike"
-        android:layout_width="99dp"
-        android:layout_height="99dp"
+        <Button
+            android:id="@+id/user_list_activity_btn_green_right_logo"
+            android:layout_width="161dp"
+            android:layout_height="34dp"
+            android:background="@drawable/green_right_logo" />
+    </LinearLayout>
 
-        android:layout_below="@+id/layoutIndicators"
-        android:layout_toLeftOf="@+id/user_list_activity_btn_next_user"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/btn_dislike" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/user_list_activity_layout_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/user_list_activity_layout_title"
+        android:background="@color/white">
 
-    <Button
-        android:id="@+id/user_list_activity_btn_next_user"
-        android:layout_width="99dp"
-        android:layout_height="99dp"
+        <RelativeLayout
+            android:id="@+id/user_list_activity_layout_view_pager"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="20dp"
+            tools:context="com.kj.random_chatting.userRegist.UserRegistActivity">
 
-        android:layout_below="@+id/layoutIndicators"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/btn_like" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/sliderViewPager"
+            android:layout_width="320dp"
+            android:layout_height="350dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
 
-    <Button
-        android:id="@+id/user_list_activity_btn_star"
-        android:layout_width="99dp"
-        android:layout_height="99dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:background="@drawable/btn_fill_green"/>
 
-        android:layout_below="@+id/layoutIndicators"
-        android:layout_toRightOf="@+id/user_list_activity_btn_next_user"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/btn_star" />
+        <LinearLayout
+            android:id="@+id/layoutIndicators"
+            android:layout_width="193dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
 
-</RelativeLayout>
+            android:layout_alignBottom="@+id/sliderViewPager"
+            android:layout_alignLeft="@+id/sliderViewPager"
+            android:layout_alignRight="@+id/sliderViewPager"
+            android:layout_alignTop="@+id/sliderViewPager"
+
+            android:gravity="center"
+            android:paddingTop="320dp"
+            android:orientation="horizontal" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/user_list_activity_tv_nick_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            style="@style/logo_font_style"
+            android:includeFontPadding="false"
+            android:layout_marginTop="10dp"
+
+            android:text="Kim kiwon, 27"
+            android:textSize="25dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_list_activity_layout_view_pager"
+            android:textColor="@color/black" />
+
+
+        <TextView
+            android:id="@+id/user_list_activity_tv_job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            style="@style/logo_font_style"
+            android:includeFontPadding="false"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_list_activity_tv_nick_name"
+            android:text="Job contents"
+            android:textSize="20dp"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:id="@+id/user_list_activity_layout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/user_list_activity_tv_job">
+
+            <Button
+                android:id="@+id/user_list_activity_btn_dislike"
+                android:layout_width="99dp"
+                android:layout_height="99dp"
+                android:layout_below="@+id/layoutIndicators"
+                android:layout_toLeftOf="@+id/user_list_activity_btn_next_user"
+                android:background="@drawable/btn_dislike" />
+
+            <Button
+                android:id="@+id/user_list_activity_btn_next_user"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_below="@+id/layoutIndicators"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/btn_like" />
+
+            <Button
+                android:id="@+id/user_list_activity_btn_star"
+                android:layout_width="99dp"
+                android:layout_height="99dp"
+
+                android:layout_below="@+id/layoutIndicators"
+                android:layout_toRightOf="@+id/user_list_activity_btn_next_user"
+                android:background="@drawable/btn_star" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
