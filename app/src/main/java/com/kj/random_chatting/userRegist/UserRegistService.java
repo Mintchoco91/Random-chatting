@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import com.kj.random_chatting.userFileUpload.FileUploadActivity;
 import com.kj.random_chatting.databinding.UserRegistActivityBinding;
-import com.kj.random_chatting.userList.UserListActivity;
+import com.kj.random_chatting.userList.UserListFragment;
 
 public class UserRegistService {
     private UserRegistActivityBinding userRegistActivityBinding;
@@ -107,7 +107,7 @@ public class UserRegistService {
 
     public void btnUploadClick() {
         Log.d(TAG, "Log : " + TAG + "btnUploadClick");
-        Intent intentUploadList = new Intent(userRegistServiceContext, UserListActivity.class);
+        Intent intentUploadList = new Intent(userRegistServiceContext, UserListFragment.class);
         userRegistServiceContext.startActivity(intentUploadList);
     }
 

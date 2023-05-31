@@ -1,8 +1,11 @@
 package com.kj.random_chatting.userList;
 
+import static com.kj.random_chatting.common.Constants.EMPTY_IMAGE_PATH;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,46 +22,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserListService {
-    private UserListActivityBinding userListActivityBinding;
-    private static final String TAG = "UserListFragment";
-    public static List<UserListDTO.outputDTO> mainUserList = new ArrayList<>();
-    Context userListServiceContext;
+    private static final String TAG = "UserListService";
+    private Context context;
+    private UserListActivityBinding binding;
+    private List<UserListDTO.outputDTO> userList = new ArrayList<>();
 
     //page (1페이지 부터 시작)
     private Integer currentPageCnt = 1;
 
-    public UserListService(Context context, UserListActivityBinding binding) {
+    public UserListService(Context mContext, UserListActivityBinding mBinding) {
         Log.d(TAG, "Log : " + TAG + " -> UserListService");
-        userListServiceContext = context;
-        userListActivityBinding = binding;
-        userListActivityBinding.sliderViewPager.setOffscreenPageLimit(1);
+        context = mContext;
+        binding = mBinding;
+        binding.sliderViewPager.setOffscreenPageLimit(1);
+
+        FindUserInformationTaskRxJava findUserInformationTaskRxJava = new FindUserInformationTaskRxJava(context, binding, userList, this);
+        findUserInformationTaskRxJava.runFunc();
     }
 
-    public void showInformation(UserListDTO.outputDTO info) {
+    public void showInformation(UserListDTO.outputDTO currentInfo) {
         Log.d(TAG, "Log : " + TAG + " -> showInformation");
-        userListActivityBinding.userListActivityTvNameAge.setText(info.getUserName() + ", " + info.getAge());
-        userListActivityBinding.userListActivityTvJob.setText("Job contents");
+        binding.userListActivityTvNickName.setText(currentInfo.getNickName() + ", " + currentInfo.getBirthday());
+        binding.userListActivityTvJob.setText("Job contents");
+        String[] photoNameArray = new String[1];
 
-        if (info.getFileNameList().size() > 0) {
-            String[] fileNameArray = info.getFileNameList().toArray(new String[info.getFileNameList().size()]);
-            //Slide처리
-            showPhoto(fileNameArray);
-        } else {
-            //이미지 없는 회원 noImage 처리
-            List<String> emptyImage = new ArrayList<>();
-            emptyImage.add("https://firebasestorage.googleapis.com/v0/b/random-chatting-b52bc.appspot.com/o/etc%2Fno_image.png?alt=media&token=b62b692a-6a40-49f7-a44f-3ff8c6cb41fa");
-            info.setFileNameList(emptyImage);
-            String[] fileNameArray = info.getFileNameList().toArray(new String[info.getFileNameList().size()]);
-            showPhoto(fileNameArray);
+        if(TextUtils.isEmpty(currentInfo.getPhotoName())){
+            photoNameArray[0] = EMPTY_IMAGE_PATH;
+        }else{
+            photoNameArray[0] = currentInfo.getPhotoName();
         }
+        showPhoto(photoNameArray);
     }
 
     public void showPhoto(String[] fileNameArray) {
         Log.d(TAG, "Log : " + TAG + " -> showPhoto");
-        userListActivityBinding.sliderViewPager.setAdapter(new ImageSliderAdapter(userListServiceContext, fileNameArray));
+        binding.sliderViewPager.setAdapter(new ImageSliderAdapter(context, fileNameArray));
 
-        ViewPagerClass viewPagerClass = new ViewPagerClass(userListServiceContext, userListActivityBinding.layoutIndicators);
-        userListActivityBinding.sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        ViewPagerClass viewPagerClass = new ViewPagerClass(context, binding.layoutIndicators);
+        binding.sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
@@ -75,11 +76,11 @@ public class UserListService {
 
     public void btnNextUserClick() {
         Log.d(TAG, "Log : " + TAG + " -> btnNextUserClick");
-        if (currentPageCnt < mainUserList.size()) {
-            showInformation(mainUserList.get(currentPageCnt));
+        if (currentPageCnt < userList.size()) {
+            showInformation(userList.get(currentPageCnt));
             currentPageCnt++;
         } else {
-            Toast.makeText(userListServiceContext, "더 이상 회원이 없습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "더 이상 회원이 없습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 

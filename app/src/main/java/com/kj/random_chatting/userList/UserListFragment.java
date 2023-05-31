@@ -16,11 +16,14 @@ import androidx.fragment.app.FragmentActivity;
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.UserListActivityBinding;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserListFragment extends Fragment {
-    private UserListActivityBinding binding;
     private static final String TAG = "UserListFragment";
-    private UserListService userListService;
     private Context context;
+    private UserListActivityBinding binding;
+    private UserListService userListService;
     private FragmentActivity fragmentActivity;
 
     @Override
@@ -52,8 +55,6 @@ public class UserListFragment extends Fragment {
         fragmentActivity = getActivity();
 
         userListService = new UserListService(context, binding);
-        FindUserInformationTaskRxJava findUserInformationTaskRxJava = new FindUserInformationTaskRxJava(context, binding);
-        findUserInformationTaskRxJava.runFunc();
     }
 
 

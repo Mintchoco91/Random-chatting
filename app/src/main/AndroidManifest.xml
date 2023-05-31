@@ -37,7 +37,6 @@
         </activity>
         <activity android:name="com.kj.random_chatting.userRegist.UserRegistActivity" />
         <activity android:name="com.kj.random_chatting.userFileUpload.FileUploadActivity" />
-        <activity android:name="com.kj.random_chatting.userList.UserListActivity" />
         <activity android:name="com.kj.random_chatting.login.LoginActivity" />
         <activity android:name="com.kj.random_chatting.userChatting.UserChattingActivity" />
         <activity android:name="com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomCreateActivity" />

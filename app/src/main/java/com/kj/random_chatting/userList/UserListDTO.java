@@ -8,10 +8,10 @@ public class UserListDTO {
     @Data
     public static class outputDTO {
         private String id;
-        private String userName;
+        private String nickName;
+        private String birthday;
         private String gender;
+        private String photoName;
         private String age;
-        private String phoneNumber;
-        private List<String> fileNameList;
     }
 }
