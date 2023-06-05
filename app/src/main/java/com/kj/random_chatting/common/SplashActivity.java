@@ -28,6 +28,7 @@ public class SplashActivity extends Activity {
                 if (token == null) {
                     intent = new Intent(SplashActivity.this, OnboardingActivity.class);
                 } else {
+                    //정보 refresh query -> prefs 로 저장. LoginActivity 참조
                     intent = new Intent(SplashActivity.this, MainActivity.class);
                 }
 

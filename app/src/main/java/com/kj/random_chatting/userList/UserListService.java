@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.UserListActivityBinding;
 import com.kj.random_chatting.util.ViewPagerClass;
@@ -34,7 +37,7 @@ public class UserListService {
         Log.d(TAG, "Log : " + TAG + " -> UserListService");
         context = mContext;
         binding = mBinding;
-        binding.sliderViewPager.setOffscreenPageLimit(1);
+        //binding.sliderViewPager.setOffscreenPageLimit(1);
 
         FindUserInformationTaskRxJava findUserInformationTaskRxJava = new FindUserInformationTaskRxJava(context, binding, userList, this);
         findUserInformationTaskRxJava.runFunc();
@@ -54,6 +57,24 @@ public class UserListService {
         showPhoto(photoNameArray);
     }
 
+
+    public void showPhoto(String[] fileNameArray) {
+        Glide.with(context)
+                .load(fileNameArray[0])
+                .transform(new CenterCrop(), new RoundedCorners(20))
+                .into(binding.userListActivityIvPhoto);
+    }
+
+    private void btnNextUserClick() {
+        Log.d(TAG, "Log : " + TAG + " -> btnNextUserClick");
+        if (currentPageCnt < userList.size()) {
+            showInformation(userList.get(currentPageCnt));
+            currentPageCnt++;
+        } else {
+            Toast.makeText(context, "더 이상 회원이 없습니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+    /* ViewPagerClass 사용시 코드 backup
     public void showPhoto(String[] fileNameArray) {
         Log.d(TAG, "Log : " + TAG + " -> showPhoto");
         binding.sliderViewPager.setAdapter(new ImageSliderAdapter(context, fileNameArray));
@@ -69,21 +90,26 @@ public class UserListService {
 
         viewPagerClass.setupIndicators(fileNameArray.length);
     }
+     */
 
     /**************************************************************
      *  버튼 클릭 이벤트 시작
      **************************************************************/
 
-    public void btnNextUserClick() {
-        Log.d(TAG, "Log : " + TAG + " -> btnNextUserClick");
-        if (currentPageCnt < userList.size()) {
-            showInformation(userList.get(currentPageCnt));
-            currentPageCnt++;
-        } else {
-            Toast.makeText(context, "더 이상 회원이 없습니다.", Toast.LENGTH_SHORT).show();
-        }
+    public void btnDisLikeClick() {
+        Log.d(TAG, "Log : " + TAG + " -> btnDisLikeClick");
+        btnNextUserClick();
     }
 
+    public void btnLikeClick() {
+        Log.d(TAG, "Log : " + TAG + " -> btnLikeClick");
+        btnNextUserClick();
+    }
+
+    public void btnSuperLikeClick() {
+        Log.d(TAG, "Log : " + TAG + " -> btnSuperLikeClick");
+        btnNextUserClick();
+    }
     /**************************************************************
      *  버튼 클릭 이벤트 끝
      **************************************************************/

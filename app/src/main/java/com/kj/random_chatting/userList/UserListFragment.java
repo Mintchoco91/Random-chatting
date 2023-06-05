@@ -1,8 +1,11 @@
 package com.kj.random_chatting.userList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,8 +55,12 @@ public class UserListFragment extends Fragment {
     public void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = getContext();
-        fragmentActivity = getActivity();
+        SharedPreferences prefs =  context.getSharedPreferences("token_prefs", MODE_PRIVATE);
+        String userId = prefs.getString("id","");
+        String nickName = prefs.getString("nickName","");
 
+
+        fragmentActivity = getActivity();
         userListService = new UserListService(context, binding);
     }
 
@@ -64,13 +71,21 @@ public class UserListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.user_list_activity_btn_next_user:
-                        userListService.btnNextUserClick();
+                    case R.id.user_list_activity_btn_dislike:
+                        userListService.btnDisLikeClick();
+                        break;
+                    case R.id.user_list_activity_btn_Like:
+                        userListService.btnLikeClick();
+                        break;
+                    case R.id.user_list_activity_btn_super_liker:
+                        userListService.btnSuperLikeClick();
                         break;
                 }
             }
         };
 
-        binding.userListActivityBtnNextUser.setOnClickListener(Listener);
+        binding.userListActivityBtnLike.setOnClickListener(Listener);
+        binding.userListActivityBtnDislike.setOnClickListener(Listener);
+        binding.userListActivityBtnSuperLiker.setOnClickListener(Listener);
     }
 }

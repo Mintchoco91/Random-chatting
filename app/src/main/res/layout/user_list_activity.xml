@@ -32,72 +32,61 @@
 
         <RelativeLayout
             android:id="@+id/user_list_activity_layout_view_pager"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="20dp"
             tools:context="com.kj.random_chatting.userRegist.UserRegistActivity">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/sliderViewPager"
-            android:layout_width="320dp"
-            android:layout_height="350dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            <ImageView
+                android:id="@+id/user_list_activity_iv_photo"
+                android:layout_width="320dp"
+                android:layout_height="390dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/btn_fill_green"
+                android:scaleType="centerCrop"
+                />
 
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:background="@drawable/btn_fill_green"/>
+            <TextView
+                android:id="@+id/user_list_activity_tv_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingLeft="20dp"
+                android:paddingBottom="40dp"
+                style="@style/logo_font_style"
 
-        <LinearLayout
-            android:id="@+id/layoutIndicators"
-            android:layout_width="193dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+                android:layout_alignBottom="@+id/user_list_activity_iv_photo"
+                android:layout_alignLeft="@+id/user_list_activity_iv_photo"
+                android:layout_alignRight="@+id/user_list_activity_iv_photo"
+                android:layout_alignTop="@+id/user_list_activity_iv_photo"
+                android:gravity="bottom"
 
-            android:layout_alignBottom="@+id/sliderViewPager"
-            android:layout_alignLeft="@+id/sliderViewPager"
-            android:layout_alignRight="@+id/sliderViewPager"
-            android:layout_alignTop="@+id/sliderViewPager"
+                android:text=""
 
-            android:gravity="center"
-            android:paddingTop="320dp"
-            android:orientation="horizontal" />
+                android:textColor="@color/white" />
 
+
+            <TextView
+                android:id="@+id/user_list_activity_tv_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingLeft="20dp"
+                style="@style/logo_font_style"
+
+                android:layout_alignBottom="@+id/user_list_activity_iv_photo"
+                android:layout_alignLeft="@+id/user_list_activity_iv_photo"
+                android:layout_alignRight="@+id/user_list_activity_iv_photo"
+                android:layout_alignTop="@+id/user_list_activity_iv_photo"
+                android:gravity="bottom"
+
+                android:text=""
+                android:textColor="@color/white" />
         </RelativeLayout>
-
-        <TextView
-            android:id="@+id/user_list_activity_tv_nick_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            style="@style/logo_font_style"
-            android:includeFontPadding="false"
-            android:layout_marginTop="10dp"
-
-            android:text="Kim kiwon, 27"
-            android:textSize="25dp"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_list_activity_layout_view_pager"
-            android:textColor="@color/black" />
-
-
-        <TextView
-            android:id="@+id/user_list_activity_tv_job"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            style="@style/logo_font_style"
-            android:includeFontPadding="false"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_list_activity_tv_nick_name"
-            android:text="Job contents"
-            android:textSize="20dp"
-            android:textColor="@color/black" />
 
         <LinearLayout
             android:id="@+id/user_list_activity_layout_button"
@@ -107,7 +96,7 @@
             android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/user_list_activity_tv_job">
+            app:layout_constraintTop_toBottomOf="@id/user_list_activity_layout_view_pager">
 
             <Button
                 android:id="@+id/user_list_activity_btn_dislike"
@@ -118,7 +107,7 @@
                 android:background="@drawable/btn_dislike" />
 
             <Button
-                android:id="@+id/user_list_activity_btn_next_user"
+                android:id="@+id/user_list_activity_btn_Like"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_below="@+id/layoutIndicators"
@@ -126,7 +115,7 @@
                 android:background="@drawable/btn_like" />
 
             <Button
-                android:id="@+id/user_list_activity_btn_star"
+                android:id="@+id/user_list_activity_btn_super_liker"
                 android:layout_width="99dp"
                 android:layout_height="99dp"
 
