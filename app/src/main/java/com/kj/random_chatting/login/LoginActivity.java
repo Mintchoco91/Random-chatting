@@ -10,10 +10,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.ForecdTerminationService;
 import com.kj.random_chatting.common.MainActivity;
 import com.kj.random_chatting.databinding.LoginActivityBinding;
 import com.kj.random_chatting.util.Retrofit_client;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,41 +87,68 @@ public class LoginActivity extends Activity {
         String email = binding.loginActivityEtEmail.getText().toString().trim();
         String password = binding.loginActivityEtPassword.getText().toString().trim();
 
-        LoginRequest loginRequest = new LoginRequest();
+        LoginDTO.input loginRequest = new LoginDTO.input();
         loginRequest.setEmail(email);
         loginRequest.setPassword(password);
 
-        Retrofit_client.getApiService().getLoginResponse(loginRequest).enqueue(new Callback<LoginResponse>() {
+
+        Retrofit_client.getApiService().getLoginResponse(loginRequest).enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    LoginResponse result = response.body();
-                    int resultCode = result.getCode();
+                    String jsonResponse = response.body();
+                    try {
+                        JSONObject jsonObject = new JSONObject(jsonResponse);
 
-                    if (resultCode == 200) {
-                        // 토큰을 저장한다.
-                        SharedPreferences prefs = getSharedPreferences("token_prefs", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        String token = result.getToken();
-                        editor.putString("token", token);
-                        editor.putString("userId", result.getUserId());
-                        editor.putString("userName", result.getUserName());
-                        editor.commit();
+                        LoginDTO.output output = new LoginDTO.output();
+                        output.setStatus(jsonObject.optString("status"));
 
-                        Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show();
+                        if (output.getStatus().equals("true")) {
+                            // 토큰을 저장한다.
+                            SharedPreferences prefs = getSharedPreferences("token_prefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = prefs.edit();
 
-                        Intent intent = new Intent(context, MainActivity.class);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "Log : " + TAG + " -> doLogin/ onFailure_1 : 조회 결과 없음");
+                            output.setToken(jsonObject.optString("token"));
+                            output.setId(jsonObject.optString("id"));
+                            output.setCountryCode(jsonObject.optString("countryCode"));
+                            output.setPhoneNumber(jsonObject.optString("phoneNumber"));
+                            output.setNickName(jsonObject.optString("nickName"));
+                            output.setBirthday(jsonObject.optString("birthday"));
+                            output.setGender(jsonObject.optString("gender"));
+                            output.setEmail(jsonObject.optString("email"));
+                            output.setPassword(jsonObject.optString("password"));
+
+                            editor.putString("token", output.getToken());
+                            editor.putString("id", output.getId());
+                            editor.putString("countryCode", output.getCountryCode());
+                            editor.putString("phoneNumber", output.getPhoneNumber());
+                            editor.putString("nickName", output.getNickName());
+                            editor.putString("birthday", output.getBirthday());
+                            editor.putString("gender", output.getGender());
+                            editor.putString("email", output.getEmail());
+                            editor.putString("password", output.getPassword());
+
+                            editor.commit();
+
+                            Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(context, MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "Log : " + TAG + " -> doLogin/ onFailure_1 : 조회 결과 없음");
+                        }
+                    }catch(Exception e){
+                        Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "Log : " + TAG + " -> doLogin/ onFailure_2 : " + e.getMessage());
                     }
+
                 }
             }
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Log : " + TAG + " -> doLogin/ onFailure_2 : " + t.getMessage());
+                Log.d(TAG, "Log : " + TAG + " -> doLogin/ onFailure_3 : " + t.getMessage());
             }
         });
     }
