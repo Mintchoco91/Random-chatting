@@ -17,7 +17,7 @@ Random-chatting-prototype
    - Hosting : AWS
    - DEV language : PHP 7.4.3
    - Database : MariaDB
-   - Repository : https://github.com/Mintchoco91/random-chatting-server
+   - Repository (private) : https://github.com/Mintchoco91/random-chatting-server
 
  - Socket Server 
  
@@ -26,7 +26,7 @@ Random-chatting-prototype
    - Socket.IO Server Version : 4.5.2
    - Socket.IO Client Version : 2.1.0
    - Socket.IO Compatibility Info : https://socketio.github.io/socket.io-client-java/installation.html
-   - Repository : https://github.com/Mintchoco91/random-chatting-chat-server
+   - Repository (private) : https://github.com/Mintchoco91/random-chatting-chat-server
 
 # Docker Repository
 
