@@ -14,4 +14,11 @@ public class UserListDTO {
         private String photoName;
         private String age;
     }
+
+    @Data
+    public static class matchingInputDTO {
+        private String userId;
+        private String targetId;
+        private String status;
+    }
 }

@@ -5,6 +5,7 @@ import com.kj.random_chatting.login.LoginDTO;
 import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomCreateDTO;
 import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomDetailDTO;
 import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListDTO;
+import com.kj.random_chatting.userList.UserListDTO;
 import com.kj.random_chatting.userRegist.UserRegistDTO;
 
 import retrofit2.Call;
@@ -51,4 +52,7 @@ public interface Retrofit_interface {
 
     @POST("selectAndDeleteChattingRoomDetail.php")
     Call<String> selectAndDeleteChattingRoomDetail(@Body UserChattingRoomDetailDTO.ChattingRoomDetailinputDTO inputDTO);
+
+    @POST("registMatching.php")
+    Call<String> registMatching(@Body UserListDTO.matchingInputDTO input);
 }
