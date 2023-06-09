@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.UserListActivityBinding;
 
 import java.util.ArrayList;
@@ -55,13 +56,10 @@ public class UserListFragment extends Fragment {
     public void initializeView() {
         Log.d(TAG, "Log : " + TAG + " -> initializeView");
         context = getContext();
-        SharedPreferences prefs =  context.getSharedPreferences("token_prefs", MODE_PRIVATE);
-        String userId = prefs.getString("id","");
-        String nickName = prefs.getString("nickName","");
-
 
         fragmentActivity = getActivity();
         userListService = new UserListService(context, binding);
+
     }
 
 
@@ -72,13 +70,13 @@ public class UserListFragment extends Fragment {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.user_list_activity_btn_dislike:
-                        userListService.btnDisLikeClick();
+                        userListService.btnActionClick(Enum.ActionStatus.DISLIKE);
                         break;
                     case R.id.user_list_activity_btn_Like:
-                        userListService.btnLikeClick();
+                        userListService.btnActionClick(Enum.ActionStatus.LIKE);
                         break;
                     case R.id.user_list_activity_btn_super_liker:
-                        userListService.btnSuperLikeClick();
+                        userListService.btnActionClick(Enum.ActionStatus.SUPERLIKE);
                         break;
                 }
             }

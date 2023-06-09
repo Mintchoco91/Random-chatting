@@ -48,8 +48,6 @@ public class FindUserInformationTaskRxJava {
     //결과 처리
     private void resultPost(Integer code) {
         if (code == 0) {
-            //UserListService userListService = new UserListService(context, binding);
-            //userListService.showInformation(localUserList.get(0));
             userListService.showInformation(userList.get(0));
         } else {
             Toast.makeText(context, "조회 실패", Toast.LENGTH_SHORT).show();
