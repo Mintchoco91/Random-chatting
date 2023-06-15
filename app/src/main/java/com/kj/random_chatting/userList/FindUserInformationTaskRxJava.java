@@ -1,6 +1,9 @@
 package com.kj.random_chatting.userList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -34,6 +37,7 @@ public class FindUserInformationTaskRxJava {
     private UserListActivityBinding binding;
     Context context;
     Disposable backgroundTask;
+    private SharedPreferences prefs;
 
     List<UserListDTO.outputDTO> userList = new ArrayList<>();
     private UserListService userListService;
@@ -43,6 +47,7 @@ public class FindUserInformationTaskRxJava {
         binding = mBinding;
         userList = mUserList;
         userListService = mUserListService;
+        prefs =  context.getSharedPreferences("token_prefs", MODE_PRIVATE);
     }
 
     //결과 처리
@@ -65,7 +70,11 @@ public class FindUserInformationTaskRxJava {
     //유저 정보 조회
     private Integer findUserInformation() throws IOException {
         Integer resultCode = 0;
-        Call<String> call = Retrofit_client.getApiService().searchUserList();
+        String userId = prefs.getString("userId",null);
+        UserListDTO.searchUserInputDTO inputDTO = new UserListDTO.searchUserInputDTO();
+        inputDTO.setUserId(userId);
+
+        Call<String> call = Retrofit_client.getApiService().searchUserList(inputDTO);
 
         //동기화 해야 해서 excute() 처리함.
         String jsonResponse = call.execute().body();

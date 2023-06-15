@@ -14,7 +14,7 @@ import retrofit2.http.POST;
 
 public interface Retrofit_interface {
     @POST("searchUserList.php")
-    Call<String> searchUserList();
+    Call<String> searchUserList(@Body UserListDTO.searchUserInputDTO inputDTO);
 
     /* 나중에 필요할 때 주석 해제 할것(회원정보 수정)
     @POST("/modifyUserDetail.php/")

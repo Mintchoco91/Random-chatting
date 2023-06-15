@@ -109,7 +109,7 @@ public class UserListService {
         Log.d(TAG, "Log : " + TAG + " -> btnUserClick");
 
         UserListDTO.matchingInputDTO input  = new UserListDTO.matchingInputDTO();
-        String userId = prefs.getString("id","");
+        String userId = prefs.getString("userId",null);
         String targetId = binding.userListActivityIvPhoto.getTag().toString();
 
         input.setUserId(userId);
