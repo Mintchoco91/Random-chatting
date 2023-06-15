@@ -119,7 +119,7 @@ public class LoginActivity extends Activity {
                             output.setPassword(jsonObject.optString("password"));
 
                             editor.putString("token", output.getToken());
-                            editor.putString("id", output.getId());
+                            editor.putString("userId", output.getId());
                             editor.putString("countryCode", output.getCountryCode());
                             editor.putString("phoneNumber", output.getPhoneNumber());
                             editor.putString("nickName", output.getNickName());

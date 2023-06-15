@@ -16,6 +16,11 @@ public class UserListDTO {
     }
 
     @Data
+    public static class searchUserInputDTO {
+        private String userId;
+    }
+
+    @Data
     public static class matchingInputDTO {
         private String userId;
         private String targetId;
