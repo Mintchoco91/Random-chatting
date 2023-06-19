@@ -115,7 +115,6 @@ public class FindUserInformationTaskRxJava {
                 //데이터가 하나도 없을경우 dummy data
                 if(jsonArray.length() == 0){
                     UserListDTO.outputDTO userListOutput = new UserListDTO.outputDTO();
-                    List<String> fileNameList = new ArrayList<>();
                     userListOutput.setId("99999999");
                     userListOutput.setNickName("홍길동");
                     userListOutput.setBirthday("19910101");
