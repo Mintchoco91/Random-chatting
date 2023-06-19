@@ -72,6 +72,7 @@ public class UserListService {
                 .load(fileNameArray[0])
                 .transform(new CenterCrop(), new RoundedCorners(20))
                 .into(binding.userListActivityIvPhoto);
+
     }
 
     public void btnNextUserClick() {
