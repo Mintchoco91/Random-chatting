@@ -89,6 +89,9 @@ dependencies {
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.28'
     annotationProcessor 'org.projectlombok:lombok:1.18.28'
+
+    // circle view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

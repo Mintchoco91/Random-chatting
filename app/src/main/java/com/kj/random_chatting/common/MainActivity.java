@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.navigation.NavigationBarView;
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.messenger.MessengerFragment;
+import com.kj.random_chatting.showMyInformation.ShowMyInformationFragment;
 import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListFragment;
 import com.kj.random_chatting.databinding.MainActivityBinding;
 import com.kj.random_chatting.userList.UserListFragment;
@@ -26,7 +27,7 @@ import com.kj.random_chatting.util.UtilClass;
 public class MainActivity extends FragmentActivity {
     private MainActivityBinding binding;
     private FragmentManager fragmentManager;
-    private Fragment matchingBulbFragment, chattingListFragment, myRoomListFragment, locationFragment, infoFragment;
+    private Fragment matchingBulbFragment, chattingListFragment, myRoomListFragment, locationFragment, showMyInformationFragment;
     private static final String TAG = "MainActivity";
 
     //임시방편 으로 랜덤 닉네임
@@ -76,8 +77,8 @@ public class MainActivity extends FragmentActivity {
                                     fragmentManager.beginTransaction().hide(chattingListFragment).commit();
                                 if (locationFragment != null)
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
-                                if (infoFragment != null)
-                                    fragmentManager.beginTransaction().hide(infoFragment).commit();
+                                if (showMyInformationFragment != null)
+                                    fragmentManager.beginTransaction().hide(showMyInformationFragment).commit();
                                 if (myRoomListFragment != null) {
                                     fragmentManager.beginTransaction().hide(myRoomListFragment).commit();
                                 }
@@ -96,8 +97,8 @@ public class MainActivity extends FragmentActivity {
                                     fragmentManager.beginTransaction().show(chattingListFragment).commit();
                                 if (locationFragment != null)
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
-                                if (infoFragment != null)
-                                    fragmentManager.beginTransaction().hide(infoFragment).commit();
+                                if (showMyInformationFragment != null)
+                                    fragmentManager.beginTransaction().hide(showMyInformationFragment).commit();
                                 if (myRoomListFragment != null) {
                                     fragmentManager.beginTransaction().hide(myRoomListFragment).commit();
                                 }
@@ -120,8 +121,8 @@ public class MainActivity extends FragmentActivity {
                                 if (locationFragment != null) {
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
                                 }
-                                if (infoFragment != null) {
-                                    fragmentManager.beginTransaction().hide(infoFragment).commit();
+                                if (showMyInformationFragment != null) {
+                                    fragmentManager.beginTransaction().hide(showMyInformationFragment).commit();
                                 }
                                 if (myRoomListFragment != null) {
                                     fragmentManager.beginTransaction().show(myRoomListFragment).commit();
@@ -140,17 +141,17 @@ public class MainActivity extends FragmentActivity {
                                     fragmentManager.beginTransaction().hide(chattingListFragment).commit();
                                 if (locationFragment != null)
                                     fragmentManager.beginTransaction().show(locationFragment).commit();
-                                if (infoFragment != null)
-                                    fragmentManager.beginTransaction().hide(infoFragment).commit();
+                                if (showMyInformationFragment != null)
+                                    fragmentManager.beginTransaction().hide(showMyInformationFragment).commit();
                                 if (myRoomListFragment != null) {
                                     fragmentManager.beginTransaction().hide(myRoomListFragment).commit();
                                 }
                                 return true;
 
                             case R.id.navigation_info:
-                                if (infoFragment == null) {
-                                    infoFragment = new UserInfoFragment();
-                                    fragmentManager.beginTransaction().add(R.id.frameLayout, infoFragment).commit();
+                                if (showMyInformationFragment == null) {
+                                    showMyInformationFragment = new ShowMyInformationFragment();
+                                    fragmentManager.beginTransaction().add(R.id.frameLayout, showMyInformationFragment).commit();
                                 }
 
                                 if (matchingBulbFragment != null)
@@ -159,8 +160,8 @@ public class MainActivity extends FragmentActivity {
                                     fragmentManager.beginTransaction().hide(chattingListFragment).commit();
                                 if (locationFragment != null)
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
-                                if (infoFragment != null)
-                                    fragmentManager.beginTransaction().show(infoFragment).commit();
+                                if (showMyInformationFragment != null)
+                                    fragmentManager.beginTransaction().show(showMyInformationFragment).commit();
                                 if (myRoomListFragment != null) {
                                     fragmentManager.beginTransaction().hide(myRoomListFragment).commit();
                                 }
