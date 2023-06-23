@@ -16,7 +16,8 @@ public class LoginDTO {
     }
     @Data
     public static class output{
-        private String token;
+        private String accessToken;
+        private String refreshToken;
         private String id;
         private String status;
         private String countryCode;
