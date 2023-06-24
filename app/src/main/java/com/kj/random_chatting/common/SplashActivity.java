@@ -24,7 +24,7 @@ public class SplashActivity extends Activity {
             public void run() {
                 Intent intent;
                 SharedPreferences prefs = getSharedPreferences("token_prefs", MODE_PRIVATE);
-                String token = prefs.getString("token", null );
+                String token = prefs.getString("access_token", null );
                 if (token == null) {
                     intent = new Intent(SplashActivity.this, OnboardingActivity.class);
                 } else {

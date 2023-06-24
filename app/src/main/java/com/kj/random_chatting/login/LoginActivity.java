@@ -108,7 +108,8 @@ public class LoginActivity extends Activity {
                             SharedPreferences prefs = getSharedPreferences("token_prefs", MODE_PRIVATE);
                             SharedPreferences.Editor editor = prefs.edit();
 
-                            output.setToken(jsonObject.optString("token"));
+                            output.setAccessToken(jsonObject.optString("access_token"));
+                            output.setRefreshToken(jsonObject.optString("refresh_token"));
                             output.setId(jsonObject.optString("id"));
                             output.setCountryCode(jsonObject.optString("countryCode"));
                             output.setPhoneNumber(jsonObject.optString("phoneNumber"));
@@ -118,7 +119,8 @@ public class LoginActivity extends Activity {
                             output.setEmail(jsonObject.optString("email"));
                             output.setPassword(jsonObject.optString("password"));
 
-                            editor.putString("token", output.getToken());
+                            editor.putString("access_token", output.getAccessToken());
+                            editor.putString("refresh_token", output.getRefreshToken());
                             editor.putString("userId", output.getId());
                             editor.putString("countryCode", output.getCountryCode());
                             editor.putString("phoneNumber", output.getPhoneNumber());
