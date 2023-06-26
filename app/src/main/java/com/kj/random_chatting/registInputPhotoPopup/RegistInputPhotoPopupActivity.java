@@ -12,6 +12,7 @@ import com.kj.random_chatting.R;
 import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.RegistInputPhotoActivityBinding;
 import com.kj.random_chatting.databinding.RegistInputPhotoPopupActivityBinding;
+import com.kj.random_chatting.util.UtilClass;
 
 import java.util.HashMap;
 
@@ -25,7 +26,7 @@ public class RegistInputPhotoPopupActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: ");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         binding = RegistInputPhotoPopupActivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -37,11 +38,11 @@ public class RegistInputPhotoPopupActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     private void initializeView() {
-        Log.d(TAG, "Log : " + TAG + " -> initializeView");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context = this;
 
         //데이터 가져오기
@@ -51,7 +52,7 @@ public class RegistInputPhotoPopupActivity extends Activity {
     }
 
     private void setListener() {
-        Log.d(TAG, "Log : " + TAG + " -> setListener");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         View.OnClickListener Listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

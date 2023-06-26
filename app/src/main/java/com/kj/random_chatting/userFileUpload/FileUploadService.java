@@ -18,9 +18,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.FileUploadActivityBinding;
 import com.kj.random_chatting.userRegist.UserRegistDTO;
 import com.kj.random_chatting.userRegist.UserRegistInformationTaskRxJava;
+import com.kj.random_chatting.util.UtilClass;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -44,7 +46,7 @@ public class FileUploadService extends Activity {
 
     public void uploadResult(int imgNo, int resultCode, Intent data) {
         uriImgPaths[imgNo] = data.getData();
-        Log.d(TAG, "uri:" + String.valueOf(uriImgPaths[imgNo]));
+        UtilClass.writeLog(TAG, "uri:" + String.valueOf(uriImgPaths[imgNo]), Enum.LogType.D);
         try {
             //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(fileUploadServiceContext.getContentResolver(), uriImgPaths[imgNo]);
@@ -85,7 +87,7 @@ public class FileUploadService extends Activity {
 
         if (resultCode == RESULT_OK) {
             uriImgPaths[imgNo] = data.getData();
-            Log.d(TAG, "uri:" + String.valueOf(uriImgPaths[imgNo]));
+            UtilClass.writeLog(TAG, "uri:" + String.valueOf(uriImgPaths[imgNo]), Enum.LogType.D);
             try {
                 //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriImgPaths[imgNo]);

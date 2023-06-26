@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.RegistPhoneNumberActivityBinding;
 import com.kj.random_chatting.registPhoneTextCode.RegistPhoneAuthCodeActivity;
@@ -22,7 +23,7 @@ public class RegistPhoneNumberService extends Activity {
     private SignUpRegistDTO.input intentData = new SignUpRegistDTO.input();
 
     public RegistPhoneNumberService(Context mContext, RegistPhoneNumberActivityBinding mBinding) {
-        Log.d(TAG, "Log : " + TAG + " -> RegistPhoneNumberService");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         context = mContext;
         binding = mBinding;
@@ -33,7 +34,7 @@ public class RegistPhoneNumberService extends Activity {
      **************************************************************/
 
     public void btnContinueClick() {
-        Log.d(TAG, "Log : " + TAG + "btnContinueClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         intentData.setCountryCode(binding.registPhoneNumberActivityCcpCountryPicker.getSelectedCountryCode());
         intentData.setPhoneNumber(binding.registPhoneNumberActivityEtPhoneNumber.getText().toString());

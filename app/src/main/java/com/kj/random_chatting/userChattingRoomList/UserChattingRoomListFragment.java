@@ -15,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
 import com.kj.random_chatting.util.RecyclerItem;
+import com.kj.random_chatting.util.UtilClass;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class UserChattingRoomListFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        Log.d(TAG, "Log : " + TAG + " -> onViewCreated");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onViewCreated(view, savedInstanceState);
         initializeView();
         setListener();
@@ -47,7 +48,7 @@ public class UserChattingRoomListFragment extends Fragment {
     }
 
     private void initializeView() {
-        Log.d(TAG, "Log : " + TAG + " -> initializeView");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context = getContext();
 
        userChattingRoomListService = new UserChattingRoomListService(context, binding);
@@ -55,7 +56,7 @@ public class UserChattingRoomListFragment extends Fragment {
 
 
     private void setListener() {
-        Log.d(TAG, "Log : " + TAG + " -> setListener");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         View.OnClickListener Listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

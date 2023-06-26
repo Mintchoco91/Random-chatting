@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.userFileUpload.FileUploadActivity;
 import com.kj.random_chatting.databinding.UserRegistActivityBinding;
 import com.kj.random_chatting.userList.UserListFragment;
+import com.kj.random_chatting.util.UtilClass;
 
 public class UserRegistService {
     private UserRegistActivityBinding userRegistActivityBinding;
@@ -16,7 +18,7 @@ public class UserRegistService {
     private String strEmail, strPassword, strUserName, strGender, strAge, strPhoneNumber;
 
     public UserRegistService(Context context, UserRegistActivityBinding binding) {
-        Log.d(TAG, "Log : " + TAG + " -> UserRegistService");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         userRegistServiceContext = context;
         userRegistActivityBinding = binding;
     }
@@ -24,7 +26,7 @@ public class UserRegistService {
     // 기본사항 validation
     // Error 존재 -> return true
     public boolean validation(UserRegistDTO.inputDTO registInputDTO) {
-        Log.d(TAG, "Log : " + TAG + " -> validation");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         if (registInputDTO.getUserName().length() == 0) {
             Toast.makeText(userRegistServiceContext, "이름을 입력하세요.", Toast.LENGTH_SHORT).show();
             userRegistActivityBinding.activityMainEtUserName.requestFocus();
@@ -50,7 +52,7 @@ public class UserRegistService {
 
     //다음 단계로 (이미지 업로드)
     public void nextStep(UserRegistDTO.inputDTO registInputDTO) {
-        Log.d(TAG, "Log : " + TAG + "nextStep");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         Intent intentUpload = new Intent(userRegistServiceContext, FileUploadActivity.class);
         intentUpload.putExtra("strEmail", registInputDTO.getEmail());
         intentUpload.putExtra("strPassword", registInputDTO.getPassword());
@@ -67,7 +69,7 @@ public class UserRegistService {
      **************************************************************/
 
     public void btnGenderClick(String genderText) {
-        Log.d(TAG, "Log : " + TAG + "btnGenderClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         strGender = genderText;
         switch (strGender) {
             case "남":
@@ -82,7 +84,7 @@ public class UserRegistService {
     }
 
     public void btnSaveClick() {
-        Log.d(TAG, "Log : " + TAG + "btnSaveClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         boolean isError = true;
         strEmail = String.valueOf(userRegistActivityBinding.activityMainEtEmail.getText()).trim();
         strPassword = String.valueOf(userRegistActivityBinding.activityMainEtPassword.getText()).trim();
@@ -106,7 +108,7 @@ public class UserRegistService {
     }
 
     public void btnUploadClick() {
-        Log.d(TAG, "Log : " + TAG + "btnUploadClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         Intent intentUploadList = new Intent(userRegistServiceContext, UserListFragment.class);
         userRegistServiceContext.startActivity(intentUploadList);
     }

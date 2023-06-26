@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.databinding.RegistInputInformationActivityBinding;
@@ -23,7 +24,7 @@ public class RegistInputInformationService extends Activity {
     private SignUpRegistDTO.input intentData = new SignUpRegistDTO.input();
 
     public RegistInputInformationService(Context mContext, RegistInputInformationActivityBinding mBinding, SignUpRegistDTO.input mIntentData) {
-        Log.d(TAG, "Log : " + TAG + " -> RegistInputInformationService");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         context = mContext;
         binding = mBinding;
@@ -35,7 +36,7 @@ public class RegistInputInformationService extends Activity {
      **************************************************************/
 
     public void btnContinueClick() {
-        Log.d(TAG, "Log : " + TAG + "btnContinueClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         //validation 필요
 
         intentData.setNickName(binding.registInputInformationActivityEtNickname.getText().toString());

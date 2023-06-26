@@ -19,9 +19,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.RegistInputPhotoActivityBinding;
 import com.kj.random_chatting.databinding.RegistInputPhotoPopupActivityBinding;
 import com.kj.random_chatting.registInputGender.RegistInputGenderActivity;
+import com.kj.random_chatting.util.UtilClass;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ public class RegistInputPhotoPopupService extends Activity {
     private String choiceNumber;
 
     public RegistInputPhotoPopupService(Context mContext, RegistInputPhotoPopupActivityBinding mBinding, String mChoiceNumber) {
-        Log.d(TAG, "Log : " + TAG + " -> RegistInputPhotoPopupService");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         context = mContext;
         binding = mBinding;

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.databinding.RegistInputEmailPwActivityBinding;
@@ -25,7 +26,7 @@ public class RegistInputEmailPwService extends Activity {
     private SignUpRegistDTO.input intentData = new SignUpRegistDTO.input();
 
     public RegistInputEmailPwService(Context mContext, RegistInputEmailPwActivityBinding mBinding, SignUpRegistDTO.input mIntentData) {
-        Log.d(TAG, "Log : " + TAG + " -> RegistInputEmailPwService");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         context = mContext;
         binding = mBinding;
@@ -65,7 +66,7 @@ public class RegistInputEmailPwService extends Activity {
      **************************************************************/
 
     public void btnRegistClick() {
-        Log.d(TAG, "Log : " + TAG + "btnContinueClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         //validation 필요
         if(validation()){
             intentData.setEmail(binding.registInputEmailPwActivityEtEmail.getText().toString());

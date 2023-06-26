@@ -23,7 +23,7 @@ public class UserChattingRoomListService {
 
 
     public UserChattingRoomListService(Context mContext, FragmentUserChattingRoomListBinding mBinding) {
-        Log.d(TAG, "Log : " + TAG + " -> UserChattingRoomListService");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context =mContext;
         binding = mBinding;
 
@@ -36,7 +36,7 @@ public class UserChattingRoomListService {
      **************************************************************/
 
     public void btnMoveRoomCreateClick() {
-        Log.d(TAG, "Log : " + TAG + "btnMoveRoomCreateClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         Intent intentMakeRoom = new Intent(context, UserChattingRoomCreateActivity.class);
         context.startActivity(intentMakeRoom);

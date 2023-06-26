@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.login.LoginActivity;
 import com.kj.random_chatting.userRegist.UserRegistActivity;
@@ -17,7 +18,7 @@ public class RegistInputBirthdayService extends Activity {
     private UtilClass utilClass;
 
     public RegistInputBirthdayService(Context mContext, ActivityOnboardingBinding mBinding) {
-        Log.d(TAG, "Log : " + TAG + " -> OnboardingService");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         context = mContext;
         binding = mBinding;
@@ -28,13 +29,13 @@ public class RegistInputBirthdayService extends Activity {
      **************************************************************/
 
     public void btnLoginClick() {
-        Log.d(TAG, "Log : " + TAG + "btnLoginClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         Intent intentUploadList = new Intent(context, LoginActivity.class);
         context.startActivity(intentUploadList);
     }
 
     public void btnRegistClick() {
-        Log.d(TAG, "Log : " + TAG + "btnRegistClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         Intent intentUploadList = new Intent(context, UserRegistActivity.class);
         context.startActivity(intentUploadList);
     }

@@ -34,7 +34,7 @@ public class UserChattingService extends Activity {
 
 
     public UserChattingService() {
-        Log.d(TAG, "Log : " + TAG + " -> UserChattingService");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         //임시
         userNickName = MainActivity.userNickName;
 
@@ -52,7 +52,7 @@ public class UserChattingService extends Activity {
     }
 
     public void createRoom(Context mContext, FragmentUserChattingBinding mBinding, UserChattingDTO.RoomInfo mRoomInfo){
-        Log.d(TAG, "Log : " + TAG + " -> createRoom");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         utilClass = new UtilClass();
         context = mContext;
         binding = mBinding;

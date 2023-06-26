@@ -8,6 +8,7 @@ import android.util.Log;
 import com.kj.random_chatting.userChatting.UserChattingActivity;
 import com.kj.random_chatting.userChatting.UserChattingDTO;
 import com.kj.random_chatting.userChatting.UserChattingService;
+import com.kj.random_chatting.util.UtilClass;
 
 import javax.annotation.Nullable;
 
@@ -22,7 +23,7 @@ public class ForecdTerminationService extends Service {
     //어플 강제 종료시 실행할 내용 작성
     @Override
     public void onTaskRemoved(Intent rootIntent){
-        Log.e("Error","onTaskRemoved - 강제 종료 " + rootIntent);
+        UtilClass.writeLog("Error", "onTaskRemoved - 강제 종료 " + rootIntent, Enum.LogType.D);
 
         try {
             //채팅창 종료 시 이벤트 기재

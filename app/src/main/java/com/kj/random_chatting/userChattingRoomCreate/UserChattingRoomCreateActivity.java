@@ -13,6 +13,7 @@ import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.ActivityUserChattingRoomCreateBinding;
 import com.kj.random_chatting.databinding.FragmentUserChattingBinding;
 import com.kj.random_chatting.userChatting.UserChattingService;
+import com.kj.random_chatting.util.UtilClass;
 
 public class UserChattingRoomCreateActivity extends Activity {
     private static final String TAG = "UserChattingRoomCreateActivity";
@@ -33,13 +34,13 @@ public class UserChattingRoomCreateActivity extends Activity {
     }
 
     private void initializeView() {
-        Log.d(TAG, "Log : " + TAG + " -> initializeView");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         userChattingRoomCreateService = new UserChattingRoomCreateService(context, binding);
     }
 
     private void setListener() {
-        Log.d(TAG, "Log : " + TAG + " -> setListener");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         View.OnClickListener Listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

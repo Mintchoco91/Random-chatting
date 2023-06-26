@@ -14,7 +14,7 @@ public class UserChattingRoomCreateService {
     private ActivityUserChattingRoomCreateBinding binding;
 
     public UserChattingRoomCreateService(Context mContext, ActivityUserChattingRoomCreateBinding mBinding){
-        Log.d(TAG, "Log : " + TAG + " -> UserChattingRoomCreateService");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context = mContext;
         binding = mBinding;
     }
@@ -24,7 +24,7 @@ public class UserChattingRoomCreateService {
      **************************************************************/
 
     public void btnRoomCreateClick() {
-        Log.d(TAG, "Log : " + TAG + "btnMakeRoomClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         UtilClass utilClass = new UtilClass();
 

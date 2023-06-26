@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.UserListActivityBinding;
+import com.kj.random_chatting.util.UtilClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class UserListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "Log : " + TAG + " -> onCreateView");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         binding = UserListActivityBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         return view;
@@ -41,7 +42,7 @@ public class UserListFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        Log.d(TAG, "Log : " + TAG + " -> onViewCreated");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onViewCreated(view, savedInstanceState);
         initializeView();
         setListener();
@@ -54,7 +55,7 @@ public class UserListFragment extends Fragment {
     }
 
     public void initializeView() {
-        Log.d(TAG, "Log : " + TAG + " -> initializeView");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context = getContext();
 
         fragmentActivity = getActivity();
@@ -64,7 +65,7 @@ public class UserListFragment extends Fragment {
 
 
     private void setListener() {
-        Log.d(TAG, "Log : " + TAG + " -> setListener");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         View.OnClickListener Listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

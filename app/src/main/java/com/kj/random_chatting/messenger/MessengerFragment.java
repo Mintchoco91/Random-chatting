@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.FragmentMessengerBinding;
+import com.kj.random_chatting.util.UtilClass;
 
 public class MessengerFragment extends Fragment {
     private FragmentMessengerBinding binding;
@@ -27,7 +29,7 @@ public class MessengerFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        Log.d(TAG, "Log : " + TAG + " -> onViewCreated");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onViewCreated(view, savedInstanceState);
         initializeView();
         setListener();
@@ -41,12 +43,12 @@ public class MessengerFragment extends Fragment {
 
 
     private void initializeView() {
-        Log.d(TAG, "Log : " + TAG + " -> initializeView");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context = getContext();
     }
 
     private void setListener() {
-        Log.d(TAG, "setListener: ");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
     }
 }

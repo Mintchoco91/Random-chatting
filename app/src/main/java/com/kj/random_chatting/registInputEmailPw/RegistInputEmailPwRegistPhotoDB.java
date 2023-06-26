@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.RegistInputEmailPwActivityBinding;
 import com.kj.random_chatting.login.LoginActivity;
 import com.kj.random_chatting.registInputGender.RegistInputGenderActivity;
 import com.kj.random_chatting.util.Retrofit_client;
+import com.kj.random_chatting.util.UtilClass;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +31,7 @@ public class RegistInputEmailPwRegistPhotoDB {
     private SignUpRegistDTO.input intentData = new SignUpRegistDTO.input();
 
     public RegistInputEmailPwRegistPhotoDB(Context mContext, RegistInputEmailPwActivityBinding mBinding, SignUpRegistDTO.input mIntentData) {
-        Log.d(TAG, "Log : " + TAG + " -> RegistInputEmailPwRegistPhotoDB");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         context = mContext;
         binding = mBinding;
