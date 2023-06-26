@@ -14,7 +14,7 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface Retrofit_interface {
-    @POST("/user/list")
+    @POST("searchUserList.php")
     Call<String> searchUserList(@Body UserListDTO.searchUserInputDTO inputDTO);
 
     /* 나중에 필요할 때 주석 해제 할것(회원정보 수정)
@@ -27,11 +27,11 @@ public interface Retrofit_interface {
     Call<String> searchUserList();
     */
 
-    @POST("/user/login")
+    @POST("userLogin.php")
     Call<String> getLoginResponse(@Body LoginDTO.input loginRequest);
 
-    @POST("/user/refreshToken")
-    Call<TokenDTO.output> refreshToken(@Body TokenDTO.input input);
+    @POST("renewToken.php")
+    Call<TokenDTO.output> renewToken(@Body TokenDTO.input input);
 
     @POST("searchChattingRoomList.php")
     Call<String> searchChattingRoomList(@Body UserChattingRoomListDTO.inputDTO inputParam);
@@ -39,10 +39,10 @@ public interface Retrofit_interface {
     @POST("createUser.php")
     Call<String> createUser(@Body UserRegistDTO.inputDTO userRegistDTO);
 
-    @POST("/user/signUp")
+    @POST("signUpRegist.php")
     Call<String> signUpRegist(@Body SignUpRegistDTO.input intentData);
 
-    @POST("/user/registPhoto")
+    @POST("signUpPhotoRegist.php")
     Call<String> signUpPhotoRegist(@Body SignUpRegistDTO.input intentData);
 
     @POST("createChattingRoom.php")
