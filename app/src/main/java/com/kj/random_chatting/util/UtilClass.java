@@ -114,6 +114,7 @@ public class UtilClass {
      * ex) UtilClass.writeLog(TAG, "로그 내용", Enum.LogType.D);
      */
     public static void writeLog(String tag, String log, Enum.LogType type) {
+        Logger.clearLogAdapters();
         Logger.addLogAdapter(new AndroidLogAdapter());
 
         switch(type){
