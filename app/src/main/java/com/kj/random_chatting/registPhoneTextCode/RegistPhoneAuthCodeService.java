@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.common.Constants;
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.RegistPhoneAuthCodeActivityBinding;
 import com.kj.random_chatting.registInputInformation.RegistInputInformationActivity;
@@ -46,7 +47,7 @@ public class RegistPhoneAuthCodeService extends Activity {
 
 
     public RegistPhoneAuthCodeService(Context mContext, RegistPhoneAuthCodeActivityBinding mBinding, SignUpRegistDTO.input mIntentData) {
-        Log.d(TAG, "Log : " + TAG + " -> RegistPhoneAuthCodeService");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         //test data
         authCode = "0000";
 
@@ -59,7 +60,7 @@ public class RegistPhoneAuthCodeService extends Activity {
     }
 
     private void initializeService() {
-        Log.d(TAG, "Log : " + TAG + " -> initializeService");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         utilClass = new UtilClass();
         inputAuthCodeList = new ArrayList<>();
@@ -237,17 +238,17 @@ public class RegistPhoneAuthCodeService extends Activity {
      **************************************************************/
 
     public void btnKeypadClick(String inputNumber) {
-        Log.d(TAG, "Log : " + TAG + "btnKeypadClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         inputKeypad(inputNumber);
     }
 
     public void btnDeleteClick() {
-        Log.d(TAG, "Log : " + TAG + "btnDeleteClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         deleteKeypad();
     }
 
     public void tvResendClick() {
-        Log.d(TAG, "Log : " + TAG + "tvResendClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         //인증번호 재전송 로직
         authCode = utilClass.generateRandomNumber(4);

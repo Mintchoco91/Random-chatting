@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.MainActivity;
 import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.LoginActivityBinding;
@@ -22,7 +23,7 @@ public class LoginService extends Activity {
     private SignUpRegistDTO.input intentData = new SignUpRegistDTO.input();
 
     public LoginService(Context mContext, LoginActivityBinding mBinding) {
-        Log.d(TAG, "Log : " + TAG + " -> LoginService");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         context = mContext;
         binding = mBinding;
@@ -33,14 +34,14 @@ public class LoginService extends Activity {
      **************************************************************/
 
     public void btnRegistClick() {
-        Log.d(TAG, "Log : " + TAG + "btnRegistClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         Intent intent = new Intent(context, RegistPhoneNumberActivity.class);
         context.startActivity(intent);
     }
 
     public void btnFindInformationClick() {
-        Log.d(TAG, "Log : " + TAG + "btnFindInformationClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);

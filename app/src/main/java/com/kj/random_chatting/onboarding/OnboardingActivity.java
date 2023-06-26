@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.View;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.databinding.FragmentUserChattingBinding;
 import com.kj.random_chatting.userChatting.UserChattingDTO;
 import com.kj.random_chatting.userChatting.UserChattingService;
+import com.kj.random_chatting.util.UtilClass;
 
 public class OnboardingActivity extends Activity {
     private static final String TAG = "OnboardingActivity";
@@ -24,7 +26,7 @@ public class OnboardingActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: ");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         binding = ActivityOnboardingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -36,17 +38,17 @@ public class OnboardingActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     private void initializeView() {
-        Log.d(TAG, "Log : " + TAG + " -> initializeView");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context = this;
         onboardingService = new OnboardingService(context, binding);
     }
 
     private void setListener() {
-        Log.d(TAG, "Log : " + TAG + " -> setListener");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         View.OnClickListener Listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

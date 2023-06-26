@@ -15,6 +15,7 @@ import com.kj.random_chatting.common.ForecdTerminationService;
 import com.kj.random_chatting.common.MainActivity;
 import com.kj.random_chatting.databinding.LoginActivityBinding;
 import com.kj.random_chatting.util.Retrofit_client;
+import com.kj.random_chatting.util.UtilClass;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +34,7 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: ");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         startService(new Intent(this, ForecdTerminationService.class));
         binding = LoginActivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -46,11 +47,11 @@ public class LoginActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     private void initializeView() {
-        Log.d(TAG, "Log : " + TAG + " -> initializeView");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context = this;
         //필요시 주석 풀것. 데이터는 나옴.
         //Intent intent = getIntent();
@@ -60,7 +61,7 @@ public class LoginActivity extends Activity {
     }
 
     private void setListener() {
-        Log.d(TAG, "Log : " + TAG + " -> setListener");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         View.OnClickListener Listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,11 +139,11 @@ public class LoginActivity extends Activity {
                             startActivity(intent);
                         } else {
                             Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "Log : " + TAG + " -> doLogin/ onFailure_1 : 조회 결과 없음");
+                            UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_1 : 조회 결과 없음", Enum.LogType.D);
                         }
                     }catch(Exception e){
                         Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "Log : " + TAG + " -> doLogin/ onFailure_2 : " + e.getMessage());
+                        UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_2 : " + e.getMessage(), Enum.LogType.D);
                     }
 
                 }
@@ -150,7 +151,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Log : " + TAG + " -> doLogin/ onFailure_3 : " + t.getMessage());
+                UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_3 : " + t.getMessage(), Enum.LogType.D);
             }
         });
     }

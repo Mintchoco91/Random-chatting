@@ -8,10 +8,12 @@ import android.util.Log;
 import android.view.View;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.RegistInputInformationActivityBinding;
 import com.kj.random_chatting.databinding.RegistInputPhotoActivityBinding;
 import com.kj.random_chatting.registInputPhotoPopup.RegistInputPhotoPopupActivity;
+import com.kj.random_chatting.util.UtilClass;
 
 import java.util.HashMap;
 
@@ -24,7 +26,7 @@ public class RegistInputPhotoActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: ");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         binding = RegistInputPhotoActivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -36,11 +38,11 @@ public class RegistInputPhotoActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     private void initializeView() {
-        Log.d(TAG, "Log : " + TAG + " -> initializeView");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context = this;
         Intent intent = getIntent();
         SignUpRegistDTO.input intentData = (SignUpRegistDTO.input) intent.getSerializableExtra("intentData");
@@ -49,7 +51,7 @@ public class RegistInputPhotoActivity extends Activity {
     }
 
     private void setListener() {
-        Log.d(TAG, "Log : " + TAG + " -> setListener");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         View.OnClickListener Listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

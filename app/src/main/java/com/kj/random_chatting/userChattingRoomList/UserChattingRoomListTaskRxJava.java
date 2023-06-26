@@ -43,7 +43,7 @@ public class UserChattingRoomListTaskRxJava {
     List<UserChattingRoomListDTO.outputDTO> localChattingRoomList = new ArrayList<>();
 
     public UserChattingRoomListTaskRxJava(Context mContext, FragmentUserChattingRoomListBinding mBinding) {
-        Log.d(TAG, "Log : " + TAG + " -> UserChattingListTaskRxJava");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context = mContext;
         binding = mBinding;
     }

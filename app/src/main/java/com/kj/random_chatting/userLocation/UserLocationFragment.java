@@ -28,11 +28,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.FragmentUserLocationBinding;
 import com.kj.random_chatting.messenger.FcmClient;
 import com.kj.random_chatting.messenger.FcmInterface;
 import com.kj.random_chatting.messenger.NotificationData;
 import com.kj.random_chatting.messenger.NotificationRequest;
+import com.kj.random_chatting.util.UtilClass;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -63,7 +65,7 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
     private final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(@NonNull Location location) {
-            Log.d(TAG, "위도: " + location.getLatitude() + ", 경도: " + location.getLongitude());
+            UtilClass.writeLog(TAG,"위도: " + location.getLatitude() + ", 경도: " + location.getLongitude(), Enum.LogType.D);
         }
     };
 
@@ -145,7 +147,7 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        Log.d(TAG, "Log : " + TAG + " -> onViewCreated");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onViewCreated(view, savedInstanceState);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         initializeView();
@@ -163,7 +165,7 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
     }
 
     public void initializeView() {
-        Log.d(TAG, "Log : " + TAG + " -> initializeView");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context = getContext();
         fragmentActivity = getActivity();
 
@@ -186,7 +188,7 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
                         if (result) {
                             // PERMISSION GRANTED
                             Toast.makeText(context, "권한이 허용됨", Toast.LENGTH_LONG).show();
-                            Log.d(TAG, "권한이 허용됨");
+                            UtilClass.writeLog(TAG,"권한이 허용됨", Enum.LogType.D);
 
                             // 지도에 내 위치와 다른 사람들의 위치를 표시한다.
                             displayUserLocationsOnMap();
@@ -194,7 +196,7 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
                         } else {
                             // PERMISSION NOT GRANTED
                             Toast.makeText(context, "권한이 허용되지 않음", Toast.LENGTH_LONG).show();
-                            Log.d(TAG, "권한이 허용되지 않음");
+                            UtilClass.writeLog(TAG, "권한이 허용되지 않음", Enum.LogType.D);
                         }
                     }
                 }

@@ -35,7 +35,7 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "Log : " + TAG + " -> onCreate");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onCreate(savedInstanceState);
         startService(new Intent(this, ForecdTerminationService.class));
 

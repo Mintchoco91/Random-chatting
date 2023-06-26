@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.View;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.FragmentUserChattingBinding;
+import com.kj.random_chatting.util.UtilClass;
 
 public class UserChattingActivity extends Activity {
     private static final String TAG = "UserChattingActivity";
@@ -34,13 +36,13 @@ public class UserChattingActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         //채팅창 종료 시 이벤트 기재
         userChattingService.leaveRoom(roomInfo);
     }
 
     private void initializeView() {
-        Log.d(TAG, "Log : " + TAG + " -> initializeView");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context = this;
 
         Intent intentMain = getIntent();
@@ -58,7 +60,7 @@ public class UserChattingActivity extends Activity {
     }
 
     private void setListener() {
-        Log.d(TAG, "Log : " + TAG + " -> setListener");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         View.OnClickListener Listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -21,6 +21,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.UserListActivityBinding;
+import com.kj.random_chatting.util.PreferenceUtil;
+import com.kj.random_chatting.util.UtilClass;
 import com.kj.random_chatting.util.ViewPagerClass;
 import com.kj.random_chatting.util.ImageSliderAdapter;
 
@@ -32,16 +34,14 @@ public class UserListService {
     private Context context;
     private UserListActivityBinding binding;
     private List<UserListDTO.outputDTO> userList = new ArrayList<>();
-
-    private SharedPreferences prefs;
     //page (1페이지 부터 시작)
     private Integer currentPageCnt = 1;
 
     public UserListService(Context mContext, UserListActivityBinding mBinding) {
-        Log.d(TAG, "Log : " + TAG + " -> UserListService");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context = mContext;
         binding = mBinding;
-        prefs =  context.getSharedPreferences("token_prefs", MODE_PRIVATE);
+        PreferenceUtil.init(context);
 
         //binding.sliderViewPager.setOffscreenPageLimit(1);
 
@@ -51,7 +51,7 @@ public class UserListService {
     }
 
     public void showInformation(UserListDTO.outputDTO currentInfo) {
-        Log.d(TAG, "Log : " + TAG + " -> showInformation");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         binding.userListActivityTvNickName.setText(currentInfo.getNickName());
         binding.userListActivityTvAge.setText(currentInfo.getBirthday());
         binding.userListActivityIvPhoto.setTag(currentInfo.getId());
@@ -76,7 +76,7 @@ public class UserListService {
     }
 
     public void btnNextUserClick() {
-        Log.d(TAG, "Log : " + TAG + " -> btnNextUserClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         if (currentPageCnt < userList.size()) {
             showInformation(userList.get(currentPageCnt));
             currentPageCnt++;
@@ -107,10 +107,10 @@ public class UserListService {
      **************************************************************/
 
     public void btnActionClick(Enum.ActionStatus actionStatus) {
-        Log.d(TAG, "Log : " + TAG + " -> btnUserClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         UserListDTO.matchingInputDTO input  = new UserListDTO.matchingInputDTO();
-        String userId = prefs.getString("userId",null);
+        String userId = PreferenceUtil.getUserId(null);
         String targetId = binding.userListActivityIvPhoto.getTag().toString();
 
         input.setUserId(userId);

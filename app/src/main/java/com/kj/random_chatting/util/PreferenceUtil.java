@@ -31,6 +31,12 @@ public class PreferenceUtil {
         return prefs.getString("refresh_token", defValue);
     }
 
+    public static String getUserId(String defValue) {
+        return prefs.getString("userId", defValue);
+    }
+
+
+
     public static void setAccessToken(String value) {
         prefsEditor.putString("access_token", value).commit();
     }

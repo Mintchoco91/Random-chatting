@@ -33,4 +33,16 @@ public class Enum {
 
         final private String name;
     }
+
+    @Getter
+    @AllArgsConstructor
+    public enum LogType {
+        D("D"),
+        E("E"),
+        W("W"),
+        V("V"),
+        I("I");
+
+        final private String name;
+    }
 }

@@ -4,8 +4,10 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.MainActivity;
 import com.kj.random_chatting.util.Retrofit_client;
+import com.kj.random_chatting.util.UtilClass;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,14 +28,14 @@ public class UserChattingRoomDetailSelectAndDeleteRxJava {
     Disposable backgroundTask;
 
     public UserChattingRoomDetailSelectAndDeleteRxJava() {
-        Log.d(TAG, "Log : " + TAG + " -> UserChattingRoomDetailSelectAndDeleteRxJava");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     //결과 처리
     private void resultPost(Integer code) {
-        Log.d(TAG, "Log : " + TAG + " -> resultPost : " + code);
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         if (code == 0) {
-            Log.d(TAG, "Log : " + TAG + " -> DB처리 성공");
+            UtilClass.writeLog(TAG,"DB처리 성공", Enum.LogType.D);
         } else {
             Toast.makeText(context, "빈방 삭제 실패 ! ErrorCode : " + code, Toast.LENGTH_SHORT).show();
         }

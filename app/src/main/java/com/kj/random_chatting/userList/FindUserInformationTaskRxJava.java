@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.UserListActivityBinding;
+import com.kj.random_chatting.util.MyApp;
+import com.kj.random_chatting.util.PreferenceUtil;
 import com.kj.random_chatting.util.Retrofit_client;
 import com.kj.random_chatting.util.UtilClass;
 
@@ -38,7 +40,6 @@ public class FindUserInformationTaskRxJava {
     private UserListActivityBinding binding;
     Context context;
     Disposable backgroundTask;
-    private SharedPreferences prefs;
 
     List<UserListDTO.outputDTO> userList = new ArrayList<>();
     private UserListService userListService;
@@ -50,6 +51,7 @@ public class FindUserInformationTaskRxJava {
         binding = mBinding;
         userList = mUserList;
         userListService = mUserListService;
+        PreferenceUtil.init(context);
     }
 
     //결과 처리
@@ -72,7 +74,7 @@ public class FindUserInformationTaskRxJava {
     //유저 정보 조회
     private Integer findUserInformation() throws IOException {
         Integer resultCode = 0;
-        String userId = utilClass.getStringPref(context,"userId");
+        String userId = PreferenceUtil.getUserId(null);
         UserListDTO.searchUserInputDTO inputDTO = new UserListDTO.searchUserInputDTO();
         inputDTO.setUserId(userId);
 

@@ -8,9 +8,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListDTO;
 import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListFragment;
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,9 +65,9 @@ public class UtilClass {
         Integer generateNumber;
         for(int i = 0; i < digit ; i++){
             generateNumber = random.nextInt(maxNumber);
-            randomValue = randomValue + generateNumber.toString();
+            randomValue = randomValue + generateNumber;
         }
-        return randomValue.toString();
+        return randomValue;
     }
 
 
@@ -87,13 +90,36 @@ public class UtilClass {
         }
         return resultArray;
     }
+    public static String getMethodName() {
+        return Thread.currentThread().getStackTrace()[4].getMethodName();
+    }
 
+    public static void basicWriteLog(String tag, String methodName){
+        Logger.clearLogAdapters();
+        Logger.addLogAdapter(new AndroidLogAdapter());
+        Logger.d(tag, "MethodName : " + methodName);
+    }
 
-    // get Pref (return String)
-    public String getStringPref(Context context, String key) {
-        SharedPreferences prefs =  context.getSharedPreferences("token_prefs", MODE_PRIVATE);
-        String result = prefs.getString(key, null);
-        return result;
+    public static void writeLog(String tag, String log, Enum.LogType type) {
+        Logger.addLogAdapter(new AndroidLogAdapter());
+
+        switch(type){
+            case D:
+                Logger.d(tag, "Log : " + tag + " ->" + log);
+                break;
+            case E:
+                Logger.e(tag, "Log : " + tag + " ->" + log);
+                break;
+            case W:
+                Logger.w(tag, "Log : " + tag + " ->" + log);
+                break;
+            case V:
+                Logger.v(tag, "Log : " + tag + " ->" + log);
+                break;
+            case I:
+                Logger.i(tag, "Log : " + tag + " ->" + log);
+                break;
+        }
     }
 
 }

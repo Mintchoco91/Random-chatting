@@ -12,9 +12,11 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.ShowMyInfomationFragmentBinding;
 import com.kj.random_chatting.databinding.UserRegistActivityBinding;
 import com.kj.random_chatting.userRegist.UserRegistService;
+import com.kj.random_chatting.util.UtilClass;
 
 /**
  * 나중에 사진 업로드부분 fragment 처리할때 참고할 것
@@ -31,7 +33,7 @@ public class ShowMyInformationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "Log : " + TAG + " -> onCreateView");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         binding = ShowMyInfomationFragmentBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         return view;
@@ -39,7 +41,7 @@ public class ShowMyInformationFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        Log.d(TAG, "Log : " + TAG + " -> onViewCreated");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onViewCreated(view, savedInstanceState);
         initializeView();
         setListener();
@@ -52,14 +54,14 @@ public class ShowMyInformationFragment extends Fragment {
     }
 
     private void initializeView() {
-        Log.d(TAG, "Log : " + TAG + " -> initializeView");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context = getContext();
 
         showMyInformationService = new ShowMyInformationService(context, binding);
     }
 
     private void setListener() {
-        Log.d(TAG, "Log : " + TAG + " -> setListener");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         View.OnClickListener Listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

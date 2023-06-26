@@ -19,6 +19,8 @@ import com.kj.random_chatting.databinding.UserListActivityBinding;
 import com.kj.random_chatting.userList.FindUserInformationTaskRxJava;
 import com.kj.random_chatting.userList.RegistMatchingTaskRxJava;
 import com.kj.random_chatting.userList.UserListDTO;
+import com.kj.random_chatting.util.PreferenceUtil;
+import com.kj.random_chatting.util.UtilClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,15 +30,16 @@ public class ShowMyInformationService {
     private Context context;
     private ShowMyInfomationFragmentBinding binding;
 
-    private SharedPreferences prefs;
+    private UtilClass utilClass;
     //page (1페이지 부터 시작)
     private Integer currentPageCnt = 1;
 
     public ShowMyInformationService(Context mContext, ShowMyInfomationFragmentBinding mBinding) {
-        Log.d(TAG, "Log : " + TAG + " -> UserListService");
+        UtilClass.writeLog(TAG, "ShowMyInformationService", Enum.LogType.D);
+        utilClass = new UtilClass();
         context = mContext;
         binding = mBinding;
-        prefs =  context.getSharedPreferences("token_prefs", MODE_PRIVATE);
+        PreferenceUtil.init(context);
         showPhoto();
     }
 
@@ -57,10 +60,10 @@ public class ShowMyInformationService {
      **************************************************************/
 
     public void btnActionClick(Enum.ActionStatus actionStatus) {
-        Log.d(TAG, "Log : " + TAG + " -> btnUserClick");
+        UtilClass.writeLog(TAG, "btnUserClick", Enum.LogType.D);
 
         UserListDTO.matchingInputDTO input  = new UserListDTO.matchingInputDTO();
-        String userId = prefs.getString("userId",null);
+        String userId = PreferenceUtil.getUserId(null);
 
         input.setUserId(userId);
         input.setStatus(String.valueOf(actionStatus));

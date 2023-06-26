@@ -34,8 +34,7 @@ public class RegistInputGenderService extends Activity {
     private SignUpRegistDTO.input intentData = new SignUpRegistDTO.input();
 
     public RegistInputGenderService(Context mContext, RegistInputGenderActivityBinding mBinding, SignUpRegistDTO.input mIntentData) {
-        Log.d(TAG, "Log : " + TAG + " -> OnboardingService");
-
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context = mContext;
         binding = mBinding;
         intentData = mIntentData;
@@ -44,7 +43,7 @@ public class RegistInputGenderService extends Activity {
     }
 
     private void initializeService() {
-        Log.d(TAG, "Log : " + TAG + " -> initializeService");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         btnFillGreen = context.getDrawable(R.drawable.btn_fill_green);
         btnEmptygray = context.getDrawable(R.drawable.btn_empty_gray);
         colorWhite = context.getColor(R.color.white);
@@ -64,7 +63,7 @@ public class RegistInputGenderService extends Activity {
      **************************************************************/
 
     public void btnGenderClick(Enum.Gender gender) {
-        Log.d(TAG, "Log : " + TAG + "btnGenderClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
 
         switch(gender){
             case MAN:
@@ -105,7 +104,7 @@ public class RegistInputGenderService extends Activity {
     }
 
     public void btnContinueClick() {
-        Log.d(TAG, "Log : " + TAG + "btnContinueClick");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         if(validation(inputGender)){
             Intent intent = new Intent(context, RegistInputPhotoActivity.class);
             intentData.setGender(inputGender);

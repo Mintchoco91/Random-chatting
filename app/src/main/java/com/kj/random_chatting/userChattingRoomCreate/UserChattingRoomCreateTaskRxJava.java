@@ -45,7 +45,7 @@ public class UserChattingRoomCreateTaskRxJava {
     Disposable backgroundTask;
 
     public UserChattingRoomCreateTaskRxJava(Context mContext, ActivityUserChattingRoomCreateBinding mBinding) {
-        Log.d(TAG, "Log : " + TAG + " -> UserChattingRoomCreateTaskRxJava");
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         context = mContext;
         binding = mBinding;
         utilClass = new UtilClass();
@@ -53,7 +53,7 @@ public class UserChattingRoomCreateTaskRxJava {
 
     //결과 처리
     private void resultPost(Integer code) {
-        Log.d(TAG, "Log : " + TAG + " -> UserChattingRoomCreateTaskRxJava" + " : resultCode : " + code);
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         if (code != 0) {
             Toast.makeText(context, "등록 실패 ! ErrorCode : " + code, Toast.LENGTH_SHORT).show();
         }
