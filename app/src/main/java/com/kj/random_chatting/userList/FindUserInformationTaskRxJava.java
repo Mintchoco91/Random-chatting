@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.UserListActivityBinding;
 import com.kj.random_chatting.util.Retrofit_client;
+import com.kj.random_chatting.util.UtilClass;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,12 +43,13 @@ public class FindUserInformationTaskRxJava {
     List<UserListDTO.outputDTO> userList = new ArrayList<>();
     private UserListService userListService;
 
+    private UtilClass utilClass;
+
     public FindUserInformationTaskRxJava(Context mContext, UserListActivityBinding mBinding, List<UserListDTO.outputDTO> mUserList, UserListService mUserListService) {
         context = mContext;
         binding = mBinding;
         userList = mUserList;
         userListService = mUserListService;
-        prefs =  context.getSharedPreferences("token_prefs", MODE_PRIVATE);
     }
 
     //결과 처리
@@ -70,7 +72,7 @@ public class FindUserInformationTaskRxJava {
     //유저 정보 조회
     private Integer findUserInformation() throws IOException {
         Integer resultCode = 0;
-        String userId = prefs.getString("userId",null);
+        String userId = utilClass.getStringPref(context,"userId");
         UserListDTO.searchUserInputDTO inputDTO = new UserListDTO.searchUserInputDTO();
         inputDTO.setUserId(userId);
 

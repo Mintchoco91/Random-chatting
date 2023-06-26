@@ -1,6 +1,9 @@
 package com.kj.random_chatting.util;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListDTO;
 import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListFragment;
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,4 +66,34 @@ public class UtilClass {
         }
         return randomValue.toString();
     }
+
+
+
+    // get Pref (return Array)
+    public ArrayList<String> getStringArrayPref(Context context, String key) {
+        SharedPreferences prefs =  context.getSharedPreferences("token_prefs", MODE_PRIVATE);
+        String json = prefs.getString(key, null);
+        ArrayList<String> resultArray = new ArrayList<String>();
+        if (json != null) {
+            try {
+                JSONArray a = new JSONArray(json);
+                for (int i = 0; i < a.length(); i++) {
+                    String url = a.optString(i);
+                    resultArray.add(url);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return resultArray;
+    }
+
+
+    // get Pref (return String)
+    public String getStringPref(Context context, String key) {
+        SharedPreferences prefs =  context.getSharedPreferences("token_prefs", MODE_PRIVATE);
+        String result = prefs.getString(key, null);
+        return result;
+    }
+
 }
