@@ -15,7 +15,7 @@ Random-chatting-prototype
  - Rest API Server
  
    - Hosting : AWS
-   - DEV language : PHP 7.4.3
+   - DEV language : PHP 8.2.7
    - Database : MariaDB
    - Repository (private) : https://github.com/Mintchoco91/random-chatting-server
 
