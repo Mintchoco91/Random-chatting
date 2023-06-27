@@ -46,7 +46,7 @@ public class FileUploadService extends Activity {
 
     public void uploadResult(int imgNo, int resultCode, Intent data) {
         uriImgPaths[imgNo] = data.getData();
-        UtilClass.writeLog(TAG, "uri:" + String.valueOf(uriImgPaths[imgNo]), Enum.LogType.D);
+        UtilClass.writeLog(TAG, "uri:" + String.valueOf(uriImgPaths[imgNo]), Enum.LogType.I);
         try {
             //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(fileUploadServiceContext.getContentResolver(), uriImgPaths[imgNo]);
@@ -87,7 +87,7 @@ public class FileUploadService extends Activity {
 
         if (resultCode == RESULT_OK) {
             uriImgPaths[imgNo] = data.getData();
-            UtilClass.writeLog(TAG, "uri:" + String.valueOf(uriImgPaths[imgNo]), Enum.LogType.D);
+            UtilClass.writeLog(TAG, "uri:" + String.valueOf(uriImgPaths[imgNo]), Enum.LogType.I);
             try {
                 //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriImgPaths[imgNo]);

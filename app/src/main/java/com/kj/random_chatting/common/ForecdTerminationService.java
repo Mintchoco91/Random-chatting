@@ -23,7 +23,7 @@ public class ForecdTerminationService extends Service {
     //어플 강제 종료시 실행할 내용 작성
     @Override
     public void onTaskRemoved(Intent rootIntent){
-        UtilClass.writeLog("Error", "onTaskRemoved - 강제 종료 " + rootIntent, Enum.LogType.D);
+        UtilClass.writeLog("Error", "onTaskRemoved - 강제 종료 " + rootIntent, Enum.LogType.I);
 
         try {
             //채팅창 종료 시 이벤트 기재
