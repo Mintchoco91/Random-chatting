@@ -66,7 +66,7 @@ public class RegistInputPhotoService extends Activity {
 
     public void prepareUpload(int imgNo, int resultCode, Intent data) {
         uriImgPaths[imgNo] = data.getData();
-        UtilClass.writeLog(TAG, "uri:" + String.valueOf(uriImgPaths[imgNo]), Enum.LogType.D);
+        UtilClass.writeLog(TAG, "uri:" + String.valueOf(uriImgPaths[imgNo]), Enum.LogType.I);
 
         try {
             //fireBase Upload

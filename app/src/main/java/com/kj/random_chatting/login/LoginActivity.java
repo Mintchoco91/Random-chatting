@@ -139,11 +139,11 @@ public class LoginActivity extends Activity {
                             startActivity(intent);
                         } else {
                             Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show();
-                            UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_1 : 조회 결과 없음", Enum.LogType.D);
+                            UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_1 : 조회 결과 없음", Enum.LogType.E);
                         }
                     }catch(Exception e){
                         Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show();
-                        UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_2 : " + e.getMessage(), Enum.LogType.D);
+                        UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_2 : " + e.getMessage(), Enum.LogType.E);
                     }
 
                 }
@@ -151,7 +151,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show();
-                UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_3 : " + t.getMessage(), Enum.LogType.D);
+                UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_3 : " + t.getMessage(), Enum.LogType.E);
             }
         });
     }
