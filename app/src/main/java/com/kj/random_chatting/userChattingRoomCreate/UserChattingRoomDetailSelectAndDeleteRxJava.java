@@ -59,7 +59,7 @@ public class UserChattingRoomDetailSelectAndDeleteRxJava {
             detailDto.setUserId(MainActivity.userNickName);
             detailDto.setRoomId(roomId);
 
-            Call<String> call = Retrofit_client.getApiService().selectAndDeleteChattingRoomDetail(detailDto);
+            Call<String> call = Retrofit_client.getApiService(context).selectAndDeleteChattingRoomDetail(detailDto);
             String jsonResponse = call.execute().body();
 
             try {

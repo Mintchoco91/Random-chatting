@@ -80,7 +80,7 @@ public class UserChattingRoomCreateTaskRxJava {
             dto.setIsMovie("1");
             dto.setIsDrive("1");
 
-            Call<String> call = Retrofit_client.getApiService().createChattingRoom(dto);
+            Call<String> call = Retrofit_client.getApiService(context).createChattingRoom(dto);
             String jsonResponse = call.execute().body();
 
             try {

@@ -1,5 +1,7 @@
 package com.kj.random_chatting.messenger;
 
+import static com.kj.random_chatting.common.Constants.SHARED_PREFERENCES_NAME;
+
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -15,13 +17,18 @@ import androidx.core.app.NotificationManagerCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.util.PreferenceUtil;
+import com.kj.random_chatting.util.UtilClass;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "FCM TEST";
+    private Context context;
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
+        PreferenceUtil.init(context);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
 
@@ -55,9 +62,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onNewToken(s);
 
         // 토큰이 새로 생성되면 환경변수에 값을 저장한다.
-        SharedPreferences prefs = getApplicationContext().getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("fcmToken", s);
-        editor.commit();
+        PreferenceUtil.setFcmToken(s);
     }
 }

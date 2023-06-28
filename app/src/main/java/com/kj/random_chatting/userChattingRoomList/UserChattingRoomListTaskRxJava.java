@@ -77,7 +77,7 @@ public class UserChattingRoomListTaskRxJava {
         UserChattingRoomListDTO.inputDTO inputParam =
                 UserChattingRoomListDTO.inputDTO.builder().build();
 
-        Call<String> call = Retrofit_client.getApiService().searchChattingRoomList(inputParam);
+        Call<String> call = Retrofit_client.getApiService(context).searchChattingRoomList(inputParam);
         //동기화 해야 해서 excute() 처리함.
         String jsonResponse = call.execute().body();
 
