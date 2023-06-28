@@ -22,17 +22,17 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 
 public class UserRegistInformationTaskRxJava {
-    private FileUploadActivityBinding fileUploadActivityBinding;
-    Context fileUploadActivityContext;
+    private FileUploadActivityBinding binding;
+    Context context;
     Disposable backgroundTask;
     private String email, password, userName, gender, age, phoneNumber;
     private String[] fileNameUri = new String[6];
 
 
-    public UserRegistInformationTaskRxJava(Context context, FileUploadActivityBinding binding, String strEmail, String strPassword, String strUserName, String strGender
+    public UserRegistInformationTaskRxJava(Context mContext, FileUploadActivityBinding mBinding, String strEmail, String strPassword, String strUserName, String strGender
             , String strAge, String strPhoneNumber, String[] strFileNameUri) {
-        fileUploadActivityContext = context;
-        fileUploadActivityBinding = binding;
+        context = mContext;
+        binding = mBinding;
         email = strEmail;
         password = strPassword;
         userName = strUserName;
@@ -45,11 +45,11 @@ public class UserRegistInformationTaskRxJava {
     //결과 처리
     private void resultPost(Integer code) {
         if (code == 0) {
-            fileUploadActivityBinding.fileUploadActivityBtnRegist.setEnabled(false);
-            fileUploadActivityBinding.fileUploadActivityBtnBack.setEnabled(false);
-            Toast.makeText(fileUploadActivityContext, "등록 성공", Toast.LENGTH_SHORT).show();
+            binding.fileUploadActivityBtnRegist.setEnabled(false);
+            binding.fileUploadActivityBtnBack.setEnabled(false);
+            Toast.makeText(context, "등록 성공", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(fileUploadActivityContext, "등록 실패 ! ErrorCode : " + code, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "등록 실패 ! ErrorCode : " + code, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -93,7 +93,7 @@ public class UserRegistInformationTaskRxJava {
             dto.setFileName4(insertFileNames[4]);
             dto.setFileName5(insertFileNames[5]);
 
-            Call<String> call = Retrofit_client.getApiService().createUser(dto);
+            Call<String> call = Retrofit_client.getApiService(context).createUser(dto);
             String jsonResponse = call.execute().body();
 
             try {

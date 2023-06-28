@@ -1,5 +1,7 @@
 package com.kj.random_chatting.userLocation;
 
+import static com.kj.random_chatting.common.Constants.SHARED_PREFERENCES_NAME;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -34,6 +36,7 @@ import com.kj.random_chatting.messenger.FcmClient;
 import com.kj.random_chatting.messenger.FcmInterface;
 import com.kj.random_chatting.messenger.NotificationData;
 import com.kj.random_chatting.messenger.NotificationRequest;
+import com.kj.random_chatting.util.PreferenceUtil;
 import com.kj.random_chatting.util.UtilClass;
 
 import net.daum.mf.map.api.MapPOIItem;
@@ -129,7 +132,7 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
     @Override
     public void onDestroy() {
         // 앱 종료 시 DB에 저장된 내 위치 정보를 지운다.
-        SharedPreferences prefs = getActivity().getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
+        SharedPreferences prefs = getActivity().getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         String userId = prefs.getString("userId", null);
         if (userId != null) {
             mDatabase.child("userLocation").child(userId).removeValue();
@@ -169,10 +172,9 @@ public class UserLocationFragment extends Fragment implements MapView.CurrentLoc
         context = getContext();
         fragmentActivity = getActivity();
 
-        SharedPreferences prefs = getActivity().getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
-        myUserId = prefs.getString("userId", null);
-        myUserName = prefs.getString("userName", null);
-        fcmToken = prefs.getString("fcmToken", null);
+        myUserId = PreferenceUtil.getUserId(null);
+        myUserName = PreferenceUtil.getNickName(null);
+        fcmToken = PreferenceUtil.getFcmToken(null);
 
         mapView = new MapView(context);
         mapView.setPOIItemEventListener(poiItemEventListener);

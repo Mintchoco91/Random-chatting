@@ -2,6 +2,8 @@ package com.kj.random_chatting.util;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import static com.kj.random_chatting.common.Constants.SHARED_PREFERENCES_NAME;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.TextView;
@@ -74,7 +76,7 @@ public class UtilClass {
 
     // get Pref (return Array)
     public ArrayList<String> getStringArrayPref(Context context, String key) {
-        SharedPreferences prefs =  context.getSharedPreferences("token_prefs", MODE_PRIVATE);
+        SharedPreferences prefs =  context.getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE);
         String json = prefs.getString(key, null);
         ArrayList<String> resultArray = new ArrayList<String>();
         if (json != null) {
@@ -135,5 +137,4 @@ public class UtilClass {
                 break;
         }
     }
-
 }

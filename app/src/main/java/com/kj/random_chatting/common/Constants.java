@@ -14,5 +14,7 @@ public final class Constants {
 
     public static final String EMPTY_IMAGE_PATH = "https://firebasestorage.googleapis.com/v0/b/random-chatting-b52bc.appspot.com/o/etc%2Fno_image.png?alt=media&token=b62b692a-6a40-49f7-a44f-3ff8c6cb41fa";
 
+    public static final String SHARED_PREFERENCES_NAME = "userInfo";
+
 
 }

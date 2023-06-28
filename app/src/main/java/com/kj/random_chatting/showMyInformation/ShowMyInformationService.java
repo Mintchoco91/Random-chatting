@@ -35,10 +35,10 @@ public class ShowMyInformationService {
     private Integer currentPageCnt = 1;
 
     public ShowMyInformationService(Context mContext, ShowMyInfomationFragmentBinding mBinding) {
-        UtilClass.writeLog(TAG, "ShowMyInformationService", Enum.LogType.D);
         utilClass = new UtilClass();
         context = mContext;
         binding = mBinding;
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         PreferenceUtil.init(context);
         showPhoto();
     }

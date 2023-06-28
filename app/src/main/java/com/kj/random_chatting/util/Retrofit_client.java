@@ -1,5 +1,7 @@
 package com.kj.random_chatting.util;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kj.random_chatting.common.Constants;
@@ -10,10 +12,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Retrofit_client {
-    public static Retrofit_interface getApiService(){return getInstance().create(Retrofit_interface.class);}
+    private static Context context;
+
+    public static Retrofit_interface getApiService(Context mContext){
+        context = mContext;
+        return getInstance().create(Retrofit_interface.class);
+    }
 
     private static Retrofit getInstance(){
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new AuthInterceptor()).build();
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new AuthInterceptor(context)).build();
 
         Gson gson = new GsonBuilder().setLenient().create();
         return new Retrofit.Builder()

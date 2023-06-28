@@ -60,7 +60,7 @@ public class RegistMatchingTaskRxJava {
     //유저 정보 조회
     private Integer registMatching(UserListDTO.matchingInputDTO input) throws IOException {
         Integer resultCode = 0;
-        Call<String> call = Retrofit_client.getApiService().registMatching(input);
+        Call<String> call = Retrofit_client.getApiService(context).registMatching(input);
 
         //동기화 해야 해서 excute() 처리함.
         String jsonResponse = call.execute().body();

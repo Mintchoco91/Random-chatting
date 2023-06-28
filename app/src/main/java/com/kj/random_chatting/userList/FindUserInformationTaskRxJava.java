@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.databinding.UserListActivityBinding;
-import com.kj.random_chatting.util.MyApp;
 import com.kj.random_chatting.util.PreferenceUtil;
 import com.kj.random_chatting.util.Retrofit_client;
 import com.kj.random_chatting.util.UtilClass;
@@ -78,7 +77,7 @@ public class FindUserInformationTaskRxJava {
         UserListDTO.searchUserInputDTO inputDTO = new UserListDTO.searchUserInputDTO();
         inputDTO.setUserId(userId);
 
-        Call<String> call = Retrofit_client.getApiService().searchUserList(inputDTO);
+        Call<String> call = Retrofit_client.getApiService(context).searchUserList(inputDTO);
 
         //동기화 해야 해서 excute() 처리함.
         String jsonResponse = call.execute().body();

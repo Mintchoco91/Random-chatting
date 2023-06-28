@@ -19,7 +19,6 @@ public class LoginDTO {
         private String accessToken;
         private String refreshToken;
         private String id;
-        private String status;
         private String countryCode;
         private String phoneNumber;
         private String nickName;

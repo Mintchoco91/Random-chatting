@@ -1,5 +1,7 @@
 package com.kj.random_chatting.util;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import com.kj.random_chatting.common.Enum;
@@ -12,12 +14,18 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class AuthInterceptor implements Interceptor {
+    private Context context;
+
+    public AuthInterceptor(Context context){
+        this.context = context;
+
+    }
     @NonNull
     @Override
     public Response intercept(@NonNull Chain chain) throws IOException {
-        PreferenceUtil.init(MyApp.getContext());
-        String accessToken = PreferenceUtil.getAccessToken("none");
-        String refreshToken = PreferenceUtil.getRefreshToken("none");
+        PreferenceUtil.init(context);
+        String accessToken = PreferenceUtil.getAccessToken(null);
+        String refreshToken = PreferenceUtil.getRefreshToken(null);
 
         // 처음에는 엑세스 토큰을 가지고 인증한다.
         Request original = chain.request().newBuilder().addHeader("Authorization", accessToken).build();
@@ -30,7 +38,7 @@ public class AuthInterceptor implements Interceptor {
             UtilClass.writeLog("Interceptor", "인증이 만료됨", Enum.LogType.D);
 
             TokenDTO.input input = new TokenDTO.input(accessToken, refreshToken);
-            retrofit2.Response<TokenDTO.output> result = Retrofit_client.getApiService().renewToken(input).execute();
+            retrofit2.Response<TokenDTO.output> result = Retrofit_client.getApiService(context).renewToken(input).execute();
 
             if (result.isSuccessful()) {
                 // 새로 발급받은 토큰들을 환경변수에 저장한다. (갱신)

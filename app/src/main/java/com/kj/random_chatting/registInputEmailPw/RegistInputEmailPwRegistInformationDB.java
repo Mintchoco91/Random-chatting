@@ -68,7 +68,7 @@ public class RegistInputEmailPwRegistInformationDB {
         SignUpRegistDTO.output result = new SignUpRegistDTO.output();
         Integer resultCode = 0;
         try {
-            Call<String> call = Retrofit_client.getApiService().signUpRegist(intentData);
+            Call<String> call = Retrofit_client.getApiService(context).signUpRegist(intentData);
             String jsonResponse = call.execute().body();
 
             try {

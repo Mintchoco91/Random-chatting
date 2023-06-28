@@ -62,7 +62,7 @@ public class RegistInputEmailPwRegistPhotoDB {
         SignUpRegistDTO.output result = new SignUpRegistDTO.output();
         Integer resultCode = 0;
         try {
-            Call<String> call = Retrofit_client.getApiService().signUpPhotoRegist(intentData);
+            Call<String> call = Retrofit_client.getApiService(context).signUpPhotoRegist(intentData);
             String jsonResponse = call.execute().body();
 
             try {

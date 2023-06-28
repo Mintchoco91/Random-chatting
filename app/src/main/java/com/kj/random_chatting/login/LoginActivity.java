@@ -1,5 +1,7 @@
 package com.kj.random_chatting.login;
 
+import static com.kj.random_chatting.common.Constants.SHARED_PREFERENCES_NAME;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +16,7 @@ import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.ForecdTerminationService;
 import com.kj.random_chatting.common.MainActivity;
 import com.kj.random_chatting.databinding.LoginActivityBinding;
+import com.kj.random_chatting.util.PreferenceUtil;
 import com.kj.random_chatting.util.Retrofit_client;
 import com.kj.random_chatting.util.UtilClass;
 
@@ -35,6 +38,7 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
+        PreferenceUtil.init(context);
         startService(new Intent(this, ForecdTerminationService.class));
         binding = LoginActivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -93,59 +97,12 @@ public class LoginActivity extends Activity {
         loginRequest.setPassword(password);
 
 
-        Retrofit_client.getApiService().getLoginResponse(loginRequest).enqueue(new Callback<String>() {
+        Retrofit_client.getApiService(context).getLoginResponse(loginRequest).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     String jsonResponse = response.body();
-                    try {
-                        JSONObject jsonObject = new JSONObject(jsonResponse);
-
-                        LoginDTO.output output = new LoginDTO.output();
-                        output.setStatus(jsonObject.optString("status"));
-
-                        if (output.getStatus().equals("true")) {
-                            // 토큰을 저장한다.
-                            SharedPreferences prefs = getSharedPreferences("token_prefs", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = prefs.edit();
-
-                            output.setAccessToken(jsonObject.optString("access_token"));
-                            output.setRefreshToken(jsonObject.optString("refresh_token"));
-                            output.setId(jsonObject.optString("id"));
-                            output.setCountryCode(jsonObject.optString("countryCode"));
-                            output.setPhoneNumber(jsonObject.optString("phoneNumber"));
-                            output.setNickName(jsonObject.optString("nickName"));
-                            output.setBirthday(jsonObject.optString("birthday"));
-                            output.setGender(jsonObject.optString("gender"));
-                            output.setEmail(jsonObject.optString("email"));
-                            output.setPassword(jsonObject.optString("password"));
-
-                            editor.putString("access_token", output.getAccessToken());
-                            editor.putString("refresh_token", output.getRefreshToken());
-                            editor.putString("userId", output.getId());
-                            editor.putString("countryCode", output.getCountryCode());
-                            editor.putString("phoneNumber", output.getPhoneNumber());
-                            editor.putString("nickName", output.getNickName());
-                            editor.putString("birthday", output.getBirthday());
-                            editor.putString("gender", output.getGender());
-                            editor.putString("email", output.getEmail());
-                            editor.putString("password", output.getPassword());
-
-                            editor.commit();
-
-                            Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(context, MainActivity.class);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show();
-                            UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_1 : 조회 결과 없음", Enum.LogType.E);
-                        }
-                    }catch(Exception e){
-                        Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show();
-                        UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_2 : " + e.getMessage(), Enum.LogType.E);
-                    }
-
+                    loginService.loginProcess(jsonResponse);
                 }
             }
             @Override

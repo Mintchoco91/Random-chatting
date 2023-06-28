@@ -68,7 +68,7 @@ public class UserChattingRoomDetailCreateRxJava {
             detailDto.setUserId(MainActivity.userNickName);
             detailDto.setRoomId(roomId);
 
-            Call<String> call = Retrofit_client.getApiService().createChattingRoomDetail(detailDto);
+            Call<String> call = Retrofit_client.getApiService(context).createChattingRoomDetail(detailDto);
             String jsonResponse = call.execute().body();
 
             try {
