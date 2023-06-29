@@ -3,17 +3,10 @@ package com.kj.random_chatting.registPhoneNumber;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-
-import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.RegistPhoneNumberActivityBinding;
 import com.kj.random_chatting.registPhoneTextCode.RegistPhoneAuthCodeActivity;
-import com.kj.random_chatting.userRegist.UserRegistDTO;
 import com.kj.random_chatting.util.UtilClass;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class RegistPhoneNumberService extends Activity {
     private static final String TAG = "RegistPhoneNumberService";

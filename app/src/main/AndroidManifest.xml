@@ -35,15 +35,12 @@
             android:exported="true"
             android:label="@string/app_name">
         </activity>
-        <activity android:name="com.kj.random_chatting.userFileUpload.FileUploadActivity" />
         <activity android:name="com.kj.random_chatting.login.LoginActivity" />
         <activity android:name="com.kj.random_chatting.userChatting.UserChattingActivity" />
         <activity android:name="com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomCreateActivity" />
         <activity android:name="com.kj.random_chatting.onboarding.OnboardingActivity" />
-        <activity android:name="com.kj.random_chatting.registInputBirthday.RegistInputBirthdayActivity"/>
         <activity android:name="com.kj.random_chatting.registInputGender.RegistInputGenderActivity"/>
         <activity android:name="com.kj.random_chatting.registInputInformation.RegistInputInformationActivity"/>
-        <activity android:name="com.kj.random_chatting.registInputInterest.RegistInputInterestActivity"/>
         <activity android:name="com.kj.random_chatting.registPhoneNumber.RegistPhoneNumberActivity"/>
         <activity android:name="com.kj.random_chatting.registPhoneTextCode.RegistPhoneAuthCodeActivity"/>
         <activity android:name="com.kj.random_chatting.registInputPhoto.RegistInputPhotoActivity"/>

@@ -3,19 +3,11 @@ package com.kj.random_chatting.registInputInformation;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
-import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.SignUpRegistDTO;
-import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.databinding.RegistInputInformationActivityBinding;
-import com.kj.random_chatting.login.LoginActivity;
 import com.kj.random_chatting.registInputGender.RegistInputGenderActivity;
-import com.kj.random_chatting.registPhoneTextCode.RegistPhoneAuthCodeActivity;
-import com.kj.random_chatting.userRegist.UserRegistActivity;
 import com.kj.random_chatting.util.UtilClass;
-
-import java.util.HashMap;
 
 public class RegistInputInformationService extends Activity {
     private static final String TAG = "RegistInputInformationService";

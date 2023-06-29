@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:clipToOutline="true"
-    tools:context="com.kj.random_chatting.userRegist.UserRegistActivity">
+    android:clipToOutline="true">
 
     <Button
         android:id="@+id/user_list_activity_btn_filter"
