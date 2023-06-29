@@ -12,11 +12,8 @@ import android.widget.Toast;
 import com.kj.random_chatting.R;
 import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.SignUpRegistDTO;
-import com.kj.random_chatting.databinding.ActivityOnboardingBinding;
 import com.kj.random_chatting.databinding.RegistInputGenderActivityBinding;
-import com.kj.random_chatting.login.LoginActivity;
 import com.kj.random_chatting.registInputPhoto.RegistInputPhotoActivity;
-import com.kj.random_chatting.userRegist.UserRegistActivity;
 import com.kj.random_chatting.util.UtilClass;
 
 import java.util.HashMap;

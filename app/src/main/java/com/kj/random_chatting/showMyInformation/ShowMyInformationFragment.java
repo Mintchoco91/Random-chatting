@@ -2,20 +2,14 @@ package com.kj.random_chatting.showMyInformation;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
 import com.kj.random_chatting.R;
-import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.ShowMyInfomationFragmentBinding;
-import com.kj.random_chatting.databinding.UserRegistActivityBinding;
-import com.kj.random_chatting.userRegist.UserRegistService;
 import com.kj.random_chatting.util.UtilClass;
 
 /**

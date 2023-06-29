@@ -23,15 +23,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.kj.random_chatting.R;
 import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.SignUpRegistDTO;
-import com.kj.random_chatting.databinding.RegistInputInformationActivityBinding;
 import com.kj.random_chatting.databinding.RegistInputPhotoActivityBinding;
 import com.kj.random_chatting.registInputEmailPw.RegistInputEmailPwActivity;
-import com.kj.random_chatting.registInputGender.RegistInputGenderActivity;
-import com.kj.random_chatting.userRegist.UserRegistDTO;
-import com.kj.random_chatting.userRegist.UserRegistInformationTaskRxJava;
 import com.kj.random_chatting.util.UtilClass;
 
 import java.io.IOException;

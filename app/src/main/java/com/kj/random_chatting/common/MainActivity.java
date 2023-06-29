@@ -20,7 +20,6 @@ import com.kj.random_chatting.showMyInformation.ShowMyInformationFragment;
 import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListFragment;
 import com.kj.random_chatting.databinding.MainActivityBinding;
 import com.kj.random_chatting.userList.UserListFragment;
-import com.kj.random_chatting.userInfo.UserInfoFragment;
 import com.kj.random_chatting.userLocation.UserLocationFragment;
 import com.kj.random_chatting.util.UtilClass;
 

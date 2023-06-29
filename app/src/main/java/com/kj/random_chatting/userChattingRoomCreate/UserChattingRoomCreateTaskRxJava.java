@@ -1,33 +1,17 @@
 package com.kj.random_chatting.userChattingRoomCreate;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.kj.random_chatting.common.MainActivity;
 import com.kj.random_chatting.databinding.ActivityUserChattingRoomCreateBinding;
-import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
-import com.kj.random_chatting.userChatting.UserChattingActivity;
-import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListDTO;
-import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListService;
-import com.kj.random_chatting.userRegist.UserRegistDTO;
-import com.kj.random_chatting.util.ChatListRecyclerAdapter;
 import com.kj.random_chatting.util.Retrofit_client;
 import com.kj.random_chatting.util.UtilClass;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;

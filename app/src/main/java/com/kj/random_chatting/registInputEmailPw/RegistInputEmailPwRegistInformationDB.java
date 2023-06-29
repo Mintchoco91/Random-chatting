@@ -1,26 +1,15 @@
 package com.kj.random_chatting.registInputEmailPw;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.SignUpRegistDTO;
-import com.kj.random_chatting.databinding.FileUploadActivityBinding;
 import com.kj.random_chatting.databinding.RegistInputEmailPwActivityBinding;
-import com.kj.random_chatting.userRegist.UserRegistDTO;
 import com.kj.random_chatting.util.Retrofit_client;
 import com.kj.random_chatting.util.UtilClass;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
