@@ -35,18 +35,24 @@ public class ShowMyInformationService {
     private Integer currentPageCnt = 1;
 
     public ShowMyInformationService(Context mContext, ShowMyInfomationFragmentBinding mBinding) {
+        UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         utilClass = new UtilClass();
         context = mContext;
         binding = mBinding;
+        initialize();
+    }
+
+    private void initialize(){
         UtilClass.basicWriteLog(TAG, Thread.currentThread().getStackTrace()[2].getMethodName());
         PreferenceUtil.init(context);
-        showPhoto();
+        List<String> photoList = PreferenceUtil.getPhotoList(null);
+        showPhoto(photoList.get(0));
     }
 
 
-    public void showPhoto() {
+    public void showPhoto(String photoUrl) {
         Glide.with(context)
-                .load(R.drawable.ic_upload_photo)
+                .load(photoUrl)
                 .circleCrop()
                 .into(binding.showMyInfomationFragmentBtnPicture);
     }

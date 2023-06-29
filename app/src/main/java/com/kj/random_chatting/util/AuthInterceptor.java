@@ -24,8 +24,8 @@ public class AuthInterceptor implements Interceptor {
     @Override
     public Response intercept(@NonNull Chain chain) throws IOException {
         PreferenceUtil.init(context);
-        String accessToken = PreferenceUtil.getAccessToken(null);
-        String refreshToken = PreferenceUtil.getRefreshToken(null);
+        String accessToken = PreferenceUtil.getAccessToken("none");
+        String refreshToken = PreferenceUtil.getRefreshToken("none");
 
         // 처음에는 엑세스 토큰을 가지고 인증한다.
         Request original = chain.request().newBuilder().addHeader("Authorization", accessToken).build();

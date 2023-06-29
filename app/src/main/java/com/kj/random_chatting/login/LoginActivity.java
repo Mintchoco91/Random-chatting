@@ -77,7 +77,7 @@ public class LoginActivity extends Activity {
                         loginService.btnFindInformationClick();
                         break;
                     case R.id.login_activity_btn_login:
-                        doLogin();
+                        loginService.doLogin();
                         break;
                 }
             }
@@ -86,31 +86,6 @@ public class LoginActivity extends Activity {
         binding.loginActivityBtnRegist.setOnClickListener(Listener);
         binding.loginActivityBtnFindInformation.setOnClickListener(Listener);
         binding.loginActivityBtnLogin.setOnClickListener(Listener);
-    }
-
-    public void doLogin() {
-        String email = binding.loginActivityEtEmail.getText().toString().trim();
-        String password = binding.loginActivityEtPassword.getText().toString().trim();
-
-        LoginDTO.input loginRequest = new LoginDTO.input();
-        loginRequest.setEmail(email);
-        loginRequest.setPassword(password);
-
-
-        Retrofit_client.getApiService(context).getLoginResponse(loginRequest).enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    String jsonResponse = response.body();
-                    loginService.loginProcess(jsonResponse);
-                }
-            }
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show();
-                UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_3 : " + t.getMessage(), Enum.LogType.E);
-            }
-        });
     }
 
 }
