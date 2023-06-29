@@ -26,6 +26,6 @@ public class LoginDTO {
         private String gender;
         private String email;
         private String password;
-        private List<String> photoList;
+        private String photoList;
     }
 }

@@ -5,6 +5,14 @@ import static com.kj.random_chatting.common.Constants.SHARED_PREFERENCES_NAME;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import kotlin.collections.ArrayDeque;
+
 public class PreferenceUtil {
     private static PreferenceUtil instance;
     private Context mContext;
@@ -70,6 +78,11 @@ public class PreferenceUtil {
         return prefs.getString("fcmToken", defValue);
     }
 
+    public static List<String> getPhotoList(String defValue) {
+        String jsonString = prefs.getString("photo_list", defValue);
+        return UtilClass.getJsonToArray(jsonString, "photo_name");
+    }
+
     public static void setAccessToken(String value) {
         prefsEditor.putString("access_token", value).commit();
     }
@@ -113,4 +126,9 @@ public class PreferenceUtil {
     public static void setFcmToken(String value) {
         prefsEditor.putString("fcmToken", value).commit();
     }
+
+    public static void setPhotoList(String value) {
+        prefsEditor.putString("photo_list", value).commit();
+    }
+
 }

@@ -19,6 +19,7 @@ import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +93,30 @@ public class UtilClass {
         }
         return resultArray;
     }
+
+    /**
+     * PreferenceUtil 의 array Json 과 연계해서 사용.
+     * @param jsonString
+     * @param key
+     * @return List<String>
+     */
+    public static List<String> getJsonToArray(String jsonString, String key) {
+        List<String> arrayList = new ArrayList<>();
+        if (jsonString != null) {
+            try {
+                JSONArray a = new JSONArray(jsonString);
+                for (int i = 0; i < a.length(); i++) {
+                    JSONObject obj = a.getJSONObject(i);
+                    String photoName = obj.getString(key);
+                    arrayList.add(photoName);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return arrayList;
+    }
+
     public static String getMethodName() {
         return Thread.currentThread().getStackTrace()[4].getMethodName();
     }

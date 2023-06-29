@@ -119,8 +119,6 @@ public class UserListService {
 
         RegistMatchingTaskRxJava registMatchingTaskRxJava = new RegistMatchingTaskRxJava(context, binding, this);
         registMatchingTaskRxJava.runFunc(input);
-
-
     }
     /**************************************************************
      *  버튼 클릭 이벤트 끝
