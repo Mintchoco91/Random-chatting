@@ -33,6 +33,7 @@ public class UserChattingRoomCreateTaskRxJava {
         context = mContext;
         binding = mBinding;
         utilClass = new UtilClass();
+
     }
 
     //결과 처리

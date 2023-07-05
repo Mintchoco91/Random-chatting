@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.kj.random_chatting.R;
+import com.kj.random_chatting.matchingChattingRoomList.MatchingChattingRoomListFragment;
 import com.kj.random_chatting.messenger.MessengerFragment;
 import com.kj.random_chatting.showMyInformation.ShowMyInformationFragment;
 import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListFragment;
@@ -26,7 +27,7 @@ import com.kj.random_chatting.util.UtilClass;
 public class MainActivity extends FragmentActivity {
     private MainActivityBinding binding;
     private FragmentManager fragmentManager;
-    private Fragment matchingBulbFragment, chattingListFragment, myRoomListFragment, locationFragment, showMyInformationFragment;
+    private Fragment matchingBulbFragment, chattingListFragment, matchingChattingRoomListFragment, locationFragment, showMyInformationFragment;
     private static final String TAG = "MainActivity";
 
     //임시방편 으로 랜덤 닉네임
@@ -78,8 +79,8 @@ public class MainActivity extends FragmentActivity {
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
                                 if (showMyInformationFragment != null)
                                     fragmentManager.beginTransaction().hide(showMyInformationFragment).commit();
-                                if (myRoomListFragment != null) {
-                                    fragmentManager.beginTransaction().hide(myRoomListFragment).commit();
+                                if (matchingChattingRoomListFragment != null) {
+                                    fragmentManager.beginTransaction().hide(matchingChattingRoomListFragment).commit();
                                 }
                                 return true;
 
@@ -98,15 +99,15 @@ public class MainActivity extends FragmentActivity {
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
                                 if (showMyInformationFragment != null)
                                     fragmentManager.beginTransaction().hide(showMyInformationFragment).commit();
-                                if (myRoomListFragment != null) {
-                                    fragmentManager.beginTransaction().hide(myRoomListFragment).commit();
+                                if (matchingChattingRoomListFragment != null) {
+                                    fragmentManager.beginTransaction().hide(matchingChattingRoomListFragment).commit();
                                 }
                                 return true;
 
                             case R.id.navigation_my_room_list:
-                                if (myRoomListFragment == null) {
-                                    myRoomListFragment = new MessengerFragment();
-                                    fragmentManager.beginTransaction().add(R.id.frameLayout, myRoomListFragment).commit();
+                                if (matchingChattingRoomListFragment == null) {
+                                    matchingChattingRoomListFragment = new MatchingChattingRoomListFragment();
+                                    fragmentManager.beginTransaction().add(R.id.frameLayout, matchingChattingRoomListFragment).commit();
                                 }
 
 
@@ -123,8 +124,8 @@ public class MainActivity extends FragmentActivity {
                                 if (showMyInformationFragment != null) {
                                     fragmentManager.beginTransaction().hide(showMyInformationFragment).commit();
                                 }
-                                if (myRoomListFragment != null) {
-                                    fragmentManager.beginTransaction().show(myRoomListFragment).commit();
+                                if (matchingChattingRoomListFragment != null) {
+                                    fragmentManager.beginTransaction().show(matchingChattingRoomListFragment).commit();
                                 }
                                 return true;
 
@@ -142,8 +143,8 @@ public class MainActivity extends FragmentActivity {
                                     fragmentManager.beginTransaction().show(locationFragment).commit();
                                 if (showMyInformationFragment != null)
                                     fragmentManager.beginTransaction().hide(showMyInformationFragment).commit();
-                                if (myRoomListFragment != null) {
-                                    fragmentManager.beginTransaction().hide(myRoomListFragment).commit();
+                                if (matchingChattingRoomListFragment != null) {
+                                    fragmentManager.beginTransaction().hide(matchingChattingRoomListFragment).commit();
                                 }
                                 return true;
 
@@ -161,8 +162,8 @@ public class MainActivity extends FragmentActivity {
                                     fragmentManager.beginTransaction().hide(locationFragment).commit();
                                 if (showMyInformationFragment != null)
                                     fragmentManager.beginTransaction().show(showMyInformationFragment).commit();
-                                if (myRoomListFragment != null) {
-                                    fragmentManager.beginTransaction().hide(myRoomListFragment).commit();
+                                if (matchingChattingRoomListFragment != null) {
+                                    fragmentManager.beginTransaction().hide(matchingChattingRoomListFragment).commit();
                                 }
                                 return true;
                         }

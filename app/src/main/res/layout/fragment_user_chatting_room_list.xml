@@ -8,13 +8,10 @@
     android:id="@+id/swiperefreshlayout"
     tools:context=".userChattingRoomList.UserChattingRoomListFragment">
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".userChattingRoomList.UserChattingRoomListFragment">
+    android:background="@color/black">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_user_chatting_room_list_recyclerview_list"

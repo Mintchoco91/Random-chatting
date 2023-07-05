@@ -1,90 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".messenger.MessengerFragment">
+    android:background="@color/white"
+    tools:context=".matchingChattingRoomList.MatchingChattingRoomListFragment">
 
     <LinearLayout
+        android:id="@+id/matching_chatting_room_list_fragment_layout_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView6"
+        <Button
+            android:id="@+id/matching_chatting_room_list_fragment_btn_green_right_logo"
+            android:layout_width="161dp"
+            android:layout_height="34dp"
+            android:background="@drawable/green_right_logo" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/matching_chatting_room_list_fragment_layout_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/matching_chatting_room_list_fragment_layout_title"
+        android:background="@color/white">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/matching_chatting_room_list_fragment_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:text="채팅"
-            android:textColor="@color/black"
-            android:textSize="34sp" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="50dp">
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+        </androidx.recyclerview.widget.RecyclerView >
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:alpha="1"
-                    android:visibility="visible"
-                    android:background="@drawable/avatar1"/>
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="채팅방1"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/avatar2" />
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="채팅방2"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/avatar4" />
-
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="채팅방3"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-            </TableRow>
-
-        </TableLayout>
-    </LinearLayout>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
