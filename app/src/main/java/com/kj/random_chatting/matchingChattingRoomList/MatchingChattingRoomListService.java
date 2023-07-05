@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -16,6 +18,7 @@ import com.kj.random_chatting.databinding.MatchingChattingRoomListFragmentBindin
 import com.kj.random_chatting.databinding.UserListActivityBinding;
 import com.kj.random_chatting.registInputEmailPw.RegistInputEmailPwService;
 import com.kj.random_chatting.userList.FindUserInformationTaskRxJava;
+import com.kj.random_chatting.util.MatchingChattingRoomListRecyclerAdapter;
 import com.kj.random_chatting.util.PreferenceUtil;
 import com.kj.random_chatting.util.UtilClass;
 
@@ -61,6 +64,16 @@ public class MatchingChattingRoomListService {
 
     private void makeList(List<MatchingChattingRoomListDTO.matchingChatting> matchingChattingList){
 
+
+        ArrayList<MatchingChattingRoomListDTO.matchingChatting> matchingChattingArray = new ArrayList<>();
+        matchingChattingArray.addAll(matchingChattingList);
+
+        //recycler 객체 생성
+        MatchingChattingRoomListRecyclerAdapter adapter = new MatchingChattingRoomListRecyclerAdapter(context, matchingChattingArray) ;
+        binding.matchingChattingRoomListFragmentRecyclerView.setAdapter(adapter) ;
+        // 리사이클러뷰에 LinearLayoutManager 지정. (vertical)
+        binding.matchingChattingRoomListFragmentRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        adapter.notifyDataSetChanged() ;
 
     }
 

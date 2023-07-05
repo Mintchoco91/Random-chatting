@@ -1,16 +1,9 @@
 package com.kj.random_chatting.userList;
 
-import static android.content.Context.MODE_PRIVATE;
 import static com.kj.random_chatting.common.Constants.EMPTY_IMAGE_PATH;
 
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.viewpager2.widget.ViewPager2;
