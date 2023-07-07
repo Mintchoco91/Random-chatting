@@ -130,7 +130,7 @@ public class UtilClass {
     public static void basicWriteLog(String tag, String methodName){
         Logger.clearLogAdapters();
         Logger.addLogAdapter(new AndroidLogAdapter());
-        Logger.d(tag, "MethodName : " + methodName);
+        Logger.d("MethodName : " + methodName);
     }
 
     /**
@@ -147,19 +147,19 @@ public class UtilClass {
 
         switch(type){
             case D:
-                Logger.d(tag, "Log : " + tag + " ->" + log);
+                Logger.d("Log : " + tag + " ->" + log);
                 break;
             case E:
-                Logger.e(tag, "Log : " + tag + " ->" + log);
+                Logger.e("Log : " + tag + " ->" + log);
                 break;
             case W:
-                Logger.w(tag, "Log : " + tag + " ->" + log);
+                Logger.w("Log : " + tag + " ->" + log);
                 break;
             case V:
-                Logger.v(tag, "Log : " + tag + " ->" + log);
+                Logger.v("Log : " + tag + " ->" + log);
                 break;
             case I:
-                Logger.i(tag, "Log : " + tag + " ->" + log);
+                Logger.i("Log : " + tag + " ->" + log);
                 break;
         }
     }
