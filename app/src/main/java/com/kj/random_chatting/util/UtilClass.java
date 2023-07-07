@@ -107,8 +107,8 @@ public class UtilClass {
                 JSONArray a = new JSONArray(jsonString);
                 for (int i = 0; i < a.length(); i++) {
                     JSONObject obj = a.getJSONObject(i);
-                    String photoName = obj.getString(key);
-                    arrayList.add(photoName);
+                    String keyData = obj.getString(key);
+                    arrayList.add(keyData);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -143,6 +143,7 @@ public class UtilClass {
     public static void writeLog(String tag, String log, Enum.LogType type) {
         Logger.clearLogAdapters();
         Logger.addLogAdapter(new AndroidLogAdapter());
+
 
         switch(type){
             case D:
