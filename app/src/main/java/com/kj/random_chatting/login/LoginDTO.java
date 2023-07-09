@@ -13,6 +13,9 @@ public class LoginDTO {
     public static class input implements Serializable {
         private String email;
         private String password;
+        private String accessToken;
+        private String refreshToken;
+        private boolean renewal;
     }
     @Data
     public static class output{

@@ -29,6 +29,9 @@ public interface Retrofit_interface {
     @POST("userLogin.php")
     Call<String> getLoginResponse(@Body LoginDTO.input loginRequest);
 
+    @POST("signIn.php")
+    Call<LoginDTO.output> signIn(@Body LoginDTO.input loginRequest);
+
     @POST("renewToken.php")
     Call<TokenDTO.output> renewToken(@Body TokenDTO.input input);
 

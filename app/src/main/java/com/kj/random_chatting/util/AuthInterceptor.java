@@ -5,7 +5,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.kj.random_chatting.common.Enum;
-import com.kj.random_chatting.login.TokenDTO;
+import com.kj.random_chatting.login.LoginDTO;
+import com.kj.random_chatting.login.LoginRxJava;
 
 import java.io.IOException;
 
@@ -37,18 +38,19 @@ public class AuthInterceptor implements Interceptor {
         if (response.code() == 401) {
             UtilClass.writeLog("Interceptor", "인증이 만료됨", Enum.LogType.D);
 
-            TokenDTO.input input = new TokenDTO.input(accessToken, refreshToken);
-            retrofit2.Response<TokenDTO.output> result = Retrofit_client.getApiService(context).renewToken(input).execute();
+            LoginDTO.input input = new LoginDTO.input();
+            input.setEmail(PreferenceUtil.getEmail("none"));
+            input.setPassword(PreferenceUtil.getPassword("none"));
+            input.setRenewal(true);
+            input.setAccessToken(accessToken);
+            input.setRefreshToken(refreshToken);
+            retrofit2.Response<LoginDTO.output> result = Retrofit_client.getApiService(context).signIn(input).execute();
 
             if (result.isSuccessful()) {
-                // 새로 발급받은 토큰들을 환경변수에 저장한다. (갱신)
-                accessToken = result.body().getAccessToken();
-                refreshToken = result.body().getRefreshToken();
-
-                PreferenceUtil.setAccessToken(accessToken);
-                PreferenceUtil.setRefreshToken(refreshToken);
+                // 새로 갱신한 토큰 포함, 사용자 정보를 환경변수에 저장한다.
+                LoginRxJava.saveUserInfo(result.body());
+                // 갱신한 토큰을 가지고 재요청
                 Request newRequest = chain.request().newBuilder().addHeader("Authorization", result.body().getAccessToken()).build();
-
                 return chain.proceed(newRequest);
             }
             return chain.proceed(original.newBuilder().header("Authorization", PreferenceUtil.getAccessToken("none")).build());
