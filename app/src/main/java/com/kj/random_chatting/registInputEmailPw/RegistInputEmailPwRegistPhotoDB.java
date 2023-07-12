@@ -2,25 +2,22 @@ package com.kj.random_chatting.registInputEmailPw;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.databinding.RegistInputEmailPwActivityBinding;
 import com.kj.random_chatting.login.LoginActivity;
-import com.kj.random_chatting.registInputGender.RegistInputGenderActivity;
 import com.kj.random_chatting.util.Retrofit_client;
 import com.kj.random_chatting.util.UtilClass;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.io.IOException;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import retrofit2.Call;
+import retrofit2.Response;
 
 public class RegistInputEmailPwRegistPhotoDB {
     private static final String TAG = "RegistInputEmailPwRegistPhotoDB";
@@ -60,23 +57,21 @@ public class RegistInputEmailPwRegistPhotoDB {
 
     private SignUpRegistDTO.output userRegistPhoto() {
         SignUpRegistDTO.output result = new SignUpRegistDTO.output();
-        Integer resultCode = 0;
-        try {
-            Call<String> call = Retrofit_client.getApiService(context).signUpPhotoRegist(intentData);
-            String jsonResponse = call.execute().body();
+        Integer resultCode;
 
-            try {
-                JSONObject jsonObject = new JSONObject(jsonResponse);
-                if (jsonObject.optString("status").equals("true")) {
-                    result.setResultCode(0);
-                } else {
-                    result.setResultCode(1);
-                }
-            } catch (JSONException e) {
-                result.setResultCode(2);
+        try {
+            Response<String> response = Retrofit_client.getApiService(context).signUpPhotoRegist(intentData).execute();
+            if (response.isSuccessful()) {
+                // insert 성공
+                resultCode = 0;
+            } else {
+                // insert 실패
+                resultCode = 1;
+                UtilClass.writeLog(TAG, response.errorBody().string(), Enum.LogType.E);
             }
-        } catch (Exception e) {
-            result.setResultCode(3);
+        } catch (IOException e) {
+            // 네트워크 연결 오류
+            resultCode = 2;
         }
 
         result.setResultCode(resultCode);

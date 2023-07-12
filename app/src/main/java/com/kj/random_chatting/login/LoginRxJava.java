@@ -13,8 +13,6 @@ import com.kj.random_chatting.util.UtilClass;
 
 import java.io.IOException;
 
-import javax.net.ssl.HttpsURLConnection;
-
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -71,16 +69,16 @@ public class LoginRxJava {
                 LoginDTO.output output = response.body();
                 saveUserInfo(output);
             } else {
-                // DB 조회 결과 없음
-                if (response.code() == HttpsURLConnection.HTTP_INTERNAL_ERROR) {
-                    resultCode = 1;
-                    UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_1 : 조회 결과 없음", Enum.LogType.E);
-                    UtilClass.writeLog(TAG, "error : " + response.errorBody().string(), Enum.LogType.E);
-                } else {
-                    resultCode = 2;
-                }
+                // select 결과 없음
+                resultCode = 1;
+                UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_1 : 조회 결과 없음", Enum.LogType.E);
+                UtilClass.writeLog(TAG, response.errorBody().string(), Enum.LogType.E);
             }
+        } catch (IOException e) {
+            // 네트워크 연결 오류
+            resultCode = 2;
         } catch (Exception e) {
+            // 그 외 오류
             resultCode = 3;
         }
         return resultCode;
