@@ -3,7 +3,7 @@ Random-chatting-prototype
 - Native Android Application
 
 
-# Spec
+# 1. Spec
 
  - Android
  
@@ -28,7 +28,7 @@ Random-chatting-prototype
    - Socket.IO Compatibility Info : https://socketio.github.io/socket.io-client-java/installation.html
    - Repository (private) : https://github.com/Mintchoco91/random-chatting-chat-server
 
-# Docker Repository
+# 2. Docker Repository
 
 - Apache2 + PHP 
   - https://hub.docker.com/repository/docker/boy0221/apache_php/general
@@ -42,32 +42,31 @@ Random-chatting-prototype
 - PHP API Server 코드 및 Android 코드는 git으로 관리. 
 
 
-# Run (Directory /home 기준)
+# 3. Run (Directory /home 기준)
 
-    [Apache Setting]
+ ## 3-1. Apache Setting
     $ cd /home
     $ docker build -t boy0221/apache_php:0.1 .
     $ docker run -d -p 80:80 -v /home:/var/www/html boy0221/apache_php:0.1
 
 * http://52.197.9.121/ 접속 확인
 #
-    [Node Server Setting]
+   
+ # 3-2. Node Server Setting
     $ cd /home
     $ docker build -t random-chatting-chat-server:0.1 .
     $ docker run -d -p 3000:3000 random-chatting-chat-server:0.1
 * http://52.197.9.121:3000/ 접속 확인
 
-#
-    [PHP Server Setting]
+    
+ # 3-3. PHP Server Setting
     $ cd /home
     $ git clone https://github.com/Mintchoco91/random-chatting-server.git
-
-#
-* PHP Composer 설치
-
-#
+    
+    * PHP Composer 설치
+    
     $ cd random-chatting-server/
     $ composer install (composer.json 있는 디렉토리에서)
     
-* vendor 디렉토리 생성 확인
+    * vendor 디렉토리 생성 확인
 
