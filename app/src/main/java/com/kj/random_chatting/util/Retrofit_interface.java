@@ -2,11 +2,12 @@ package com.kj.random_chatting.util;
 
 import com.kj.random_chatting.common.SignUpRegistDTO;
 import com.kj.random_chatting.login.LoginDTO;
-import com.kj.random_chatting.login.TokenDTO;
 import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomCreateDTO;
 import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomDetailDTO;
 import com.kj.random_chatting.userChattingRoomList.UserChattingRoomListDTO;
 import com.kj.random_chatting.userList.UserListDTO;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -14,7 +15,7 @@ import retrofit2.http.POST;
 
 public interface Retrofit_interface {
     @POST("searchUserList.php")
-    Call<String> searchUserList(@Body UserListDTO.searchUserInputDTO inputDTO);
+    Call<List<UserListDTO.outputDTO>> searchUserList(@Body UserListDTO.searchUserInputDTO inputDTO);
 
     /* 나중에 필요할 때 주석 해제 할것(회원정보 수정)
     @POST("/modifyUserDetail.php/")
@@ -26,17 +27,14 @@ public interface Retrofit_interface {
     Call<String> searchUserList();
     */
 
-    @POST("userLogin.php")
-    Call<String> getLoginResponse(@Body LoginDTO.input loginRequest);
-
-    @POST("renewToken.php")
-    Call<TokenDTO.output> renewToken(@Body TokenDTO.input input);
+    @POST("signIn.php")
+    Call<LoginDTO.output> signIn(@Body LoginDTO.input loginRequest);
 
     @POST("searchChattingRoomList.php")
-    Call<String> searchChattingRoomList(@Body UserChattingRoomListDTO.inputDTO inputParam);
+    Call<List<UserChattingRoomListDTO.outputDTO>> searchChattingRoomList(@Body UserChattingRoomListDTO.inputDTO inputParam);
 
     @POST("signUpRegist.php")
-    Call<String> signUpRegist(@Body SignUpRegistDTO.input intentData);
+    Call<SignUpRegistDTO.output> signUpRegist(@Body SignUpRegistDTO.input intentData);
 
     @POST("signUpPhotoRegist.php")
     Call<String> signUpPhotoRegist(@Body SignUpRegistDTO.input intentData);

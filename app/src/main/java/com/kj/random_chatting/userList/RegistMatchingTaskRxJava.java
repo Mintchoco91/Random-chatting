@@ -3,31 +3,25 @@ package com.kj.random_chatting.userList;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.UserListActivityBinding;
 import com.kj.random_chatting.util.Retrofit_client;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.kj.random_chatting.util.UtilClass;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * rxJava 형식으로 동기화 처리
  * 매칭 등록
  */
 public class RegistMatchingTaskRxJava {
+    private static final String TAG = "RegistMatchingTaskRxJava";
     private UserListActivityBinding binding;
     Context context;
     Disposable backgroundTask;
@@ -59,22 +53,28 @@ public class RegistMatchingTaskRxJava {
 
     //유저 정보 조회
     private Integer registMatching(UserListDTO.matchingInputDTO input) throws IOException {
-        Integer resultCode = 0;
-        Call<String> call = Retrofit_client.getApiService(context).registMatching(input);
-
-        //동기화 해야 해서 excute() 처리함.
-        String jsonResponse = call.execute().body();
+        Integer resultCode;
 
         try {
-            JSONObject jsonObject = new JSONObject(jsonResponse);
-            if (jsonObject.optString("status").equals("true")) {
+            Response<String> response = Retrofit_client.getApiService(context).registMatching(input).execute();
+            if (response.isSuccessful()) {
+                // insert 성공
                 resultCode = 0;
             } else {
+                // insert 실패
                 resultCode = 1;
+                UtilClass.writeLog(TAG, response.errorBody().string(), Enum.LogType.E);
             }
-        } catch (JSONException e) {
+        } catch (IOException e) {
+            // 네트워크 연결 오류
             resultCode = 2;
+            UtilClass.writeLog(TAG, "Network Connection Error!", Enum.LogType.E);
+        } catch (Exception e) {
+            // 그 외 오류
+            resultCode = 3;
+            UtilClass.writeLog(TAG, e.toString(), Enum.LogType.E);
         }
+
         return resultCode;
     }
 }

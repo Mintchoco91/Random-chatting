@@ -1,7 +1,6 @@
 package com.kj.random_chatting.userChattingRoomCreate;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.kj.random_chatting.common.Enum;
@@ -9,16 +8,13 @@ import com.kj.random_chatting.common.MainActivity;
 import com.kj.random_chatting.util.Retrofit_client;
 import com.kj.random_chatting.util.UtilClass;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import retrofit2.Call;
+import retrofit2.Response;
 
 public class UserChattingRoomDetailSelectAndDeleteRxJava {
     private static final String TAG = "UserChattingRoomDetailSelectAndDeleteRxJava";
@@ -49,31 +45,31 @@ public class UserChattingRoomDetailSelectAndDeleteRxJava {
     }
 
     private Integer selectAndDeleteChattingRoomDetailInformation(String mRoomId, String mRoomName) throws IOException {
-        Integer resultCode = 0;
-        try {
-            roomId = mRoomId;
-            roomName = mRoomName;
+        Integer resultCode;
 
-            //delete
+        roomId = mRoomId;
+        roomName = mRoomName;
+
+        try {
             UserChattingRoomDetailDTO.ChattingRoomDetailinputDTO detailDto = new UserChattingRoomDetailDTO.ChattingRoomDetailinputDTO();
             detailDto.setUserId(MainActivity.userNickName);
             detailDto.setRoomId(roomId);
 
-            Call<String> call = Retrofit_client.getApiService(context).selectAndDeleteChattingRoomDetail(detailDto);
-            String jsonResponse = call.execute().body();
-
-            try {
-                JSONObject jsonObject = new JSONObject(jsonResponse);
-                if (!jsonObject.optString("status").equals("true")) {
-                    resultCode = 1;
-                }
-            } catch (JSONException e) {
-                resultCode = 2;
+            Response<String> response = Retrofit_client.getApiService(context).selectAndDeleteChattingRoomDetail(detailDto).execute();
+            if (response.isSuccessful()) {
+                // delete 성공
+                resultCode = 0;
+            } else {
+                // delete 실패
+                resultCode = 1;
+                UtilClass.writeLog(TAG, response.errorBody().string(), Enum.LogType.E);
             }
-
-        } catch (Exception e) {
-            resultCode = 5;
+        } catch (IOException e) {
+            // 네트워크 연결 오류
+            resultCode = 2;
+            UtilClass.writeLog(TAG, "Network Connection Error!", Enum.LogType.E);
         }
+
         return resultCode;
     }
 }

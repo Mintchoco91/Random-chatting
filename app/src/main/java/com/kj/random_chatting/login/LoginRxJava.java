@@ -7,14 +7,9 @@ import android.widget.Toast;
 import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.MainActivity;
 import com.kj.random_chatting.databinding.LoginActivityBinding;
-import com.kj.random_chatting.databinding.UserListActivityBinding;
-import com.kj.random_chatting.userChattingRoomCreate.UserChattingRoomDetailDTO;
 import com.kj.random_chatting.util.PreferenceUtil;
 import com.kj.random_chatting.util.Retrofit_client;
 import com.kj.random_chatting.util.UtilClass;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -22,7 +17,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import retrofit2.Call;
+import retrofit2.Response;
 
 public class LoginRxJava {
     private static final String TAG = "LoginRxJava";
@@ -68,56 +63,38 @@ public class LoginRxJava {
             input.setEmail(email);
             input.setPassword(password);
 
+            Response<LoginDTO.output> response = Retrofit_client.getApiService(context).signIn(input).execute();
 
-            Call<String> call = Retrofit_client.getApiService(context).getLoginResponse(input);
-            String jsonResponse = call.execute().body();
-
-            try {
-                JSONObject jsonObject = new JSONObject(jsonResponse);
-                LoginDTO.output output = new LoginDTO.output();
-                String status = jsonObject.optString("status");
-
-                /**
-                 * LoginDTO.output 을 사용하진 않지만, 추후에 쓸수있어서 DTO 생성함.
-                 * 로그인 및 Preference 정보 저장
-                 */
-                if ("true".equals(status)) {
-                    // 토큰을 저장한다.
-                    output.setAccessToken(jsonObject.optString("access_token"));
-                    output.setRefreshToken(jsonObject.optString("refresh_token"));
-                    output.setId(jsonObject.optString("id"));
-                    output.setCountryCode(jsonObject.optString("country_code"));
-                    output.setPhoneNumber(jsonObject.optString("phone_number"));
-                    output.setNickName(jsonObject.optString("nick_name"));
-                    output.setBirthday(jsonObject.optString("birthday"));
-                    output.setGender(jsonObject.optString("gender"));
-                    output.setEmail(jsonObject.optString("email"));
-                    output.setPassword(jsonObject.optString("password"));
-                    output.setPhotoList(jsonObject.optString("photo_list"));
-
-                    PreferenceUtil.setAccessToken(output.getAccessToken());
-                    PreferenceUtil.setRefreshToken(output.getRefreshToken());
-                    PreferenceUtil.setUserId(output.getId());
-                    PreferenceUtil.setCountryCode(output.getCountryCode());
-                    PreferenceUtil.setPhoneNumber(output.getPhoneNumber());
-                    PreferenceUtil.setNickName(output.getNickName());
-                    PreferenceUtil.setBirthday(output.getBirthday());
-                    PreferenceUtil.setGender(output.getGender());
-                    PreferenceUtil.setEmail(output.getEmail());
-                    PreferenceUtil.setPassword(output.getPassword());
-                    PreferenceUtil.setPhotoList(output.getPhotoList());
-
-                } else {
-                    resultCode = 1;
-                    UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_1 : 조회 결과 없음", Enum.LogType.E);
-                }
-            } catch (JSONException e) {
-                resultCode = 2;
+            if (response.isSuccessful()) {
+                LoginDTO.output output = response.body();
+                saveUserInfo(output);
+            } else {
+                // select 결과 없음
+                resultCode = 1;
+                UtilClass.writeLog(TAG, "Log : " + TAG + " -> doLogin/ onFailure_1 : 조회 결과 없음", Enum.LogType.E);
+                UtilClass.writeLog(TAG, response.errorBody().string(), Enum.LogType.E);
             }
-
+        } catch (IOException e) {
+            // 네트워크 연결 오류
+            resultCode = 2;
         } catch (Exception e) {
+            // 그 외 오류
             resultCode = 3;
         }
         return resultCode;
+    }
+
+    public static void saveUserInfo(LoginDTO.output output) {
+        PreferenceUtil.setAccessToken(output.getAccessToken());
+        PreferenceUtil.setRefreshToken(output.getRefreshToken());
+        PreferenceUtil.setUserId(output.getId());
+        PreferenceUtil.setCountryCode(output.getCountryCode());
+        PreferenceUtil.setPhoneNumber(output.getPhoneNumber());
+        PreferenceUtil.setNickName(output.getNickName());
+        PreferenceUtil.setBirthday(output.getBirthday());
+        PreferenceUtil.setGender(output.getGender());
+        PreferenceUtil.setEmail(output.getEmail());
+        PreferenceUtil.setPassword(output.getPassword());
+        PreferenceUtil.setPhotoList(output.getPhotoList());
     }
 }

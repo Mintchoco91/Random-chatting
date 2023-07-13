@@ -17,12 +17,12 @@ public class SignUpRegistDTO  {
         private String email;
         private String password;
         private List<String> uploadPhotoList;
-        private String userInfoId;
+        private Integer userInfoId;
     }
 
     @Data
     public static class output {
         private Integer resultCode;
-        private String returnId;
+        private Integer returnId;
     }
 }

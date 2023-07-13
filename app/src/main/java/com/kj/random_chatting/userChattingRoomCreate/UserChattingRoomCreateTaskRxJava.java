@@ -3,13 +3,11 @@ package com.kj.random_chatting.userChattingRoomCreate;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.common.MainActivity;
 import com.kj.random_chatting.databinding.ActivityUserChattingRoomCreateBinding;
 import com.kj.random_chatting.util.Retrofit_client;
 import com.kj.random_chatting.util.UtilClass;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -17,7 +15,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import retrofit2.Call;
+import retrofit2.Response;
 
 public class UserChattingRoomCreateTaskRxJava {
     private static final String TAG = "UserChattingRoomCreateTaskRxJava";
@@ -52,12 +50,12 @@ public class UserChattingRoomCreateTaskRxJava {
     }
 
     private Integer createChattingRoomInformation(String mRoomId, String mRoomName) throws IOException {
-        Integer resultCode = 0;
+        Integer resultCode;
+
         try {
             roomId = mRoomId;
             roomName = mRoomName;
 
-            //Insert
             UserChattingRoomCreateDTO.inputDTO dto = new UserChattingRoomCreateDTO.inputDTO();
             dto.setUserId(MainActivity.userNickName);
             dto.setRoomId(roomId);
@@ -65,21 +63,25 @@ public class UserChattingRoomCreateTaskRxJava {
             dto.setIsMovie("1");
             dto.setIsDrive("1");
 
-            Call<String> call = Retrofit_client.getApiService(context).createChattingRoom(dto);
-            String jsonResponse = call.execute().body();
-
-            try {
-                JSONObject jsonObject = new JSONObject(jsonResponse);
-                if (!jsonObject.optString("status").equals("true")) {
-                    resultCode = 1;
-                }
-            } catch (JSONException e) {
-                resultCode = 2;
+            Response<String> response = Retrofit_client.getApiService(context).createChattingRoom(dto).execute();
+            if (response.isSuccessful()) {
+                // insert 성공
+                resultCode = 0;
+            } else {
+                // insert 실패
+                resultCode = 1;
+                UtilClass.writeLog(TAG, response.errorBody().string(), Enum.LogType.E);
             }
-
+        } catch (IOException e) {
+            // 네트워크 연결 오류
+            resultCode = 2;
+            UtilClass.writeLog(TAG, "Network Connection Error!", Enum.LogType.E);
         } catch (Exception e) {
-            resultCode = 5;
+            // 그 외 에러
+            resultCode = 3;
+            UtilClass.writeLog(TAG, e.toString(), Enum.LogType.E);
         }
+
         return resultCode;
     }
 }

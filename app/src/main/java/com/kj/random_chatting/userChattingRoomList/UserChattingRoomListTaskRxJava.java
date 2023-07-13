@@ -1,24 +1,18 @@
 package com.kj.random_chatting.userChattingRoomList;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.kj.random_chatting.common.Enum;
 import com.kj.random_chatting.databinding.FragmentUserChattingRoomListBinding;
 import com.kj.random_chatting.util.ChatListRecyclerAdapter;
 import com.kj.random_chatting.util.RecyclerItem;
 import com.kj.random_chatting.util.Retrofit_client;
 import com.kj.random_chatting.util.UtilClass;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +20,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * rxJava 형식으로 동기화 처리
@@ -73,54 +67,31 @@ public class UserChattingRoomListTaskRxJava {
 
     //유저 정보 조회
     private Integer searchChattingRoomList() throws IOException {
-        Integer resultCode = 0;
+        Integer resultCode;
         UserChattingRoomListDTO.inputDTO inputParam =
                 UserChattingRoomListDTO.inputDTO.builder().build();
 
-        Call<String> call = Retrofit_client.getApiService(context).searchChattingRoomList(inputParam);
-        //동기화 해야 해서 excute() 처리함.
-        String jsonResponse = call.execute().body();
-
         try {
-            JSONObject jsonObject = new JSONObject(jsonResponse);
-            if (jsonObject.optString("status").equals("true")) {
-                JSONArray jsonArray = jsonObject.getJSONArray("result");
-                List<UserChattingRoomListDTO.outputDTO> searchList = new ArrayList<>();
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    try {
-                        JSONObject loopJsonObject = jsonArray.getJSONObject(i);
-                        // Pulling items from the array
-                        UserChattingRoomListDTO.outputDTO userChattingList = new UserChattingRoomListDTO.outputDTO();
-                        String userId = loopJsonObject.getString("userId");
-                        String roomId = loopJsonObject.getString("roomId");
-                        String roomName = loopJsonObject.getString("roomName");
-                        boolean isMovie = loopJsonObject.getString("isMovie").equals("1") ? true : false;
-                        boolean isDrive = loopJsonObject.getString("isDrive").equals("1") ? true : false;
-
-                        //decode
-                        roomName = URLDecoder.decode(roomName, "utf-8");
-
-                        userChattingList.setUserId(userId);
-                        userChattingList.setRoomId(roomId);
-                        userChattingList.setRoomName(roomName);
-                        userChattingList.setMovie(isMovie);
-                        userChattingList.setDrive(isDrive);
-
-                        searchList.add(userChattingList);
-                    } catch (JSONException e) {
-                        // json catch
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();    // encoding catch
-                    }
-                }
-
-                localChattingRoomList = searchList;
+            Response<List<UserChattingRoomListDTO.outputDTO>> response = Retrofit_client.getApiService(context).searchChattingRoomList(inputParam).execute();
+            if (response.isSuccessful()) {
+                // select 성공
+                resultCode = 0;
+                localChattingRoomList = response.body();
             } else {
+                // select 실패
                 resultCode = 1;
+                UtilClass.writeLog(TAG, response.errorBody().string(), Enum.LogType.E);
             }
-        } catch (JSONException e) {
+        } catch (IOException e) {
+            // 네트워크 연결 오류
             resultCode = 2;
+            UtilClass.writeLog(TAG, "Network Connection Error!", Enum.LogType.E);
+        } catch (Exception e) {
+            // 그 외 오류
+            resultCode = 3;
+            UtilClass.writeLog(TAG, e.toString(), Enum.LogType.E);
         }
+
         return resultCode;
     }
 
