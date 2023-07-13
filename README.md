@@ -44,17 +44,30 @@ Random-chatting-prototype
 
 # Run (Directory /home 기준)
 
+    [Apache Setting]
     $ cd /home
-
     $ docker build -t boy0221/apache_php:0.1 .
     $ docker run -d -p 80:80 -v /home:/var/www/html boy0221/apache_php:0.1
 
 * http://52.197.9.121/ 접속 확인
 #
+    [Node Server Setting]
+    $ cd /home
     $ docker build -t random-chatting-chat-server:0.1 .
     $ docker run -d -p 3000:3000 random-chatting-chat-server:0.1
 * http://52.197.9.121:3000/ 접속 확인
 
 #
+    [PHP Server Setting]
+    $ cd /home
     $ git clone https://github.com/Mintchoco91/random-chatting-server.git
+
+#
+* PHP Composer 설치
+
+#
+    $ cd random-chatting-server/
+    $ composer install (composer.json 있는 디렉토리에서)
+    
+* vendor 디렉토리 생성 확인
 
